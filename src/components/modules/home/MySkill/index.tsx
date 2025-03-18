@@ -31,7 +31,7 @@ const SkillsSection = () => {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.4 }}
           className="text-4xl md:text-5xl font-bold text-center text-gray-900 dark:text-white mb-12"
         >
           My Skills
@@ -66,7 +66,7 @@ const SkillsSection = () => {
           key={activeTab}
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.4 }}
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
         >
           {activeTab === 'technical'
@@ -75,9 +75,9 @@ const SkillsSection = () => {
                   key={skill.name}
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative p-6 bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg flex flex-col items-center justify-center cursor-pointer hover:shadow-primary/20 hover:border-primary hover:border-2 transition-all duration-300"
+                  whileHover={{ scale: 1.1, rotate: 5, borderColor: '#facc15' }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="relative p-6 bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg flex flex-col items-center justify-center cursor-pointer hover:shadow-primary/20  hover:border-2 transition-all duration-300"
                 >
                   {/* Skill Logo */}
                   <div className="w-16 h-16 mb-4">
@@ -105,7 +105,7 @@ const SkillsSection = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
                   className="relative p-6 bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg flex flex-col items-center justify-center cursor-pointer hover:shadow-primary/20 hover:border-primary hover:border-2 transition-all duration-300"
                 >
                   {/* Skill Icon */}

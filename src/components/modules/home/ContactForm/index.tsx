@@ -11,7 +11,7 @@ const ContactSection = () => {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          whileHover={{ borderColor: '#facc15' }} // Yellow border on hover
+          whileHover={{ borderColor: '#facc15' }} 
           className="bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border-2  border-transparent transition-all duration-300"
         >
           <div className="grid grid-cols-1 md:grid-cols-2">

@@ -29,7 +29,7 @@ const Blogs = () => {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.4 }}
           className="text-4xl md:text-5xl font-bold text-center text-gray-900 dark:text-white mb-12"
         >
           My Blogs
@@ -42,9 +42,9 @@ const Blogs = () => {
               key={project.name}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              whileHover={{ scale: 1.05 }}
-              className="bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+              transition={{ duration: 0.4, delay: index * 0.2 }}
+              whileHover={{ scale: 1.05, borderColor: '#facc15' }}
+              className="bg-gray-100 dark:bg-gray-800 rounded-2xl border-2 overflow-hidden shadow-lg hover:shadow-xl border-transparent transition-shadow duration-300"
             >
               {/* Project Image */}
               <div className="w-full h-48 overflow-hidden">

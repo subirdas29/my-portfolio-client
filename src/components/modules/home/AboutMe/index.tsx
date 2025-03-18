@@ -8,16 +8,17 @@ const AboutMe = () => {
   return (
     <section className="  bg-white dark:bg-[#0a0219] transition-colors duration-300">
       <div className="my-24 mx-4 md:mx-8 lg:mx-16">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-12 items-center ">
           {/* Left Section: Image with Glow Effect */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             viewport={{ once: true }}
-            className="relative"
+            // whileHover={{ borderColor: '#facc15' }} 
+            className="relative "
           >
-            <div className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-lg">
+            <div className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-lg ">
               <Image
                 src={sideImg}
                 alt="About Me"

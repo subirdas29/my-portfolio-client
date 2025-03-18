@@ -2,6 +2,7 @@ import AboutMe from "@/components/modules/home/AboutMe";
 import Banner from "@/components/modules/home/Banner/banner";
 import Blogs from "@/components/modules/home/Blogs";
 import ContactForm from "@/components/modules/home/ContactForm";
+import ExperienceEducationSection from "@/components/modules/home/EducationAndExperience";
 import ProjectShowcase from "@/components/modules/home/MyProjects";
 import SkillsSection from "@/components/modules/home/MySkill";
 import { Navbar } from "@/components/shared/Navbar";
@@ -17,6 +18,7 @@ export default function Home() {
     <AboutMe/>
     <SkillsSection/>
     <ProjectShowcase/>
+    <ExperienceEducationSection/>
     <ContactForm/>
     <Blogs/>
   </div>
