@@ -25,7 +25,7 @@ const SkillsSection = () => {
   const [activeTab, setActiveTab] = useState('technical');
 
   return (
-    <section className="py-20 bg-white dark:bg-[#0a0219] transition-colors duration-300">
+    <section className="py-20  bg-white dark:bg-[#0a0219] transition-colors duration-300">
       <div className="container mx-auto px-6">
         {/* Section Title */}
         <motion.h2
@@ -38,7 +38,7 @@ const SkillsSection = () => {
         </motion.h2>
 
         {/* Tab System */}
-        <div className="flex justify-center gap-4 mb-12">
+        <div className="flex justify-center gap-4 mb-12 my-24 mx-4 md:mx-8 lg:mx-16">
           <button
             onClick={() => setActiveTab('technical')}
             className={`px-6 py-3 rounded-full font-semibold ${
