@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 
 export default function Banner() {
   const roles = [
-    
     "Full Stack Developer",
     "MERN Stack Developer",
     "Software Developer",
@@ -49,7 +48,7 @@ export default function Banner() {
           </p>
           {/* CTA Buttons */}
           <div className="mt-6 flex justify-center md:justify-start gap-4">
-            <button className="px-6 py-3 bg-yellow-500 text-black font-semibold rounded-full hover:bg-yellow-600 transition duration-300">
+            <button className="px-6 py-3 bg-primary text-black font-semibold rounded-full hover:bg-yellow-600 transition duration-300">
               Download CV
             </button>
           </div>

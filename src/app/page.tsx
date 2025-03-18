@@ -1,14 +1,18 @@
+import AboutMe from "@/components/modules/home/AboutMe";
 import Banner from "@/components/modules/home/Banner/banner";
-import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/ui/core/theme/mode-toggle";
+import SkillsSection from "@/components/modules/home/MySkill";
+import { Navbar } from "@/components/shared/Navbar";
+
+
 
 
 export default function Home() {
   return (
   <div>
-    <ModeToggle/>
-    <Button>click now</Button>
+    <Navbar/>
     <Banner/>
+    <AboutMe/>
+    <SkillsSection/>
   </div>
   );
 }
