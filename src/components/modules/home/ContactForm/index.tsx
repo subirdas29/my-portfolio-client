@@ -82,7 +82,7 @@ const ContactSection = () => {
                 />
                 <textarea
                   placeholder="Your Message"
-                  rows="4"
+               
                   className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:border-primary transition-colors duration-300"
                 ></textarea>
                 <button
