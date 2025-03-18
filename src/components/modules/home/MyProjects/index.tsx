@@ -44,7 +44,7 @@ const ProjectShowcase = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.2 }}
               whileHover={{ scale: 1.05, borderColor: '#facc15' }}
-              className="bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-2"
+              className="bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-transparent"
             >
               {/* Project Image */}
               <div className="w-full h-48 overflow-hidden">

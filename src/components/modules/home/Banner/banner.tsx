@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
+
 export default function Banner() {
   const roles = [
     "Full Stack Developer",
@@ -48,9 +49,12 @@ export default function Banner() {
           </p>
           {/* CTA Buttons */}
           <div className="mt-6 flex justify-center md:justify-start gap-4">
-            <button className="px-6 py-3 bg-primary text-black font-semibold rounded-full hover:bg-yellow-600 transition duration-300">
+            <a
+              href='/resume/Subir_Das_Resume.pdf'
+              download="Subir_Das_Resume.pdf" 
+            className="px-6 py-3 bg-primary text-black font-semibold rounded-full hover:bg-yellow-600 transition duration-300">
               Download CV
-            </button>
+            </a>
           </div>
         </div>
         {/* Right Image Section with Circular Frame & Animated Orbiting Circles */}

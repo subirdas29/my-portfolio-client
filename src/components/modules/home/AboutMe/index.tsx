@@ -54,10 +54,15 @@ const AboutMe = () => {
               With expertise in modern web technologies, I specialize in building scalable, user-friendly applications that deliver exceptional performance and aesthetics.
             </p>
             <div className="flex gap-4">
-              <Button className="bg-primary text-white hover:bg-primary/90 transition-colors duration-300">
-                Download CV
-              </Button>
-              <Button variant="outline" className="border-primary text-primary hover:bg-primary/10">
+            
+                <a
+              href='/resume/Subir_Das_Resume.pdf'
+              download="Subir_Das_Resume.pdf" 
+            className="px-4 py-1 bg-primary text-black font-semibold rounded-lg hover:bg-yellow-600 transition duration-300">
+              Download CV
+            </a>
+            
+              <Button variant="outline" className="border-primary text-primary px-4 py-2 hover:bg-primary/10">
                 Contact Me
               </Button>
             </div>
