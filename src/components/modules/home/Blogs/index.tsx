@@ -5,23 +5,23 @@ import Image from 'next/image';
 
 const projects = [
   {
-    name: 'Project 1',
-    image: '/projects/project1.jpg', // Replace with your image path
+    name: 'Blog 1',
+    image: '/Blogs/Blog1.jpg',
     description: 'A modern e-commerce platform with seamless user experience.',
   },
   {
-    name: 'Project 2',
-    image: '/projects/project2.jpg', // Replace with your image path
+    name: 'Blog 2',
+    image: '/Blogs/Blog2.jpg', 
     description: 'A task management app for teams to collaborate efficiently.',
   },
   {
-    name: 'Project 3',
-    image: '/projects/project3.jpg', // Replace with your image path
+    name: 'Blog 3',
+    image: '/Blogs/Blog3.jpg', 
     description: 'A portfolio website showcasing creative work and skills.',
   },
 ];
 
-const ProjectShowcase = () => {
+const Blogs = () => {
   return (
     <section className="py-20 bg-white dark:bg-[#0a0219] transition-colors duration-300">
       <div className=" px-6  mx-4 md:mx-8 lg:mx-16">
@@ -32,7 +32,7 @@ const ProjectShowcase = () => {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-5xl font-bold text-center text-gray-900 dark:text-white mb-12"
         >
-          My Projects
+          My Blogs
         </motion.h2>
 
         {/* Project Cards Grid */}
@@ -79,7 +79,7 @@ const ProjectShowcase = () => {
         </div>
         <div className='flex justify-center my-10'>
         <button className="px-8 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 transition-colors duration-300">
-                  All Projects
+                  All Blogs
                 </button>
         </div>
       </div>
@@ -87,4 +87,4 @@ const ProjectShowcase = () => {
   );
 };
 
-export default ProjectShowcase;
+export default Blogs;
