@@ -61,7 +61,7 @@ export function Navbar() {
                   ? theme === "dark"
                     ? "text-white"
                     : "text-black"
-                  : "text-white" 
+                  :theme === "dark" ? " text-white" : " text-black"
               )}
             >
               {route.label}

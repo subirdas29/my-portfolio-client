@@ -58,7 +58,7 @@ const AboutMe = () => {
                 <a
               href='/resume/Subir_Das_Resume.pdf'
               download="Subir_Das_Resume.pdf" 
-            className="px-4 py-1 bg-primary text-black font-semibold rounded-lg hover:bg-yellow-600 transition duration-300">
+            className="px-4 py-1 bg-primary text-white dark:text-black font-semibold rounded-lg hover:bg-yellow-600 transition duration-300">
               Download CV
             </a>
             

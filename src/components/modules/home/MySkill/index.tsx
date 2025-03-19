@@ -43,7 +43,7 @@ const SkillsSection = () => {
             onClick={() => setActiveTab('technical')}
             className={`px-6 py-3 rounded-full font-semibold ${
               activeTab === 'technical'
-                ? 'bg-primary text-black'
+                ? 'bg-primary dark:text-black text-white'
                 : 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white'
             } transition-colors duration-300`}
           >
@@ -53,7 +53,7 @@ const SkillsSection = () => {
             onClick={() => setActiveTab('soft')}
             className={`px-6 py-3 rounded-full font-semibold ${
               activeTab === 'soft'
-                ? 'bg-primary text-black'
+                ? 'bg-primary dark:text-black text-white'
                 : 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white'
             } transition-colors duration-300`}
           >

@@ -31,19 +31,19 @@ const ContactSection = () => {
                 <div className="flex items-center gap-4">
                   <span className="text-primary text-2xl"><Mail/></span>
                   <p className="text-gray-600 dark:text-gray-300">
-                    E-mail: nafiz125@gmail.com
+                    E-mail: subirdas1045@gmail.com
                   </p>
                 </div>
                 <div className="flex items-center gap-4">
                   <span className="text-primary  text-2xl"><House/></span>
                   <p className="text-gray-600 dark:text-gray-300">
-                    Location: 3891 Ranchview Dr. Richardson
+                    Location: Akbarshah, Pahartali, Chattogram
                   </p>
                 </div>
                 <div className="flex items-center gap-4">
                   <span className="text-primary text-2xl"><Phone/></span>
                   <p className="text-gray-600 dark:text-gray-300">
-                    Contact: 01245789321
+                    Contact: +8801689586905
                   </p>
                 </div>
               </div>

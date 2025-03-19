@@ -56,7 +56,7 @@ const AllProjects = () => {
             onClick={() => setActiveTab('FullStack')}
             className={`px-6 py-3 rounded-full font-semibold ${
               activeTab === 'FullStack'
-                ? 'bg-primary text-black'
+                ? 'bg-primary dark:text-black text-white'
                 : 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white'
             } transition-colors duration-300`}
           >
@@ -66,7 +66,7 @@ const AllProjects = () => {
             onClick={() => setActiveTab('FrontEnd')}
             className={`px-6 py-3 rounded-full font-semibold ${
               activeTab === 'FrontEnd'
-                ? 'bg-primary text-black'
+                ? 'bg-primary dark:text-black text-white'
                 : 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white'
             } transition-colors duration-300`}
           >
