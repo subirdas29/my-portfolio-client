@@ -15,7 +15,7 @@ export function Navbar() {
   const { theme } = useTheme();
 
   useEffect(() => {
-    if (!["/"].includes(pathname)) return;
+    if (!["/","/all-projects","/all-blogs","/contact"].includes(pathname)) return;
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -23,8 +23,8 @@ export function Navbar() {
 
   const routes = [
     { href: "/", label: "Home", active: pathname === "/" },
-    { href: "#", label: "Projects", active: pathname === "/allmenu" },
-    { href: "#j", label: "Blogs", active: pathname === "/allmenu" },
+    { href: "/all-projects", label: "Projects", active: pathname === "/all-projects" },
+    { href: "/all-blogs", label: "Blogs", active: pathname === "/all-blogs" },
     { href: "/contact", label: "Contact", active: pathname === "/contact" },
   ];
 
@@ -32,7 +32,7 @@ export function Navbar() {
     <nav
       className={cn(
         "w-full top-0 z-50 transition-all duration-300 fixed",
-        pathname === "/" || pathname === "/become-meal-provider"
+        pathname === "/" || pathname === "/all-projects" || pathname === "/all-blogs"
           ? scrolled
             ? theme === "dark"
               ? "bg-black/80 backdrop-blur-md border-b shadow-md text-white"

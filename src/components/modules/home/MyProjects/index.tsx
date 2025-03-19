@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const projects = [
   {
@@ -78,9 +79,11 @@ const ProjectShowcase = () => {
           ))}
         </div>
         <div className='flex justify-center my-10'>
+        <Link href="/all-projects">
         <button className="px-8 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 transition-colors duration-300">
                   All Projects
                 </button>
+                </Link>
         </div>
       </div>
     </section>

@@ -5,8 +5,7 @@ import ContactForm from "@/components/modules/home/ContactForm";
 import ExperienceEducationSection from "@/components/modules/home/EducationAndExperience";
 import ProjectShowcase from "@/components/modules/home/MyProjects";
 import SkillsSection from "@/components/modules/home/MySkill";
-import Footer from "@/components/shared/Footer";
-import { Navbar } from "@/components/shared/Navbar";
+
 
 
 
@@ -14,7 +13,7 @@ import { Navbar } from "@/components/shared/Navbar";
 export default function Home() {
   return (
   <div>
-    <Navbar/>
+ 
     <Banner/>
     <AboutMe/>
     <SkillsSection/>
@@ -22,7 +21,7 @@ export default function Home() {
     <ExperienceEducationSection/>
     <ContactForm/>
     <Blogs/>
-    <Footer/>
+
   </div>
   );
 }
