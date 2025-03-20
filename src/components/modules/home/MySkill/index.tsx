@@ -1,16 +1,10 @@
 "use client"
+import { TSkill } from '@/types/skills';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
 
-const technicalSkills = [
-  { name: 'HTML', logo: 'https://i.ibb.co/R71RPtT/html.png' },
-  { name: 'CSS', logo: 'https://i.ibb.co/S6qnPPv/css-3.png' },
-  { name: 'JavaScript', logo: 'https://i.ibb.co/PsytJyY/img-js.png' },
-  { name: 'React', logo: 'https://i.ibb.co/brqdqnM/science.png' },
-  { name: 'Next.js', logo: '/logos/nextjs-logo.png' },
-  { name: 'Tailwind CSS', logo: 'https://i.ibb.co/rkZHYCY/Tailwind-CSS-Logo-svg.png' },
-];
+
 
 const softSkills = [
   { name: 'Communication', icon: '💬' },
@@ -21,7 +15,8 @@ const softSkills = [
   { name: 'Leadership', icon: '🌟' },
 ];
 
-const SkillsSection = () => {
+const SkillsSection = ({skills}:{skills:TSkill[]}) => {
+
   const [activeTab, setActiveTab] = useState('technical');
 
   return (
@@ -70,9 +65,9 @@ const SkillsSection = () => {
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
         >
           {activeTab === 'technical'
-            ? technicalSkills.map((skill, index) => (
+            ? skills.map((skill, index) => (
                 <motion.div
-                  key={skill.name}
+                  key={skill._id}
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   whileHover={{ scale: 1.1, rotate: 5, borderColor: '#facc15' }}
@@ -84,15 +79,15 @@ const SkillsSection = () => {
                     <Image
                     width={500}
                     height={500}
-                      src={skill.logo}
-                      alt={skill.name}
+                      src={skill.logo[0]}
+                      alt={skill.title}
                       className="w-full h-full object-contain"
                     />
                   </div>
 
                   {/* Skill Name */}
                   <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {skill.name}
+                    {skill.title}
                   </h4>
 
                   {/* Glow Effect on Hover */}

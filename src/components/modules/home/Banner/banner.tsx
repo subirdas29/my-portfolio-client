@@ -40,13 +40,13 @@ export default function Banner() {
         <div className="lg:w-1/2 text-center lg:text-left">
           <h1 className="text-4xl lg:text-6xl">
             Hi, I am{" "}
-            <span className="bg-gradient-to-r text-transparent bg-clip-text dark:from-yellow-400 dark:to-yellow-600 from-yellow-500 to-yellow-600">
+            <span className="bg-gradient-to-r text-transparent bg-clip-text dark:from-yellow-400 dark:to-yellow-600 from-yellow-500 to-amber-500">
               Subir Das
             </span>
           </h1>
           <h1 className="my-4 text-2xl lg:text-3xl font-bold">
             A Passionate{" "}
-            <span className="bg-gradient-to-r text-transparent bg-clip-text dark:from-yellow-400 dark:to-yellow-600 from-yellow-500 to-yellow-600">
+            <span className="bg-gradient-to-r text-transparent bg-clip-text dark:from-yellow-400 dark:to-yellow-600 from-yellow-500 to-amber-500">
               {displayedRole}
             </span>
           </h1>

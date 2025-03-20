@@ -1,10 +1,15 @@
 import AllProjects from "@/components/modules/AllProjects/AllProjects"
 
+import { getAllProjects } from "@/services/Projects"
 
-const AllProjectsPage = () => {
+
+const AllProjectsPage = async() => {
+  const {data:projects} = await getAllProjects()
+
   return (
     <div>
-      <AllProjects/>
+      <AllProjects projects = {projects}/>
+  
     </div>
   )
 }
