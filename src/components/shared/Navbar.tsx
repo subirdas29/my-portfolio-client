@@ -35,15 +35,15 @@ export function Navbar() {
         pathname === "/" || pathname === "/all-projects" || pathname === "/all-blogs"
           ? scrolled
             ? theme === "dark"
-              ? "bg-black/80 backdrop-blur-md border-b shadow-md text-white"
+              ? "bg-gray-900 backdrop-blur-md border-b shadow-md text-white"
               : "bg-white/90 backdrop-blur-md border-b shadow-md text-black"
             : "bg-transparent backdrop-blur-none border-none text-white" 
           : theme === "dark"
-          ? "bg-black/80 backdrop-blur-md border-b shadow-md text-white"
+          ? "bg-gray-900 backdrop-blur-md border-b shadow-md text-white"
           : "bg-white/90 backdrop-blur-md border-b shadow-md text-black"
       )}
     >
-      <div className="flex h-16 items-center justify-between mx-4 md:mx-8 lg:mx-16">
+      <div className="flex h-16 items-center justify-between px-6  mx-4 md:mx-8 lg:mx-16">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <span className="text-3xl font-bold text-primary">Subir Das</span>
@@ -84,7 +84,7 @@ export function Navbar() {
             side="right"
             className={cn(
               "w-[260px] p-5 transition-colors",
-              theme === "dark" ? "bg-black text-white" : "bg-white text-black"
+              theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
             )}
           >
             <div className="flex flex-col gap-4 pt-8">
@@ -95,6 +95,7 @@ export function Navbar() {
                   className="flex items-center gap-2 text-[16px] font-medium transition-colors"
                 >
                   {route.label}
+                  
                 </Link>
               ))}
               <ModeToggle />

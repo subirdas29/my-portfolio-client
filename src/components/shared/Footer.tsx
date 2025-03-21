@@ -1,11 +1,11 @@
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Mail, Phone, MapPin, LinkedinIcon } from "lucide-react";
 import Link from "next/link";
 
 
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white pt-16 pb-8">
-      <div className=" mx-6 md:mx-12 lg:mx-20">
+      <div className=" px-6  mx-4 md:mx-8 lg:mx-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10 mb-12">
           {/* Brand Section */}
           <div className="space-y-4">
@@ -17,14 +17,17 @@ const Footer = () => {
             I’m a passionate web developer with a knack for solving complex user experience problems. My mission is to create seamless, integrity-focused solutions that connect billions of people worldwide.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+              <a href="https://www.facebook.com/profile.php?id=100006456303568" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+              {/* <a href="#" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
                 <Instagram className="w-5 h-5" />
               </a>
               <a href="#" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
                 <Twitter className="w-5 h-5" />
+              </a> */}
+              <a href="https://www.linkedin.com/in/subirdas29" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+                <LinkedinIcon className="w-5 h-5" />
               </a>
             </div>
           </div>

@@ -89,7 +89,7 @@ export default function Banner() {
             <Image
               src={DP}
               alt="Your Profile"
-              width={310}
+              width={350}
               height={310}
               className="rounded-full object-cover"
             />

@@ -3,11 +3,13 @@ import { Button } from '@/components/ui/button';
 import { motion } from "framer-motion";
 import Image from 'next/image';
 import sideImg from "../../../../assets/aboutme/sideimg/side-img.png";
+import { Facebook, LinkedinIcon } from 'lucide-react';
+import Link from 'next/link';
 
 const AboutMe = () => {
   return (
-    <section className="  bg-white dark:bg-[#0a0219] transition-colors duration-300">
-      <div className="my-24 mx-4 md:mx-8 lg:mx-16">
+    <section className=" pb-16 lg:pb-20 pt-36  bg-white dark:bg-[#0a0219] transition-colors duration-300">
+      <div className=" mx-4 md:mx-8 lg:mx-16 px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center ">
           {/* Left Section: Image with Glow Effect */}
           <motion.div
@@ -53,8 +55,21 @@ const AboutMe = () => {
             <p className="text-lg text-gray-600 dark:text-gray-300">
               With expertise in modern web technologies, I specialize in building scalable, user-friendly applications that deliver exceptional performance and aesthetics.
             </p>
+            <div className="flex space-x-4">
+              <a href="https://www.facebook.com/profile.php?id=100006456303568" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+                <Facebook className="w-5 h-5" />
+              </a>
+              {/* <a href="#" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a href="#" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+                <Twitter className="w-5 h-5" />
+              </a> */}
+              <a href="https://www.linkedin.com/in/subirdas29" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+                <LinkedinIcon className="w-5 h-5" />
+              </a>
+            </div>
             <div className="flex gap-4">
-            
                 <a
               href='/resume/Subir_Das_Resume.pdf'
               download="Subir_Das_Resume.pdf" 
@@ -62,10 +77,13 @@ const AboutMe = () => {
               Download CV
             </a>
             
-              <Button variant="outline" className="border-primary text-primary px-4 py-2 hover:bg-primary/10">
+            <Link href="/contact">
+            <Button variant="outline" className="border-primary text-primary px-4 py-2 hover:bg-primary/10">
                 Contact Me
               </Button>
+            </Link>
             </div>
+          
           </motion.div>
         </div>
       </div>

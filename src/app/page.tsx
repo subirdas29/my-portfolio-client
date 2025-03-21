@@ -1,7 +1,7 @@
 import AboutMe from "@/components/modules/home/AboutMe";
 import Banner from "@/components/modules/home/Banner/banner";
 import Blogs from "@/components/modules/home/Blogs";
-import ContactForm from "@/components/modules/home/ContactForm";
+import ContactSection from "@/components/modules/home/ContactForm";
 import ExperienceEducationSection from "@/components/modules/home/EducationAndExperience";
 import ProjectShowcase from "@/components/modules/home/MyProjects";
 import SkillsSection from "@/components/modules/home/MySkill";
@@ -21,13 +21,12 @@ const Home = async() => {
   <div>
  
     <Banner/>
-    <AboutMe/>
+    <AboutMe />
     <SkillsSection skills= {skills}/>
     <ProjectShowcase projects={projects}/>
     <ExperienceEducationSection/>
-    <ContactForm/>
     <Blogs blogs={blogs}/>
-
+    <ContactSection/>
   </div>
   );
 }

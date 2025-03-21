@@ -8,7 +8,7 @@
             `${process.env.NEXT_PUBLIC_BASE_API}/blogs?limit=${limit}&page=${page}`,
             {
               next: {
-                tags: ["Blogs"],
+                revalidate: 30
               },
             }
           );
@@ -18,3 +18,22 @@
           return Error(error.message);
         }
       };
+
+        // get single blog
+export const getSingleBlog = async (blogId: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/blogs/blog/${blogId}`,
+      {
+        next: {
+          revalidate: 30
+        },
+      }
+    );
+    const data = await res.json();
+    console.log(data,'server')
+    return data;
+  } catch (error: any) {
+    return Error(error);
+  }
+};

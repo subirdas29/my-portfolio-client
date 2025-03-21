@@ -8,7 +8,7 @@
         `${process.env.NEXT_PUBLIC_BASE_API}/projects?limit=${limit}&page=${page}`,
         {
           next: {
-            tags: ["Projects"],
+            revalidate: 30
           },
         }
       );
@@ -27,7 +27,7 @@ export const getSingleProject = async (projectId: string) => {
         `${process.env.NEXT_PUBLIC_BASE_API}/projects/project/${projectId}`,
         {
           next: {
-            tags: ["Projects"],
+            revalidate: 30
           },
         }
       );

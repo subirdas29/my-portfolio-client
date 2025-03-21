@@ -9,7 +9,7 @@ const ProjectDetailPage= async({params}:{params:Promise<{projectId:string}>}) =>
 
    
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center bg-white dark:bg-[#0a0219]">
       <ProjectDetails project={project}/>
     </div>
   )

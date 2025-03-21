@@ -1,39 +1,34 @@
 "use client"
 import { motion } from 'framer-motion';
 
-const experience = [
-  {
-    title: 'Web Developer',
-    company: 'Tech Solutions Inc.',
-    duration: 'Jan 2021 - Present',
-    description: 'Developed and maintained web applications using modern technologies.',
-  },
-  {
-    title: 'Frontend Developer',
-    company: 'Creative Agency',
-    duration: 'Jun 2019 - Dec 2020',
-    description: 'Designed and implemented user interfaces for client projects.',
-  },
-];
+// const experience = [
+//   {
+//     title: 'Web Developer',
+//     company: 'Tech Solutions Inc.',
+//     duration: 'Jan 2021 - Present',
+//     description: 'Developed and maintained web applications using modern technologies.',
+//   },
+//   {
+//     title: 'Frontend Developer',
+//     company: 'Creative Agency',
+//     duration: 'Jun 2019 - Dec 2020',
+//     description: 'Designed and implemented user interfaces for client projects.',
+//   },
+// ];
 
 const education = [
   {
     degree: 'Bachelor of Science in Computer Science',
-    institution: 'University of Tech',
-    duration: '2015 - 2019',
+    institution: 'Faridpur Engineering College',
+    duration: '2017 - 2021',
     description: 'Graduated with honors, focusing on software development and algorithms.',
   },
-  {
-    degree: 'High School Diploma',
-    institution: 'Tech High School',
-    duration: '2011 - 2015',
-    description: 'Completed with a focus on mathematics and science.',
-  },
+
 ];
 
 const ExperienceEducationSection = () => {
   return (
-    <section className="py-20 bg-white dark:bg-[#0a0219] transition-colors duration-300">
+    <section className="py-16 lg:py-20  bg-white dark:bg-[#0a0219] transition-colors duration-300">
       <div className="mx-4 md:mx-8 lg:mx-16 px-6">
         {/* Section Title */}
         <motion.h2
@@ -42,12 +37,12 @@ const ExperienceEducationSection = () => {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-5xl font-bold text-center text-gray-900 dark:text-white mb-12"
         >
-          Experience & Education
+          Education
         </motion.h2>
 
         {/* Experience and Education Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Experience Column */}
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8"> */}
+          {/* Experience Column
           <div className="space-y-8">
             <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
               Experience
@@ -72,21 +67,19 @@ const ExperienceEducationSection = () => {
                 </p>
               </motion.div>
             ))}
-          </div>
+          </div> */}
 
           {/* Education Column */}
           <div className="space-y-8">
-            <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-              Education
-            </h3>
+         
             {education.map((edu, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
-                whileHover={{ scale: 1.05 }}
-                className="bg-gray-100 dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                whileHover={{ scale: 1.05, borderColor: '#facc15' }}
+                className="bg-gray-100 dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-transparent"
               >
                 <h4 className="text-2xl font-bold text-gray-900 dark:text-white">
                   {edu.degree}
@@ -100,7 +93,7 @@ const ExperienceEducationSection = () => {
               </motion.div>
             ))}
           </div>
-        </div>
+        {/* </div> */}
       </div>
     </section>
   );

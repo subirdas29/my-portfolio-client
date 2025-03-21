@@ -1,6 +1,8 @@
+"use client"
 import { TBlog } from "@/types/blogs";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 // Helper function to extract first image URL from content
 const extractFirstImage = (content: string): string | null => {
@@ -18,10 +20,25 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
   const latestImage = extractFirstImage(latestBlog.content) || "/default-image.jpg";
 
   return (
-    <section className="py-20 bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 ">
-      <h1 className="text-center text-5xl my-8">All Blogs</h1>
+   
+     <div>
+        <section className="relative flex flex-col items-center justify-center min-h-80 bg-gradient-to-br dark:from-[#0a0219] dark:to-[#1b0c2d] from-[#F9FAFB] to-[#faffdd] dark:text-white text-gray-900 overflow-hidden">
+      {/* Animated Banner */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center"
+      >
+        <h1 className="text-5xl md:text-6xl font-bold">All Blogs</h1>
+        <p className="mt-2 text-lg text-gray-700 dark:text-gray-300">
+          Explore my work and case studies
+        </p>
+      </motion.div>
+      </section>
+     <section className="py-20 text-gray-800 bg-white dark:bg-[#0a0219] dark:text-gray-100 ">
 
-      <div className="p-6 space-y-6 sm:space-y-12 mx-12 md:mx-16 lg:mx-24">
+      <div className="p-6 space-y-6 sm:space-y-12 mx-12 md:mx-16 lg:mx-24 min-h-screen">
         {/* 🔥 Latest Blog (Featured) */}
         <div className="shadow-lg block sm:max-w-full group lg:grid lg:grid-cols-12 dark:bg-gray-800 bg-gray-100 hover:no-underline focus:no-underline">
           <Image
@@ -37,7 +54,7 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
               {latestBlog.createdAt ? new Date(latestBlog.createdAt).toDateString() : "No date available"}
             </span>
             <p className="my-4">{latestBlog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 100)}...</p>
-            <Link href={`/blogs/${latestBlog._id}`}>
+            <Link href={`/all-blogs/blog-details/${latestBlog._id}`}>
               <button className="px-4 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-full hover:bg-primary/90 transition-colors duration-300">
                 Read More
               </button>
@@ -64,7 +81,7 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
                     {blog.createdAt ? new Date(blog.createdAt).toDateString() : "No date available"}
                   </span>
                   <p className="my-4">{blog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 80)}...</p>
-                  <Link href={`/blogs/${blog._id}`}>
+                  <Link href={`/all-blogs/blog-details/${blog._id}`}>
                     <button className="px-4 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-full hover:bg-primary/90 transition-colors duration-300">
                       Read More
                     </button>
@@ -75,14 +92,10 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
           })}
         </div>
 
-        {/* Load More Button */}
-        <div className="flex justify-center">
-          <button type="button" className="px-6 py-3 text-sm rounded-md hover:underline bg-white dark:bg-gray-800 dark:text-gray-100">
-            Load more posts...
-          </button>
-        </div>
+      
       </div>
     </section>
+     </div>
   );
 };
 

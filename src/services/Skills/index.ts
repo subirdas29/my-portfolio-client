@@ -8,7 +8,7 @@
             `${process.env.NEXT_PUBLIC_BASE_API}/skills?limit=${limit}&page=${page}`,
             {
               next: {
-                tags: ["Skills"],
+                revalidate: 30
               },
             }
           );

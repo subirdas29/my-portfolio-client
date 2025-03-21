@@ -2,25 +2,14 @@
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { useState } from "react";
 import Image from "next/image";
-
-type TProjects = {
-  _id?: string;
-  title: string;
-  projectType: string;
-  details: string;
-  technologies: string | string[];
-  liveLink: string;
-  clientGithubLink: string;
-  serverGithubLink?: string;
-  imageUrls: string[];
-};
+import { TProjects } from "@/types/projects";
 
 const ProjectDetails = ({ project }: { project: TProjects }) => {
   const [selectedImage, setSelectedImage] = useState(project.imageUrls[0]);
 
   return (
-    <section className="py-12 bg-gray-200 dark:bg-gray-900 min-h-screen my-24 shadow-xl">
-      <div className="container mx-auto px-4">
+    <section className="py-12 w-3/4 bg-gray-200 dark:bg-gray-900 min-h-screen my-24 shadow-xl">
+      <div className="px-4">
         {/* Project Title */}
         <h1 className="text-4xl md:text-5xl font-bold text-center text-gray-900 dark:text-white mb-8">
           {project.title}
@@ -33,10 +22,10 @@ const ProjectDetails = ({ project }: { project: TProjects }) => {
         </p>
 
         {/* Large Selected Image */}
-        <div className="mb-8 rounded-lg overflow-hidden shadow-lg">
+        <div className="mb-8 px-16 rounded-lg overflow-hidden">
           <Image
-           width={500}
-           height={500}
+            width={500}
+            height={500}
             src={selectedImage}
             alt={project.title}
             className="w-full h-64 md:h-96 object-cover"
@@ -54,8 +43,8 @@ const ProjectDetails = ({ project }: { project: TProjects }) => {
               }`}
             >
               <Image
-              width={500}
-              height={500}
+                width={500}
+                height={500}
                 src={image}
                 alt={`${project.title} - Thumbnail ${index + 1}`}
                 className="w-24 h-16 md:w-32 md:h-20 object-cover"
@@ -65,12 +54,30 @@ const ProjectDetails = ({ project }: { project: TProjects }) => {
         </div>
 
         {/* Project Details */}
-        <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">
+        <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 px-16">
           {project.details}
         </p>
 
+        {/* Key Features */}
+        <div className="mb-8 px-16">
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+            Key Features
+          </h2>
+          <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300">
+            {Array.isArray(project.keyFeatures)
+              ? project.keyFeatures.map((feature, index) => (
+                  <li key={index} className="mb-2">
+                    {feature}
+                  </li>
+                ))
+              : (
+                  <li>{project.keyFeatures}</li>
+                )}
+          </ul>
+        </div>
+
         {/* Technologies Used */}
-        <div className="mb-8">
+        <div className="mb-8 px-16">
           <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
             Technologies Used
           </h2>
@@ -93,7 +100,7 @@ const ProjectDetails = ({ project }: { project: TProjects }) => {
         </div>
 
         {/* Call to Action Buttons */}
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className="flex flex-col md:flex-row gap-4 px-16">
           <a
             href={project.liveLink}
             target="_blank"

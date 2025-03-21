@@ -8,10 +8,12 @@ import Link from 'next/link';
 
 const ProjectShowcase = ({projects}:{projects:TProjects[]}) => {
   
-  const filteredProjects = projects.filter((project)=>project.projectType === "Full-Stack")
+  const filteredProjects = projects
+  .filter((project) => project.projectType === "Full-Stack")
+  .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
   
   return (
-    <section className="py-20 bg-white dark:bg-[#0a0219] transition-colors duration-300">
+    <section className="py-16 lg:py-20 bg-white dark:bg-[#0a0219] transition-colors duration-300">
       <div className=" px-6  mx-4 md:mx-8 lg:mx-16">
         {/* Section Title */}
         <motion.h2

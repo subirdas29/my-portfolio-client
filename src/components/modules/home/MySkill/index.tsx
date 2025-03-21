@@ -13,6 +13,9 @@ const softSkills = [
   { name: 'Time Management', icon: '⏰' },
   { name: 'Adaptability', icon: '🔄' },
   { name: 'Leadership', icon: '🌟' },
+  { name: 'Creativity', icon: '🎨' },
+  { name: 'Critical Thinking', icon: '🧠' },
+
 ];
 
 const SkillsSection = ({skills}:{skills:TSkill[]}) => {
@@ -20,7 +23,7 @@ const SkillsSection = ({skills}:{skills:TSkill[]}) => {
   const [activeTab, setActiveTab] = useState('technical');
 
   return (
-    <section className="py-20  bg-white dark:bg-[#0a0219] transition-colors duration-300">
+    <section className="py-16 lg:py-20  bg-white dark:bg-[#0a0219] transition-colors duration-300">
       <div className=" mx-4 md:mx-8 lg:mx-16 px-6">
         {/* Section Title */}
         <motion.h2

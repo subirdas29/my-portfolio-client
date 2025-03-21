@@ -14,7 +14,7 @@ const extractFirstImageUrl = (content: string) => {
 
 const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
   return (
-    <section className="py-20 bg-white dark:bg-[#0a0219] transition-colors duration-300">
+    <section className="py-16 lg:py-20  bg-white dark:bg-[#0a0219] transition-colors duration-300">
       <div className="px-6 mx-4 md:mx-8 lg:mx-16">
         {/* Section Title */}
         <motion.h2
@@ -28,7 +28,7 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
 
         {/* Blog Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {blogs.map((blog, index) => {
+          {blogs.slice(0,3).map((blog, index) => {
             const firstImageUrl = extractFirstImageUrl(blog.content);
 
             return (
@@ -64,7 +64,7 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
                   </p>
 
                   {/* Details Button */}
-                  <Link href={`/blogs/${blog._id}`}>
+                  <Link href={`/all-blogs/blog-details/${blog._id}`}>
                     <button className="px-4 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-full hover:bg-primary/90 transition-colors duration-300">
                       Details
                     </button>
