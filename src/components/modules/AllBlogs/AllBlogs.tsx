@@ -55,7 +55,7 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
             </span>
             <p className="my-4">{latestBlog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 100)}...</p>
             <Link href={`/all-blogs/blog-details/${latestBlog._id}`}>
-              <button className="px-4 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-full hover:bg-primary/90 transition-colors duration-300">
+              <button className="px-4 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-xl hover:bg-primary/90 transition-colors duration-300">
                 Read More
               </button>
             </Link>
@@ -76,13 +76,13 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
                   className="object-cover w-full rounded h-44 bg-white dark:bg-gray-700"
                 />
                 <div className="p-6 space-y-2">
-                  <h3 className="text-2xl font-semibold">{blog.title}</h3>
+                  <h3 className="text-2xl font-semibold">{blog.title.substring(0,25)}...</h3>
                   <span className="text-xs text-gray-600 dark:text-gray-400">
                     {blog.createdAt ? new Date(blog.createdAt).toDateString() : "No date available"}
                   </span>
                   <p className="my-4">{blog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 80)}...</p>
                   <Link href={`/all-blogs/blog-details/${blog._id}`}>
-                    <button className="px-4 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-full hover:bg-primary/90 transition-colors duration-300">
+                    <button className="px-4 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-xl hover:bg-primary/90 transition-colors duration-300">
                       Read More
                     </button>
                   </Link>

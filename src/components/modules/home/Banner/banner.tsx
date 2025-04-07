@@ -10,7 +10,6 @@ export default function Banner() {
     "Full Stack Developer",
     "MERN Stack Developer",
     "Software Developer",
-    "Freelancer",
   ];
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedRole, setDisplayedRole] = useState("");
@@ -57,9 +56,9 @@ export default function Banner() {
           {/* CTA Buttons */}
           <div className="mt-6 flex justify-center lg:justify-start gap-4">
             <a
-              href="/resume/Subir_Das_Resume.pdf"
+              href="/resume/Fullstack_Developer_resume_of_Subir.pdf"
               download="Subir_Das_Resume.pdf"
-              className="px-6 py-3 bg-primary text-white dark:text-black font-semibold rounded-full hover:bg-yellow-600 transition duration-300"
+              className="px-6 py-3 bg-primary text-white dark:text-black font-semibold rounded-xl hover:bg-yellow-600 transition duration-300"
             >
               Download CV
             </a>

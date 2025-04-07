@@ -1,4 +1,4 @@
-import { Facebook, Mail, Phone, MapPin, LinkedinIcon } from "lucide-react";
+import { Facebook, Mail, Phone, MapPin, LinkedinIcon, GithubIcon } from "lucide-react";
 import Link from "next/link";
 
 
@@ -17,7 +17,7 @@ const Footer = () => {
             I’m a passionate web developer with a knack for solving complex user experience problems. My mission is to create seamless, integrity-focused solutions that connect billions of people worldwide.
             </p>
             <div className="flex space-x-4">
-              <a href="https://www.facebook.com/profile.php?id=100006456303568" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+              <a href="https://www.facebook.com/profile.php?id=100006456303568" target="_blank" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
                 <Facebook className="w-5 h-5" />
               </a>
               {/* <a href="#" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
@@ -26,8 +26,11 @@ const Footer = () => {
               <a href="#" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
                 <Twitter className="w-5 h-5" />
               </a> */}
-              <a href="https://www.linkedin.com/in/subirdas29" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+              <a href="https://www.linkedin.com/in/subirdas29" target="_blank" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
                 <LinkedinIcon className="w-5 h-5" />
+              </a>
+              <a href="https://github.com/subirdas29" target="_blank" className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+                <GithubIcon className="w-5 h-5" />
               </a>
             </div>
           </div>

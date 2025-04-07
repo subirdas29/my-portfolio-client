@@ -2,8 +2,10 @@
 
 import { TProjects } from '@/types/projects';
 import { motion } from 'framer-motion';
+import { FolderSearch } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 
 const ProjectShowcase = ({projects}:{projects:TProjects[]}) => {
@@ -37,7 +39,7 @@ const ProjectShowcase = ({projects}:{projects:TProjects[]}) => {
               className="bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-transparent"
             >
               {/* Project Image */}
-              <div className="w-full h-48 overflow-hidden">
+              <div className="w-full h-48 overflow-hidden ">
                 <Image
                 height={500}
                 width={500}
@@ -48,7 +50,7 @@ const ProjectShowcase = ({projects}:{projects:TProjects[]}) => {
               </div>
 
               {/* Project Content */}
-              <div className="p-6">
+              <div className="p-3 lg:p-6">
                 {/* Project Name */}
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                   {project.title}
@@ -56,22 +58,34 @@ const ProjectShowcase = ({projects}:{projects:TProjects[]}) => {
 
                 {/* Project Description */}
                 <p className="text-gray-600 dark:text-gray-300 mb-4">
-                  {project.details.slice(0,50)}
+                  {project.details.slice(0,50)}...
                 </p>
 
                 {/* Details Button */}
-              <Link href={`/all-projects/projectDetails/${project._id}`}>
-              <button className="px-4 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-full hover:bg-primary/90 transition-colors duration-300">
-                  Details
+             <div className='flex justify-evenly gap-2'>
+             <Link href={`/all-projects/projectDetails/${project._id}`}>
+              <button className=" w-24 h-10 lg:w-32 lg:h-12 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 duration-300  flex justify-center items-center cursor-pointer">
+              <FolderSearch className="mr-2" />
+            <span>  Details </span>
                 </button>
               </Link>
+            <a
+                        href={project.liveLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center w-24 h-10 lg:w-32 lg:h-12 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 transition duration-300"
+                      >
+                        <FaExternalLinkAlt className="mr-2" />
+                        Live
+                      </a>
+             </div>
               </div>
             </motion.div>
           ))}
         </div>
         <div className='flex justify-center my-10'>
         <Link href="/all-projects">
-        <button className="px-8 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 transition-colors duration-300">
+        <button className="px-8 py-3 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 transition-colors duration-300 cursor-pointer">
                   All Projects
                 </button>
                 </Link>

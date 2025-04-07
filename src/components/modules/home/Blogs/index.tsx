@@ -2,6 +2,7 @@
 
 import { TBlog } from "@/types/blogs";
 import { motion } from "framer-motion";
+import { FolderSearch } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -55,7 +56,7 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
                 <div className="p-6">
                   {/* Blog Title */}
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                    {blog.title}
+                    {blog.title.substring(0,25)}...
                   </h3>
 
                   {/* Blog Description */}
@@ -65,10 +66,13 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
 
                   {/* Details Button */}
                   <Link href={`/all-blogs/blog-details/${blog._id}`}>
-                    <button className="px-4 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-full hover:bg-primary/90 transition-colors duration-300">
-                      Details
-                    </button>
-                  </Link>
+              <button className=" w-24 h-10 lg:w-32 lg:h-12 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 duration-300  flex justify-center items-center cursor-pointer">
+              <FolderSearch className="mr-2" />
+            <span>  Details </span>
+                </button>
+              </Link>
+
+                 
                 </div>
               </motion.div>
             );
@@ -78,7 +82,7 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
         {/* All Blogs Button */}
         <div className="flex justify-center my-10">
           <Link href="/all-blogs">
-            <button className="px-8 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 transition-colors duration-300">
+            <button className="px-8 py-3 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 transition-colors duration-300 cursor-pointer">
               All Blogs
             </button>
           </Link>
