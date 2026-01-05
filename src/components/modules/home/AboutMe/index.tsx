@@ -128,7 +128,7 @@ const AboutMe = () => {
             <div className="flex flex-col gap-8 pt-4">
               <div className="flex flex-wrap items-center gap-4">
                   <a
-                href="/resume/Fullstack_Developer_resume_of_Subir.pdf"
+                href="/resume/Software_Engineer_Resume_of_Subir.pdf"
                 download="Subir_Das_Resume.pdf"
                 className="group relative px-8 py-4 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white dark:text-black font-semibold rounded-2xl transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg shadow-yellow-500/25 hover:shadow-xl hover:shadow-yellow-500/30 overflow-hidden"
                
