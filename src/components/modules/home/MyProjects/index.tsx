@@ -11,7 +11,7 @@ import { FaExternalLinkAlt } from 'react-icons/fa';
 const ProjectShowcase = ({projects}:{projects:TProjects[]}) => {
   
   const filteredProjects = projects
-  .filter((project) => project.projectType === "Full-Stack")
+  ?.filter((project) => project.projectType === "Full-Stack")
   .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
   
   return (

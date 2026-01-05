@@ -65,13 +65,13 @@ const SkillsSection = ({skills}:{skills:TSkill[]}) => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6"
         >
           {activeTab === 'technical'
-            ? skills.map((skill, index) => (
+            ? skills?.map((skill, index) => (
                 <motion.div
                   key={skill._id}
-                  initial={{ opacity: 0, scale: 0.8 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   whileHover={{ scale: 1.1, rotate: 5, borderColor: '#facc15' }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}

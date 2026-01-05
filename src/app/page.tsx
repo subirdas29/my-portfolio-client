@@ -22,9 +22,9 @@ const Home = async() => {
  
     <Banner/>
     <AboutMe />
+    <ExperienceEducationSection/>
     <SkillsSection skills= {skills}/>
     <ProjectShowcase projects={projects}/>
-    <ExperienceEducationSection/>
     <Blogs blogs={blogs}/>
     <ContactSection/>
   </div>

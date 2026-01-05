@@ -1,16 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import DP from "../../../../assets/banner/profileImage/Subir_Das.png";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { useState, useEffect } from "react";
+import { Download, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+
+const roles = [
+  "Full Stack Developer",
+  "MERN Stack Developer",
+  "Software Developer",
+];
 
 export default function Banner() {
-  const roles = [
-    "Full Stack Developer",
-    "MERN Stack Developer",
-    "Software Developer",
-  ];
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedRole, setDisplayedRole] = useState("");
   const [charIndex, setCharIndex] = useState(0);
@@ -32,70 +33,255 @@ export default function Banner() {
   }, [charIndex, roleIndex]);
 
   return (
-    <section className=" relative flex items-center justify-center md: gap-4 lg:gap-8 min-h-screen bg-gradient-to-br dark:from-[#0a0219] dark:to-[#1b0c2d] from-[#F9FAFB] to-[#faffdd] dark:text-white text-gray-900 overflow-hidden">
-     <div className="p-20 md:p-16 lg:p-12">
-     <div className="flex flex-col lg:flex-row items-center relative z-10 ">
-        {/* Left Text Section */}
-        <div className="lg:w-1/2 text-center lg:text-left">
-          <h1 className="text-4xl lg:text-6xl">
-            Hi, I am{" "}
-            <span className="bg-gradient-to-r text-transparent bg-clip-text dark:from-yellow-400 dark:to-yellow-600 from-yellow-500 to-amber-500">
-              Subir Das
-            </span>
-          </h1>
-          <h1 className="my-4 text-2xl lg:text-3xl font-bold">
-            A Passionate{" "}
-            <span className="bg-gradient-to-r text-transparent bg-clip-text dark:from-yellow-400 dark:to-yellow-600 from-yellow-500 to-amber-500">
-              {displayedRole}
-            </span>
-          </h1>
-          <p className="mt-4 ">
-            I break down complex user experience problems to create
-            integrity-focused solutions that connect billions of people.
-          </p>
-          {/* CTA Buttons */}
-          <div className="mt-6 flex justify-center lg:justify-start gap-4">
-            <a
-              href="/resume/Fullstack_Developer_resume_of_Subir.pdf"
-              download="Subir_Das_Resume.pdf"
-              className="px-6 py-3 bg-primary text-white dark:text-black font-semibold rounded-xl hover:bg-yellow-600 transition duration-300"
-            >
-              Download CV
-            </a>
-          </div>
-        </div>
-        {/* Right Image Section with Circular Frame & Animated Orbiting Circles */}
-        <motion.div className="lg:w-1/2 flex justify-center items-center mt-20 lg:mt-0 relative">
-          {/* Outer Rotating Circle */}
+    <section className="relative flex items-center justify-center min-h-screen bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] text-gray-900 dark:text-white overflow-hidden">
+      
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Floating Particles */}
+        {[...Array(12)].map((_, i) => (
           <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
-            className="absolute w-[300px] h-[300px] lg:w-[450px] lg:h-[450px] border-2 border-yellow-500 rounded-full"
-          >
-            <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-              className="absolute top-0 left-1/2 w-6 h-6 bg-yellow-500 rounded-full"
-            ></motion.div>
-            <motion.div
-              animate={{ y: [0, 20, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut", delay: 1 }}
-              className="absolute bottom-0 left-1/2 w-6 h-6 bg-yellow-500 rounded-full"
-            ></motion.div>
-          </motion.div>
-          {/* Profile Image inside Circular Frame */}
-          <div className="relative w-50 h-50 lg:w-80 lg:h-80 flex items-center justify-center rounded-full border-4 border-yellow-500 overflow-hidden">
-            <Image
-              src={DP}
-              alt="Your Profile"
-              width={350}
-              height={310}
-              className="rounded-full object-cover"
-            />
-          </div>
-        </motion.div>
+            key={i}
+            className="absolute w-2 h-2 rounded-full bg-yellow-400/40 dark:bg-yellow-500/30"
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: [0.2, 0.8, 0.2],
+              y: [0, -150, 0],
+              x: [0, Math.random() * 60 - 30, 0],
+            }}
+            transition={{
+              duration: 6 + i * 0.5,
+              repeat: Infinity,
+              delay: i * 0.4,
+            }}
+            style={{
+              left: `${8 + i * 8}%`,
+              top: `${50 + (i % 4) * 12}%`,
+            }}
+          />
+        ))}
+        
+        {/* Glowing Orbs */}
+        <motion.div
+          className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-yellow-400/20 dark:bg-yellow-500/10 blur-[100px]"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute -bottom-32 -left-32 w-[400px] h-[400px] rounded-full bg-amber-400/20 dark:bg-purple-500/10 blur-[80px]"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{ duration: 10, repeat: Infinity, delay: 2 }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-yellow-300/10 dark:bg-yellow-600/5 blur-[120px]"
+          animate={{
+            scale: [1, 1.1, 1],
+          }}
+          transition={{ duration: 12, repeat: Infinity }}
+        />
       </div>
-     </div>
+
+      <div className="p-6 md:p-12 lg:p-16 w-full max-w-[1440px] relative z-10">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          
+          {/* Left Text Section */}
+          <motion.div 
+            className="lg:w-1/2 text-center lg:text-left"
+            initial={{ opacity: 0, x: -60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            {/* Badge */}
+            <motion.div
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 dark:bg-yellow-400/10 border border-yellow-500/30 dark:border-yellow-400/20 mb-6 backdrop-blur-sm"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Sparkles className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
+              <span className="text-sm font-medium text-yellow-700 dark:text-yellow-300">Welcome to my portfolio</span>
+            </motion.div>
+
+            <motion.h1 
+              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              Hi, I am{" "}
+              <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 dark:from-yellow-400 dark:via-yellow-500 dark:to-amber-500 text-transparent bg-clip-text drop-shadow-sm">
+                Subir Das
+              </span>
+            </motion.h1>
+            
+            <motion.h2 
+              className="my-5 text-xl sm:text-2xl lg:text-3xl font-semibold"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              A Passionate{" "}
+              <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 dark:from-yellow-400 dark:via-yellow-500 dark:to-amber-500 text-transparent bg-clip-text">
+                {displayedRole}
+                <motion.span
+                  className="inline-block w-[3px] h-6 lg:h-8 bg-gradient-to-b from-yellow-500 to-amber-500 dark:from-yellow-400 dark:to-yellow-600 ml-1 align-middle rounded-full"
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 0.8, repeat: Infinity }}
+                />
+              </span>
+            </motion.h2>
+            
+            <motion.p 
+              className="mt-4 text-gray-600 dark:text-gray-300 max-w-xl text-base lg:text-lg leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              I break down complex user experience problems to create
+              integrity-focused solutions that connect billions of people.
+            </motion.p>
+            
+            {/* CTA Buttons */}
+            <motion.div 
+              className="mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              <motion.a
+                href="/resume/Fullstack_Developer_resume_of_Subir.pdf"
+                download="Subir_Das_Resume.pdf"
+                className="group relative px-8 py-4 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white dark:text-black font-semibold rounded-2xl transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg shadow-yellow-500/25 hover:shadow-xl hover:shadow-yellow-500/30 overflow-hidden"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity " />
+                <Download className="w-5 h-5" />
+                Download CV
+              </motion.a>
+              <Link
+                href="/contact"
+                className="px-8 py-4 border-2 border-yellow-500/50 dark:border-yellow-400/30 hover:border-yellow-500 dark:hover:border-yellow-400/50 text-yellow-700 dark:text-yellow-300 font-semibold rounded-2xl transition-all duration-300 inline-flex items-center justify-center backdrop-blur-sm hover:bg-yellow-500/10"
+              
+              >
+                Let's Talk
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          {/* Right Image Section */}
+          <motion.div 
+            className="lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0"
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          >
+            <div className="relative flex items-center justify-center">
+              
+              {/* Outer Glow */}
+              <div className="absolute w-[320px] h-[320px] lg:w-[480px] lg:h-[480px] rounded-full bg-gradient-to-br from-yellow-400/20 to-amber-500/20 dark:from-yellow-500/10 dark:to-amber-600/10 blur-2xl" />
+              
+              {/* Outermost Ring */}
+              {/* <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
+                className="absolute w-[300px] h-[300px] lg:w-[450px] lg:h-[450px] rounded-full border border-yellow-400/90 dark:border-yellow-500/20"
+              >
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-yellow-400/60 rounded-full" />
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-3 h-3 bg-amber-400/60 rounded-full" />
+              </motion.div> */}
+
+              {/* Outer Rotating Circle */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+                className="absolute w-[260px] h-[260px] lg:w-[390px] lg:h-[390px] border-2 border-yellow-500 dark:border-yellow-400 rounded-full"
+                style={{
+                  boxShadow: "0 0 30px rgba(234, 179, 8, 0.3), inset 0 0 30px rgba(234, 179, 8, 0.1)"
+                }}
+              >
+                <motion.div
+                  animate={{ scale: [1, 1.4, 1] }}
+                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                  className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full shadow-lg shadow-yellow-500/50"
+                />
+                <motion.div
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut", delay: 0.7 }}
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full shadow-lg shadow-yellow-500/50"
+                />
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut", delay: 1.4 }}
+                  className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 lg:w-5 lg:h-5 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full shadow-lg shadow-yellow-500/50"
+                />
+                <motion.div
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut", delay: 0.3 }}
+                  className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 w-4 h-4 lg:w-5 lg:h-5 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full shadow-lg shadow-yellow-500/50"
+                />
+              </motion.div>
+
+              {/* Inner Counter-Rotating Ring */}
+              <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+                className="absolute w-[220px] h-[220px] lg:w-[330px] lg:h-[330px] border border-yellow-500 dark:border-yellow-500/30 rounded-full border-dashed"
+              >
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-yellow-500/80 rounded-full" />
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-yellow-500/80 rounded-full" />
+              </motion.div>
+
+              {/* Profile Image Container */}
+              <motion.div
+                className="relative w-44 h-44 lg:w-64 lg:h-64 rounded-full overflow-hidden"
+               
+                style={{
+                  boxShadow: "0 0 0 4px #EAB308, 0 0 40px rgba(234, 179, 8, 0.4), 0 20px 60px rgba(0, 0, 0, 0.3)"
+                }}
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop&crop=face&q=100"
+                  alt="Subir Das"
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+
+             
+          <motion.div
+  className={cn(
+    "absolute -bottom-2 -left-2 lg:-bottom-6 lg:-left-6",
+    "w-10 h-10 lg:w-14 lg:h-14 rounded-full",
+    "flex items-center justify-center backdrop-blur-md border transition-colors",
+ 
+    "bg-amber-400/20 dark:bg-gradient-to-br dark:from-amber-400/30 dark:to-orange-500/30",
+    "border-amber-500/50 dark:border-amber-400/40 shadow-lg shadow-amber-500/10"
+  )}
+  animate={{ 
+    y: [0, -15, 0], 
+    scale: [1, 1.1, 1],
+    rotate: [0, 5, -5, 0] 
+  }}
+  transition={{ repeat: Infinity, duration: 4, delay: 1, ease: "easeInOut" }}
+>
+  <Sparkles
+    className="w-5 h-5 lg:w-7 lg:h-7 text-amber-600 dark:text-amber-400" 
+    strokeWidth={2.5}
+  />
+</motion.div>
+           
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Bottom Gradient Fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#F9FAFB] dark:from-[#0a0219] to-transparent" />
     </section>
   );
 }
