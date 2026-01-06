@@ -17,9 +17,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SubirDas-Portfolio",
+  title: "Subir Das-Portfolio",
   description: "This is Subir Das Portfolio. A professional and modern portfolio website showcasing my skills, projects, and experience in a visually appealing way.",
+   keywords: " coding, programming, development, software, software engineer, full stack developer, ai automation, ai agent, technology, digital, companion, web development, app development, coding tutorials, coding resources, software tools, tech community, software development",
+   icons: {
+    icon: "/favicon-dp.ico",
+  },
 };
+
+
 
 export default function RootLayout({
   children,
@@ -28,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
    
-    <html lang="en">
+   <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

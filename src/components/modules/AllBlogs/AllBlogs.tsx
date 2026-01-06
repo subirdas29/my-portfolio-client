@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import GradientButton from "@/utility/GradientButton";
 import { ArrowBigRight, Sparkles } from "lucide-react";
 
-// Helper function to extract first image URL from content
 const extractFirstImage = (content: string): string | null => {
   const imgTagMatch = content.match(/<img\s+[^>]*src=["']([^"']+)["']/);
   return imgTagMatch ? imgTagMatch[1] : null;
@@ -21,123 +20,92 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
 
   return (
     <div>
-      {/* --- HERO SECTION (Updated to match Projects style) --- */}
+
       <section className="relative flex flex-col items-center justify-center min-h-[450px] bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] text-gray-900 dark:text-white overflow-hidden">
-        
-        {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          {/* Floating Particles */}
           {[...Array(10)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40"
               initial={{ opacity: 0 }}
-              animate={{
-                opacity: [0.2, 0.8, 0.2],
-                y: [0, -100, 0],
-                x: [0, Math.random() * 40 - 20, 0],
-              }}
-              transition={{
-                duration: 5 + i * 0.5,
-                repeat: Infinity,
-                delay: i * 0.4,
-              }}
-              style={{
-                left: `${10 + i * 9}%`,
-                top: `${40 + (i % 3) * 15}%`,
-              }}
+              animate={{ opacity: [0.2, 0.8, 0.2], y: [0, -100, 0], x: [0, Math.random() * 40 - 20, 0] }}
+              transition={{ duration: 5 + i * 0.5, repeat: Infinity, delay: i * 0.4 }}
+              style={{ left: `${10 + i * 9}%`, top: `${40 + (i % 3) * 15}%` }}
             />
           ))}
-          
-          {/* Glowing Orbs */}
-          <motion.div
-            className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full bg-yellow-400/20 dark:bg-yellow-500/10 blur-[90px]"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-            transition={{ duration: 8, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute -bottom-24 -left-24 w-[350px] h-[350px] rounded-full bg-amber-400/20 dark:bg-purple-500/10 blur-[80px]"
-            animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
-            transition={{ duration: 10, repeat: Infinity, delay: 2 }}
-          />
+          <motion.div className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full bg-yellow-400/20 dark:bg-yellow-500/10 blur-[90px]" animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }} transition={{ duration: 8, repeat: Infinity }} />
+          <motion.div className="absolute -bottom-24 -left-24 w-[350px] h-[350px] rounded-full bg-amber-400/20 dark:bg-purple-500/10 blur-[80px]" animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }} transition={{ duration: 10, repeat: Infinity, delay: 2 }} />
         </div>
 
-        {/* Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="relative z-10 text-center px-4"
-        >
-          {/* Badge */}
-          <motion.div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 dark:bg-yellow-400/10 border border-yellow-500/30 dark:border-yellow-400/20 mb-6 backdrop-blur-sm"
-          >
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="relative z-10 text-center px-4">
+          <motion.div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 dark:bg-yellow-400/10 border border-yellow-500/30 dark:border-yellow-400/20 mb-6 backdrop-blur-sm">
             <Sparkles className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
             <span className="text-xs md:text-sm font-bold text-yellow-700 dark:text-yellow-300 uppercase tracking-wider">Insights & Articles</span>
           </motion.div>
-
           <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-4">
             All <span className="bg-gradient-to-r from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-amber-500 text-transparent bg-clip-text">Blogs</span>
           </h1>
-          <p className="mt-2 text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-medium">
-            Sharing my thoughts, tutorials, and latest updates from the world of development.
-          </p>
+          <p className="mt-2 text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-medium">Sharing my thoughts, tutorials, and latest updates from the world of development.</p>
         </motion.div>
-
-        {/* Bottom Fade */}
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-[#0a0219] to-transparent" />
       </section>
 
       {/* --- BLOG LISTING SECTION --- */}
-      <section className="py-20 text-gray-800 bg-white dark:bg-[#0a0219] dark:text-gray-100">
-        <div className="space-y-6 sm:space-y-12 page-container min-h-screen">
+      <section className="py-20 bg-white dark:bg-[#0a0219] transition-colors duration-300">
+        <div className="space-y-12 page-container min-h-screen px-4">
           
-          {/* Latest Blog (Featured) */}
+          {/* Latest Blog (Featured Card with Updated UI) */}
           <motion.div 
              initial={{ opacity: 0, y: 20 }}
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true }}
-             className="shadow-xl rounded-3xl overflow-hidden block sm:max-w-full group lg:grid lg:grid-cols-12 dark:bg-gray-800/40 bg-gray-100 border border-gray-200 dark:border-white/5 hover:border-amber-500/50 transition-all duration-500"
+             className="group relative rounded-[2.5rem] overflow-hidden p-[2px]"
           >
-            <div className="lg:col-span-7 overflow-hidden">
-              <Image
-                src={latestImage}
-                alt={latestBlog.title}
-                width={800}
-                height={500}
-                className="object-cover w-full h-64 sm:h-96 group-hover:scale-105 transition-transform duration-700"
-              />
+            {/* Running Border Animation */}
+            <div className="absolute inset-0 z-0">
+              <svg className="w-full h-full" preserveAspectRatio="none">
+                <rect x="2" y="2" width="calc(100% - 4px)" height="calc(100% - 4px)" rx="40" ry="40" pathLength="100" className="fill-none stroke-amber-500 stroke-[3] opacity-0 group-hover:opacity-100 transition-opacity duration-500" strokeDasharray="20 80">
+                  <animate attributeName="stroke-dashoffset" from="100" to="0" dur="10s" repeatCount="indefinite" />
+                </rect>
+              </svg>
             </div>
-            <div className="p-8 lg:p-12 space-y-4 lg:col-span-5 flex flex-col justify-center">
-              <span className="text-sm font-bold text-amber-500 uppercase tracking-widest">Featured Post</span>
-              <h3 className="text-3xl font-black sm:text-4xl group-hover:text-amber-500 transition-colors">{latestBlog.title}</h3>
-              <span className="text-sm text-gray-600 dark:text-gray-400 block italic">
-                {latestBlog.createdAt ? new Date(latestBlog.createdAt).toDateString() : "No date available"}
-              </span>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-3">
-                {latestBlog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 150)}...
-              </p>
-              <div className="pt-4">
+
+            <div className="relative z-10 bg-gradient-to-br dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d]  dark:border-white/5 rounded-[2.4rem] overflow-hidden lg:grid lg:grid-cols-12 shadow-xl">
+              {/* Background Bubbles */}
+              <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+                {[...Array(12)].map((_, i) => (
+                  <motion.div key={i} className="absolute w-2 h-2 rounded-full bg-amber-500/30" animate={{ opacity: [0.3, 0.8, 0.3], y: [0, -100, 0] }} transition={{ duration: 4 + i, repeat: Infinity }} style={{ left: `${8 * i}%`, bottom: `10%` }} />
+                ))}
+              </div>
+
+              <div className="lg:col-span-7 overflow-hidden relative z-10">
+                <Image src={latestImage} alt={latestBlog.title} width={800} height={500} className="object-cover w-full h-64 sm:h-96 group-hover:scale-105 transition-transform duration-700" />
+              </div>
+              <div className="p-8 lg:p-12 lg:col-span-5 flex flex-col justify-center relative z-30">
+                <span className="text-sm font-black text-amber-500 uppercase tracking-widest mb-2">Featured Post</span>
+                <h3 className="text-3xl font-black sm:text-4xl group-hover:text-amber-500 transition-colors mb-4">{latestBlog.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-6 font-medium line-clamp-3">
+                  {latestBlog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 150)}...
+                </p>
                 <Link href={`/all-blogs/blog-details/${latestBlog._id}`}>
-                   <GradientButton
-                     className="h-11 w-full rounded-xl px-4 py-2 cursor-pointer flex items-center justify-center gap-2 group transition-all"
-                   >
-                     <span className="font-bold tracking-wide">Read Full Story</span>
-                     <motion.span
-                       animate={{ x: [0, 4, 0] }}
-                       transition={{ repeat: Infinity, duration: 1.5 }}
-                     >
-                       <ArrowBigRight className="w-4 h-4" />
-                     </motion.span>
-                   </GradientButton>
+                     <GradientButton
+                                        className="w-full h-12 rounded-xl text-sm font-black tracking-wide shadow-lg"
+                                      >
+                                        <span className="font-black tracking-wide">Read Full Story</span>
+                                        <motion.span
+                                          animate={{ x: [0, 4, 0] }}
+                                          transition={{ repeat: Infinity, duration: 1.5 }}
+                                        >
+                                          <ArrowBigRight className="w-5 h-5" />
+                                        </motion.span>
+                                      </GradientButton>
                 </Link>
               </div>
             </div>
           </motion.div>
 
-          {/* Other Blogs (Grid) */}
-          <div className="grid justify-center grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Other Blogs Grid (Updated UI) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {otherBlogs.map((blog, index) => {
               const blogImage = extractFirstImage(blog.content) || "/default-image.jpg";
               return (
@@ -147,41 +115,49 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="group dark:bg-gray-800/40 bg-gray-100 rounded-[2rem] overflow-hidden shadow-lg border border-gray-200 dark:border-white/5 hover:border-amber-500/50 transition-all duration-500"
+                  className="group relative rounded-[2.5rem] overflow-hidden p-[2px]"
                 >
-                  <div className="h-52 overflow-hidden">
-                    <Image
-                      src={blogImage}
-                      alt={blog.title}
-                      width={500}
-                      height={500}
-                      className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
-                    />
+                  {/* Running Border Animation */}
+                  <div className="absolute inset-0 z-0">
+                    <svg className="w-full h-full" preserveAspectRatio="none">
+                      <rect x="2" y="2" width="calc(100% - 4px)" height="calc(100% - 4px)" rx="38" ry="38" pathLength="100" className="fill-none stroke-amber-500 stroke-[3] opacity-0 group-hover:opacity-100 transition-opacity duration-500" strokeDasharray="25 75">
+                        <animate attributeName="stroke-dashoffset" from="100" to="0" dur="8s" repeatCount="indefinite" />
+                      </rect>
+                    </svg>
                   </div>
-                  <div className="p-8">
-                    <span className="text-xs font-bold text-amber-500 uppercase tracking-tighter">Article</span>
-                    <h3 className="text-xl font-bold mt-2 mb-3 line-clamp-2 group-hover:text-amber-500 transition-colors">
-                      {blog.title}
-                    </h3>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 block mb-4">
-                      {blog.createdAt ? new Date(blog.createdAt).toDateString() : "No date available"}
-                    </span>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-6 leading-relaxed">
-                      {blog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 80)}...
-                    </p>
-                    <Link href={`/all-blogs/blog-details/${blog._id}`}>
-                   <GradientButton
-                     className="h-11 w-full rounded-xl px-4 py-2 cursor-pointer flex items-center justify-center gap-2 group transition-all"
-                   >
-                     <span className="font-bold tracking-wide">Read Full Story</span>
-                     <motion.span
-                       animate={{ x: [0, 4, 0] }}
-                       transition={{ repeat: Infinity, duration: 1.5 }}
-                     >
-                       <ArrowBigRight className="w-4 h-4" />
-                     </motion.span>
-                   </GradientButton>
-                    </Link>
+
+                  <div className="relative z-10 h-full bg-gradient-to-br  dark:via-[#120825] dark:to-[#1b0c2d]  dark:border-white/5 rounded-[2.4rem] overflow-hidden flex flex-col shadow-xl">
+                    {/* Background Bubbles */}
+                    <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+                      {[...Array(6)].map((_, i) => (
+                        <motion.div key={i} className="absolute w-1.5 h-1.5 rounded-full bg-amber-500/30" animate={{ opacity: [0.2, 0.7, 0.2], y: [0, -70, 0] }} transition={{ duration: 3 + i, repeat: Infinity }} style={{ left: `${15 * i + 10}%`, bottom: `5%` }} />
+                      ))}
+                    </div>
+
+                    <div className="relative w-full h-52 overflow-hidden z-10">
+                      <Image src={blogImage} alt={blog.title} width={500} height={500} className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" />
+                    </div>
+                    <div className="relative z-30 p-8 flex flex-col flex-grow">
+                      <h3 className="text-xl font-black text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-amber-500 transition-colors">
+                        {blog.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-6 font-medium leading-relaxed">
+                        {blog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 100)}...
+                      </p>
+                      <Link href={`/all-blogs/blog-details/${blog._id}`} className="mt-auto">
+                        <GradientButton
+                                           className="w-full h-12 rounded-xl text-sm font-black tracking-wide shadow-lg"
+                                         >
+                                           <span className="font-black tracking-wide">Read Full Story</span>
+                                           <motion.span
+                                             animate={{ x: [0, 4, 0] }}
+                                             transition={{ repeat: Infinity, duration: 1.5 }}
+                                           >
+                                             <ArrowBigRight className="w-5 h-5" />
+                                           </motion.span>
+                                         </GradientButton>
+                      </Link>
+                    </div>
                   </div>
                 </motion.div>
               );

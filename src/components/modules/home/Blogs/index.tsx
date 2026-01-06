@@ -70,24 +70,31 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
                 </div>
 
                 {/* --- Inner Card Content --- */}
-                <div className="relative z-10 h-full bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] border border-gray-200 dark:border-white/5 rounded-3xl overflow-hidden flex flex-col shadow-xl">
+                <div className="relative z-10 h-full bg-gradient-to-br  dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] border border-gray-200 dark:border-white/5 rounded-3xl overflow-hidden flex flex-col shadow-xl">
                   
                   {/* --- Background Bubbles --- */}
-                  <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
-                    {[...Array(8)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        className="absolute w-2 h-2 rounded-full bg-amber-500/30 dark:bg-yellow-500/20"
-                        animate={{ 
-                          opacity: [0.2, 0.6, 0.2], 
-                          y: [0, -60, 0],
-                          x: [0, (i % 2 === 0 ? 10 : -10), 0] 
-                        }}
-                        transition={{ duration: 4 + i, repeat: Infinity }}
-                        style={{ left: `${15 * i + 10}%`, bottom: `${10 + (i % 2) * 20}%` }}
-                      />
-                    ))}
-                  </div>
+              <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+                  {[...Array(8)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-2 h-2 rounded-full bg-amber-500/40 dark:bg-yellow-500/30"
+                      animate={{ 
+                        opacity: [0.3, 0.8, 0.3], 
+                        y: [0, -80, 0],
+                        x: [0, (i % 2 === 0 ? 15 : -15), 0] 
+                      }}
+                      transition={{ 
+                        duration: 3 + i, 
+                        repeat: Infinity, 
+                        ease: "easeInOut" 
+                      }}
+                      style={{ 
+                        left: `${12 * i + 5}%`, 
+                        bottom: `${5 + (i % 3) * 15}%` 
+                      }}
+                    />
+                  ))}
+                </div>
 
                   {/* Blog Banner Image */}
                   <div className="relative w-full h-52 overflow-hidden z-10">

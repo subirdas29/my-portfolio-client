@@ -66,7 +66,7 @@ const ProjectShowcase = ({ projects }: { projects: TProjects[] }) => {
               </div>
 
               {/* --- Inner Card Content --- */}
-              <div className="relative z-10 h-full bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] border border-gray-200 dark:border-white/5 rounded-3xl overflow-hidden flex flex-col shadow-xl">
+              <div className="relative z-10 h-full bg-gradient-to-br  dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] border border-gray-200 dark:border-white/5 rounded-3xl overflow-hidden flex flex-col shadow-xl">
                 
                 {/* --- Bubbles (Fixed Z-Index & Visibility) --- */}
                 <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">

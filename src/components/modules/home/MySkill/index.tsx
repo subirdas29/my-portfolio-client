@@ -87,7 +87,7 @@ const SkillsSection = ({ skills }: { skills: TSkill[] }) => {
                     {/* Hover Corner Accent (Visible in both) */}
                     <div className="absolute top-0 right-0 w-16 h-16 bg-amber-500/40 dark:bg-amber-500/20 rounded-bl-full translate-x-16 -translate-y-16 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-500 ease-out" />
                     
-                    <div className="relative z-10 w-16 h-16 mb-4 flex items-center justify-center bg-gray-50 dark:bg-white/5 rounded-2xl group-hover:rotate-6 transition-all duration-500 shadow-inner">
+                    <div className="relative z-10 w-16 h-16 mb-4 flex items-center justify-center bg-gray-100 rounded-2xl group-hover:rotate-6 transition-all duration-500 shadow-inner">
                       <Image
                         width={100}
                         height={100}

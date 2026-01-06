@@ -105,7 +105,12 @@ const AllProjects = ({ projects }: { projects: TProjects[] }) => {
                   {activeTab === tab && (
                     <motion.div
                       layoutId="projectActiveTab"
-                      className="absolute inset-0 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-600 shadow-lg shadow-yellow-500/20 hover:from-yellow-600 hover:to-amber-600"
+                      className={cn(
+      "absolute inset-0 rounded-lg",
+      "bg-gradient-to-r from-yellow-500 to-amber-500",
+      "hover:from-yellow-600 hover:to-amber-600",
+      "shadow-lg shadow-yellow-500/30"
+    )}
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
@@ -159,7 +164,7 @@ const AllProjects = ({ projects }: { projects: TProjects[] }) => {
                 </div>
 
                 {/* --- Inner Card Body (Banner Style) --- */}
-                <div className="relative z-10 h-full bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] border border-gray-200 dark:border-white/5 rounded-[2.4rem] overflow-hidden flex flex-col shadow-xl transition-all duration-300">
+                <div className="relative z-10 h-full bg-gradient-to-br  dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] border  rounded-[2.4rem] overflow-hidden flex flex-col shadow-xl transition-all duration-300">
                   
                   {/* Floating Bubbles */}
                   <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
@@ -202,19 +207,19 @@ const AllProjects = ({ projects }: { projects: TProjects[] }) => {
 
                     <div className="flex items-center gap-4 mt-auto">
                       <Link href={`/all-projects/projectDetails/${project._id}`} className="flex-1">
-                        <GradientButton
-                          className="w-full h-12 rounded-xl text-sm font-black shadow-lg"
-                          icon={<FolderSearch className="w-4 h-4" />}
-                        >
-                          Case Study
-                        </GradientButton>
+                            <GradientButton
+                                             className="w-full h-12 rounded-xl text-sm font-black tracking-wide shadow-lg"
+                                             icon={<FolderSearch className="w-4 h-4" />}
+                                           >
+                                             Case Study
+                                           </GradientButton>
                       </Link>
                       <GradientButton
-                        href={project.liveLink}
-                        target="_blank"
-                        className="w-12 h-12 rounded-xl flex items-center justify-center p-0 shadow-lg"
-                        icon={<FaExternalLinkAlt className="w-4 h-4" />}
-                      />
+                                          href={project.liveLink}
+                                          target="_blank"
+                                          className="w-12 h-12 rounded-xl flex items-center justify-center p-0"
+                                          icon={<FaExternalLinkAlt className="w-4 h-4" />}
+                                        />
                     </div>
                   </div>
                 </div>

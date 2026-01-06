@@ -10,8 +10,8 @@ import GradientButton from "@/utility/GradientButton";
 
 const roles = [
   "Full Stack Developer",
-  "MERN Stack Developer",
-  "Software Developer",
+  "Software Engineer",
+  "AI Agent & Automation Engineer"
 ];
 
 export default function Banner() {
@@ -89,7 +89,7 @@ export default function Banner() {
         />
       </div>
 
-      <div className="p-6 md:p-12 lg:p-16 w-full max-w-[1440px] relative z-10">
+      <div className="py-28 px-6 md:px-28 lg:px-40 w-full  relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           
           {/* Left Text Section */}
@@ -111,13 +111,13 @@ export default function Banner() {
             </motion.div>
 
             <motion.h1 
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
               Hi, I am{" "}
-              <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 dark:from-yellow-400 dark:via-yellow-500 dark:to-amber-500 text-transparent bg-clip-text drop-shadow-sm">
+              <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 dark:from-yellow-400 dark:via-yellow-500 dark:to-amber-500 text-transparent bg-clip-text ">
                 Subir Das
               </span>
             </motion.h1>
@@ -140,7 +140,7 @@ export default function Banner() {
             </motion.h2>
             
             <motion.p 
-              className="mt-4 text-gray-600 dark:text-gray-300 max-w-xl text-base lg:text-lg leading-relaxed"
+              className="mt-8 mb-10 text-gray-600 dark:text-gray-300 max-w-xl text-base lg:text-lg leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
@@ -151,7 +151,7 @@ export default function Banner() {
             
             {/* CTA Buttons */}
             <motion.div 
-              className="mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
+              className=" flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
@@ -159,6 +159,7 @@ export default function Banner() {
             <GradientButton
   href="/resume/Software_Engineer_Resume_of_Subir.pdf"
   download="Subir_Das_Resume.pdf"
+  className="px-8 py-3 md:py-4"
   icon={<Download className="w-5 h-5" />}
 >
   Download CV
@@ -166,7 +167,7 @@ export default function Banner() {
 
               <Link
                 href="/contact"
-                className="px-8 py-4 border-2 border-yellow-500/50 dark:border-yellow-400/30 hover:border-yellow-500 dark:hover:border-yellow-400/50 text-yellow-700 dark:text-yellow-300 font-semibold rounded-lg transition-all duration-300 inline-flex items-center justify-center backdrop-blur-sm hover:bg-yellow-500/10"
+                className="px-8 py-3 md:py-4 border-2 border-yellow-500/50 dark:border-yellow-400/30 hover:border-yellow-500 dark:hover:border-yellow-400/50 text-yellow-700 dark:text-yellow-300 font-semibold rounded-lg transition-all duration-300 inline-flex items-center justify-center backdrop-blur-sm hover:bg-yellow-500/10"
               
               >
                 Let's Talk
@@ -175,119 +176,99 @@ export default function Banner() {
           </motion.div>
 
           {/* Right Image Section */}
-          <motion.div 
-            className="lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0"
-            initial={{ opacity: 0, x: 60 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          >
-            <div className="relative flex items-center justify-center">
-              
-              {/* Outer Glow */}
-              <div className="absolute w-[320px] h-[320px] lg:w-[480px] lg:h-[480px] rounded-full bg-gradient-to-br from-yellow-400/20 to-amber-500/20 dark:from-yellow-500/10 dark:to-amber-600/10 blur-2xl" />
-              
-              {/* Outermost Ring */}
-              {/* <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
-                className="absolute w-[300px] h-[300px] lg:w-[450px] lg:h-[450px] rounded-full border border-yellow-400/90 dark:border-yellow-500/20"
-              >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-yellow-400/60 rounded-full" />
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-3 h-3 bg-amber-400/60 rounded-full" />
-              </motion.div> */}
-
-              {/* Outer Rotating Circle */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
-                className="absolute w-[260px] h-[260px] lg:w-[390px] lg:h-[390px] border-2 border-yellow-500 dark:border-yellow-400 rounded-full"
-                style={{
-                  boxShadow: "0 0 30px rgba(234, 179, 8, 0.3), inset 0 0 30px rgba(234, 179, 8, 0.1)"
-                }}
-              >
-                <motion.div
-                  animate={{ scale: [1, 1.4, 1] }}
-                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                  className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full shadow-lg shadow-yellow-500/50"
-                />
-                <motion.div
-                  animate={{ scale: [1, 1.3, 1] }}
-                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut", delay: 0.7 }}
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full shadow-lg shadow-yellow-500/50"
-                />
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut", delay: 1.4 }}
-                  className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 lg:w-5 lg:h-5 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full shadow-lg shadow-yellow-500/50"
-                />
-                <motion.div
-                  animate={{ scale: [1, 1.3, 1] }}
-                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut", delay: 0.3 }}
-                  className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 w-4 h-4 lg:w-5 lg:h-5 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full shadow-lg shadow-yellow-500/50"
-                />
-              </motion.div>
-
-              {/* Inner Counter-Rotating Ring */}
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-                className="absolute w-[220px] h-[220px] lg:w-[330px] lg:h-[330px] border border-yellow-500 dark:border-yellow-500/30 rounded-full border-dashed"
-              >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-yellow-500/80 rounded-full" />
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-yellow-500/80 rounded-full" />
-              </motion.div>
-
-              {/* Profile Image Container */}
-              <motion.div
-                className="relative w-44 h-44 lg:w-64 lg:h-64 rounded-full overflow-hidden"
-               
-                style={{
-                  boxShadow: "0 0 0 4px #EAB308, 0 0 40px rgba(234, 179, 8, 0.4), 0 20px 60px rgba(0, 0, 0, 0.3)"
-                }}
-              >
-               <motion.div
-  className="relative w-44 h-44 lg:w-64 lg:h-64 rounded-full overflow-hidden"
-  style={{
-    boxShadow:
-      "0 0 0 4px #EAB308, 0 0 40px rgba(234, 179, 8, 0.4), 0 20px 60px rgba(0, 0, 0, 0.3)",
-  }}
+         <motion.div 
+  className="lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0"
+  initial={{ opacity: 0, x: 60 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
 >
-  <Image
-    src={dp}
-    alt="Subir Das"
-    fill
-    className="object-cover"
-    priority
-  />
-</motion.div>
-
-              </motion.div>
-
-             
-          <motion.div
-  className={cn(
-    "absolute -bottom-2 -left-2 lg:-bottom-6 lg:-left-6",
-    "w-10 h-10 lg:w-14 lg:h-14 rounded-full",
-    "flex items-center justify-center backdrop-blur-md border transition-colors",
+  <div className="relative flex items-center justify-center">
+    
  
-    "bg-amber-400/20 dark:bg-gradient-to-br dark:from-amber-400/30 dark:to-orange-500/30",
-    "border-amber-500/50 dark:border-amber-400/40 shadow-lg shadow-amber-500/10"
-  )}
-  animate={{ 
-    y: [0, -15, 0], 
-    scale: [1, 1.1, 1],
-    rotate: [0, 5, -5, 0] 
-  }}
-  transition={{ repeat: Infinity, duration: 4, delay: 1, ease: "easeInOut" }}
->
-  <Sparkles
-    className="w-5 h-5 lg:w-7 lg:h-7 text-amber-600 dark:text-amber-400" 
-    strokeWidth={2.5}
-  />
+    <div className="absolute w-[320px] h-[320px] lg:w-[600px] lg:h-[600px] rounded-full bg-gradient-to-br from-yellow-400/20 to-amber-500/20 dark:from-yellow-500/10 dark:to-amber-600/10 blur-3xl" />
+    
+  
+    <motion.div
+      animate={{ rotate: 360 }}
+      transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+      className="absolute w-[260px] h-[260px] lg:w-[500px] lg:h-[500px] border-2 border-yellow-500 dark:border-yellow-400 rounded-full"
+      style={{
+        boxShadow: "0 0 30px rgba(234, 179, 8, 0.3), inset 0 0 30px rgba(234, 179, 8, 0.1)"
+      }}
+    >
+  
+      <motion.div
+        animate={{ scale: [1, 1.4, 1] }}
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 lg:w-8 lg:h-8 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full shadow-lg shadow-yellow-500/50"
+      />
+      <motion.div
+        animate={{ scale: [1, 1.3, 1] }}
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut", delay: 0.7 }}
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-5 h-5 lg:w-8 lg:h-8 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full shadow-lg shadow-yellow-500/50"
+      />
+      <motion.div
+        animate={{ scale: [1, 1.2, 1] }}
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut", delay: 1.4 }}
+        className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 lg:w-6 lg:h-6 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full shadow-lg shadow-yellow-500/50"
+      />
+      <motion.div
+        animate={{ scale: [1, 1.3, 1] }}
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut", delay: 0.3 }}
+        className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 w-4 h-4 lg:w-6 lg:h-6 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full shadow-lg shadow-yellow-500/50"
+      />
+    </motion.div>
+
+   
+    <motion.div
+      animate={{ rotate: -360 }}
+      transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+      className="absolute w-[220px] h-[220px] lg:w-[420px] lg:h-[420px] border border-yellow-500 dark:border-yellow-500/30 rounded-full border-dashed"
+    >
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 lg:w-4 lg:h-4 bg-yellow-500/80 rounded-full" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 lg:w-4 lg:h-4 bg-yellow-500/80 rounded-full" />
+    </motion.div>
+
+    
+    <motion.div
+      className="relative w-44 h-44 lg:w-80 lg:h-80 rounded-full overflow-hidden z-10"
+      style={{
+        boxShadow: "0 0 0 4px #EAB308, 0 0 40px rgba(234, 179, 8, 0.4), 0 20px 60px rgba(0, 0, 0, 0.3)"
+      }}
+    >
+      <Image
+        src={dp}
+        alt="Subir Das"
+        fill
+        className="object-cover scale-110" 
+        priority
+      />
+    </motion.div>
+
+ 
+    <motion.div
+      className={cn(
+        "absolute -bottom-2 -left-2 lg:-bottom-2 lg:-left-2", 
+        "w-10 h-10 lg:w-16 lg:h-16 rounded-full z-20",
+        "flex items-center justify-center backdrop-blur-md border transition-colors",
+        "bg-amber-400/20 dark:bg-gradient-to-br dark:from-amber-400/30 dark:to-orange-500/30",
+        "border-amber-500/50 dark:border-amber-400/40 shadow-lg shadow-amber-500/10"
+      )}
+      animate={{ 
+        y: [0, -15, 0], 
+        scale: [1, 1.1, 1],
+        rotate: [0, 5, -5, 0] 
+      }}
+      transition={{ repeat: Infinity, duration: 4, delay: 1, ease: "easeInOut" }}
+    >
+      <Sparkles
+        className="w-5 h-5 lg:w-9 lg:h-9 text-amber-600 dark:text-amber-400" 
+        strokeWidth={2.5}
+      />
+    </motion.div>
+    
+  </div>
 </motion.div>
-           
-            </div>
-          </motion.div>
         </div>
       </div>
 

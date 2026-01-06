@@ -34,15 +34,54 @@ const ContactSection = ({ className }: { className?: string }) => {
 
   return (
     <div className="bg-white dark:bg-[#0a0219]">
-      {/* --- Banner Section --- */}
+      {/* --- Updated Banner Section (Synced with AllBlogs style) --- */}
       {isContactPage && (
-        <section className="relative flex flex-col items-center justify-center min-h-[400px] bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] overflow-hidden">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="relative z-10 text-center px-4">
-            <h1 className="text-5xl md:text-7xl font-black text-gray-900 dark:text-white tracking-tighter">
-              Contact <span className="text-amber-500">Me</span>
+        <section className="relative flex flex-col items-center justify-center min-h-[450px] bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] text-gray-900 dark:text-white overflow-hidden">
+          {/* Animated Background Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(10)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0.2, 0.8, 0.2], y: [0, -100, 0], x: [0, Math.random() * 40 - 20, 0] }}
+                transition={{ duration: 5 + i * 0.5, repeat: Infinity, delay: i * 0.4 }}
+                style={{ left: `${10 + i * 9}%`, top: `${40 + (i % 3) * 15}%` }}
+              />
+            ))}
+            {/* Glow Orbs */}
+            <motion.div 
+              className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full bg-yellow-400/20 dark:bg-yellow-500/10 blur-[90px]" 
+              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }} 
+              transition={{ duration: 8, repeat: Infinity }} 
+            />
+            <motion.div 
+              className="absolute -bottom-24 -left-24 w-[350px] h-[350px] rounded-full bg-amber-400/20 dark:bg-purple-500/10 blur-[80px]" 
+              animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }} 
+              transition={{ duration: 10, repeat: Infinity, delay: 2 }} 
+            />
+          </div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.6 }} 
+            className="relative z-10 text-center px-4"
+          >
+            <motion.div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 dark:bg-yellow-400/10 border border-yellow-500/30 dark:border-yellow-400/20 mb-6 ">
+              <Sparkles className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
+              <span className="text-xs md:text-sm font-bold text-yellow-700 dark:text-yellow-300 uppercase tracking-wider">Get In Touch</span>
+            </motion.div>
+            <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-4">
+              Contact <span className="bg-gradient-to-r from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-amber-500 text-transparent bg-clip-text">Me</span>
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-4 text-lg font-medium">Let's build something extraordinary together.</p>
+            <p className="mt-2 text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-medium">
+              Let's build something extraordinary together. I'm always open to discussing new projects.
+            </p>
           </motion.div>
+          
+          {/* Bottom Fade Gradient */}
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-[#0a0219] to-transparent" />
         </section>
       )}
 
@@ -54,9 +93,9 @@ const ContactSection = ({ className }: { className?: string }) => {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="group relative rounded-[2.5rem] overflow-hidden shadow-xl transition-all duration-500 hover:shadow-amber-500/20"
+            className="group relative rounded-[2.5rem] overflow-hidden shadow-xl transition-all duration-500 "
           >
-            {/* --- Running Line (Only animates on Group Hover) --- */}
+            {/* Running Border Animation */}
             <div className="absolute inset-0 z-0">
                <svg className="w-full h-full" preserveAspectRatio="none">
                   <rect
@@ -71,15 +110,11 @@ const ContactSection = ({ className }: { className?: string }) => {
                     strokeDasharray="20 80"
                     strokeLinecap="round"
                   >
-                    {/* SVG animation triggered via CSS classes isn't ideal, 
-                        so we use a CSS animation or simply keep it running but hidden.
-                        Here, it starts animating only on hover by controlling 'begin' or 'dur' logic, 
-                        but the simplest way is to keep it rotating and show it on hover. */}
                     <animate
                       attributeName="stroke-dashoffset"
                       from="100"
                       to="0"
-                      dur="8s" // Speed slowed down (Higher is slower)
+                      dur="10s"
                       repeatCount="indefinite"
                     />
                   </rect>
@@ -87,26 +122,40 @@ const ContactSection = ({ className }: { className?: string }) => {
             </div>
 
             {/* --- Inner Content Card --- */}
-            <div className="relative z-10 m-[3px] grid grid-cols-1 md:grid-cols-2 rounded-[2.4rem] bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] overflow-hidden border border-gray-200/20 dark:border-white/5">
+            <div className="relative z-10 m-[3px] grid grid-cols-1 md:grid-cols-2 rounded-[2.4rem] bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] overflow-hidden border border-gray-200/20 dark:border-white/5 shadow-2xl">
               
+              {/* Background Bubbles (Inside Card) */}
+              <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+                {[...Array(12)].map((_, i) => (
+                   <motion.div
+                key={i}
+                className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0.2, 0.8, 0.2], y: [0, -100, 0], x: [0, Math.random() * 40 - 20, 0] }}
+                transition={{ duration: 5 + i * 0.5, repeat: Infinity, delay: i * 0.4 }}
+                style={{ left: `${10 + i * 9}%`, top: `${40 + (i % 3) * 15}%` }}
+              />
+                ))}
+              </div>
+
               {/* Left Side: Info */}
-              <div className="flex flex-col justify-center p-10 lg:p-16 space-y-10 relative">
-                <div className="relative z-20">
+              <div className="flex flex-col justify-center p-10 lg:p-16 space-y-10 relative z-10">
+                <div>
                   <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-4">
                     Get Ready To <br />
-                    <span className="bg-gradient-to-r from-yellow-600 to-orange-600 text-transparent bg-clip-text">Create Something</span> Great
+                          <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 dark:from-yellow-400 dark:via-yellow-500 dark:to-amber-500 text-transparent bg-clip-text ">Create Something</span> Great
                   </h2>
                   <div className="h-1.5 w-20 bg-amber-500 rounded-full" />
                 </div>
 
-                <div className="space-y-6 relative z-20">
+                <div className="space-y-6">
                   {[
                     { icon: <Mail />, label: "Email Me", val: "subirdas1045@gmail.com" },
-                    { icon: <House />, label: "Office", val: "Akbarshah, Pahartali, Chattogram" },
+                    { icon: <House />, label: "Address", val: "Akbarshah, Pahartali, Chattogram" },
                     { icon: <Phone />, label: "Call Me", val: "+8801689586905" }
                   ].map((item, i) => (
                     <motion.div key={i} whileHover={{ x: 10 }} className="flex items-center gap-5 group/item cursor-default">
-                      <div className="p-4 rounded-2xl bg-white dark:bg-white/5 text-amber-500 border border-amber-500/20 shadow-sm transition-colors group-hover/item:bg-amber-500 group-hover/item:text-white">
+                      <div className="p-4 rounded-lg bg-white dark:bg-white/10 text-amber-500 border border-amber-500/20 shadow-sm transition-colors group-hover/item:bg-amber-500 group-hover/item:text-white">
                         {item.icon}
                       </div>
                       <div>

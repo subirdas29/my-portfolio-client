@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 
 import fiverrLight from '../../assets/icon/fiverr-white.webp';
 import upworkLight from '../../assets/icon/upwork.webp';
+import logo from '../../assets/logo/sd-logo.webp';
+
 
 const Footer = () => {
   return (
@@ -61,9 +63,21 @@ const Footer = () => {
               whileInView={{ opacity: 1, x: 0 }}
               className="flex items-center gap-2"
             >
-              <span className="text-4xl font-black bg-gradient-to-r from-yellow-600 via-amber-500 to-orange-600 dark:from-yellow-400 dark:via-yellow-500 dark:to-amber-500 text-transparent bg-clip-text">
-                Subir Das
-              </span>
+                   <div className="flex ">
+         <Link href="/" className="flex items-center gap-2 ">
+           <Image
+            src={logo}
+          width={100}
+          height={100}
+            alt="My logo"
+            className="w-10 h-10"
+            />
+       <span className="text-3xl font-black bg-gradient-to-r from-yellow-600 via-amber-500 to-orange-600 dark:from-yellow-400 dark:via-yellow-500 dark:to-amber-500 text-transparent bg-clip-text">
+         
+            Subir Das
+          </span>
+        </Link>
+       </div>
             </motion.div>
             <p className="text-gray-700 dark:text-gray-300 text-[15px] leading-relaxed max-w-sm font-medium">
               I’m a passionate web developer solving complex UX problems. Creating integrity-focused solutions that connect people worldwide.
@@ -140,8 +154,11 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="space-y-6 md:pl-8">
-            <h3 className="flex items-center gap-2 font-bold uppercase text-xs tracking-[0.2em] text-amber-700 dark:text-amber-500">
-              <Sparkles className="w-4 h-4" /> Navigation
+            <h3 
+              className="flex items-center gap-2 font-bold uppercase text-sm tracking-[0.2em] bg-gradient-to-r from-yellow-600 via-amber-500 to-orange-600 dark:from-yellow-400 dark:via-yellow-500 dark:to-amber-500 text-transparent bg-clip-text">
+
+            
+               Navigation
             </h3>
             <ul className="space-y-4 text-gray-700 dark:text-gray-400 font-semibold text-sm">
               <li><Link href="#" className="hover:text-amber-600 dark:hover:text-amber-500 transition-colors">Home</Link></li>
@@ -153,22 +170,27 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div className="space-y-6">
-            <h3 className="font-bold uppercase text-xs tracking-[0.2em] text-amber-700 dark:text-amber-500">Contact Info</h3>
+             <h3 
+            className="flex items-center gap-2 font-bold uppercase text-sm tracking-[0.2em] bg-gradient-to-r from-yellow-600 via-amber-500 to-orange-600 dark:from-yellow-400 dark:via-yellow-500 dark:to-amber-500 text-transparent bg-clip-text">
+
+            
+               Contact Info
+            </h3>
             <div className="space-y-5 text-gray-700 dark:text-gray-400 font-medium text-sm">
               <div className="flex items-center gap-4 group">
-                <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-700 dark:text-amber-500 border border-amber-500/20">
+                   <div className="p-2.5 rounded-lg bg-white dark:bg-white/10 text-amber-500 border border-amber-500/20 shadow-sm transition-colors group-hover/item:bg-amber-500 group-hover/item:text-white">
                    <MapPin className="w-4 h-4" />
                 </div>
                 <span className="group-hover:text-gray-900 dark:group-hover:text-white transition-colors">Akbarshah, Pahartali, Chattogram</span>
               </div>
               <div className="flex items-center gap-4 group">
-                <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-700 dark:text-amber-500 border border-amber-500/20">
+                 <div className="p-2.5 rounded-lg bg-white dark:bg-white/10 text-amber-500 border border-amber-500/20 shadow-sm transition-colors group-hover/item:bg-amber-500 group-hover/item:text-white">
                    <Phone className="w-4 h-4" />
                 </div>
                 <span className="group-hover:text-gray-900 dark:group-hover:text-white transition-colors">+8801689586905</span>
               </div>
               <div className="flex items-center gap-4 group">
-                <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-700 dark:text-amber-500 border border-amber-500/20">
+                   <div className="p-2.5 rounded-lg bg-white dark:bg-white/10 text-amber-500 border border-amber-500/20 shadow-sm transition-colors group-hover/item:bg-amber-500 group-hover/item:text-white">
                    <Mail className="w-4 h-4" />
                 </div>
                 <span className="group-hover:text-gray-900 dark:group-hover:text-white transition-colors">subirdas1045@gmail.com</span>
