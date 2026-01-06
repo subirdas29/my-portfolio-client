@@ -41,10 +41,10 @@ export default function Banner() {
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Floating Particles */}
-        {[...Array(12)].map((_, i) => (
+        {[...Array(16)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 rounded-full bg-yellow-400/40 dark:bg-yellow-500/30"
+          className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40"
             initial={{ opacity: 0 }}
             animate={{
               opacity: [0.2, 0.8, 0.2],

@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
 interface GradientButtonProps {
-  children: ReactNode;
+  children?: ReactNode;
   href?: string;
   download?: string;
   className?: string;
