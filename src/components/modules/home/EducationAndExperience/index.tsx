@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Briefcase, GraduationCap } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const experience = [
   {
@@ -66,22 +67,31 @@ const ExperienceEducationSection = () => {
             </div>
 
             {/* Tab Switcher */}
-            <div className="flex p-1.5 bg-gray-100 dark:bg-gray-900/50 rounded-2xl border border-gray-200 dark:border-gray-700 w-fit">
+            <div className="flex p-1.5 bg-gray-100 dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-700 w-fit">
               {['experience', 'education'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`relative px-6 md:px-8 py-2.5 text-sm font-bold transition-colors duration-300 capitalize z-10 ${
-                    activeTab === tab ? 'text-white' : 'text-gray-600 dark:text-gray-400'
-                  }`}
+                 className={`relative px-6 md:px-8 py-3 text-sm font-bold transition-colors duration-300 capitalize cursor-pointer z-10 ${
+  activeTab === tab
+    ? "text-white dark:text-black"
+    : "text-gray-600 dark:text-gray-400"
+}`}
+
                 >
-                  {activeTab === tab && (
-                    <motion.div
-                      layoutId="activeTab"
-                      className="absolute inset-0 bg-yellow-600 rounded-xl shadow-md"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
+               {activeTab === tab && (
+  <motion.div
+    layoutId="activeTab"
+    className={cn(
+      "absolute inset-0 rounded-lg",
+      "bg-gradient-to-r from-yellow-500 to-amber-500",
+      "hover:from-yellow-600 hover:to-amber-600",
+      "shadow-lg shadow-yellow-500/30"
+    )}
+    transition={{ type: "spring", bounce: 0.25, duration: 0.6 }}
+  />
+)}
+
                   <span className="relative z-20">{tab}</span>
                 </button>
               ))}

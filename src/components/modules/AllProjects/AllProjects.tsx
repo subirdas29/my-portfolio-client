@@ -6,6 +6,8 @@ import { TProjects } from "@/types/projects";
 import Link from "next/link";
 import { FolderSearch } from "lucide-react";
 import { FaExternalLinkAlt } from "react-icons/fa";
+import { cn } from "@/lib/utils";
+import GradientButton from "@/utility/GradientButton";
 
 const AllProjects = ({ projects }: { projects: TProjects[] }) => {
   const [activeTab, setActiveTab] = useState("Full-Stack");
@@ -35,23 +37,40 @@ const AllProjects = ({ projects }: { projects: TProjects[] }) => {
 
       {/* Project Section */}
       <section className="py-20 bg-white dark:bg-[#0a0219] transition-colors duration-300 w-full">
-        <div className="mx-4 md:mx-8 lg:mx-16 px-6">
+        <div className="page-container">
           {/* Tab System */}
-          <div className="flex justify-center gap-4 mb-12">
-            {["Full-Stack", "Front-End"].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-6 py-3 rounded-full font-semibold transition-colors duration-300 ${
-                  activeTab === tab
-                    ? "bg-primary dark:text-black text-white"
-                    : "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
+        <div className="flex justify-center mb-12">
+  <div className="relative flex p-1.5 rounded-lg bg-gray-100 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700">
+    {["Full-Stack", "Front-End"].map((tab) => (
+      <button
+        key={tab}
+        onClick={() => setActiveTab(tab)}
+        className={cn(
+          "relative px-6 md:px-8 py-3 cursor-pointer text-sm md:text-base font-bold z-10 transition-colors duration-300",
+          activeTab === tab
+            ? "text-white dark:text-black"
+            : "text-gray-600 dark:text-gray-400"
+        )}
+      >
+        {activeTab === tab && (
+          <motion.div
+            layoutId="projectActiveTab"
+            className={cn(
+              "absolute inset-0 rounded-lg",
+              "bg-gradient-to-r from-yellow-500 to-amber-500",
+              "hover:from-yellow-600 hover:to-amber-600",
+              "shadow-lg shadow-yellow-500/30"
+            )}
+            transition={{ type: "spring", bounce: 0.25, duration: 0.6 }}
+          />
+        )}
+
+        <span className="relative z-20">{tab}</span>
+      </button>
+    ))}
+  </div>
+</div>
+
 
           {/* Tab Content */}
           <motion.div
@@ -68,7 +87,7 @@ const AllProjects = ({ projects }: { projects: TProjects[] }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.2, delay: index * 0.2 }}
                 whileHover={{ scale: 1.05, borderColor: "#facc15" }}
-                className="bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 hover:border-primary hover:border-2 border-transparent"
+                className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 hover:border-primary hover:border-2 border-transparent"
               >
                 {/* Project Image */}
                 <div className="w-full h-48 overflow-hidden ">
@@ -96,20 +115,21 @@ const AllProjects = ({ projects }: { projects: TProjects[] }) => {
                  {/* Details Button */}
              <div className='flex justify-evenly gap-2'>
              <Link href={`/all-projects/projectDetails/${project._id}`}>
-              <button className=" w-24 h-10 lg:w-32 lg:h-12 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 duration-300  flex justify-center items-center cursor-pointer">
-              <FolderSearch className="mr-2" />
-            <span>  Details </span>
-                </button>
+             <GradientButton
+               className="w-24 h-10 lg:w-32 lg:h-12 rounded-lg px-4 py-2 cursor-pointer"
+               icon={<FolderSearch className="w-4 h-4" />}
+             >
+               Details
+             </GradientButton>
               </Link>
-            <a
-                        href={project.liveLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center w-24 h-10 lg:w-32 lg:h-12 text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 bg-primary transition duration-300"
-                      >
-                        <FaExternalLinkAlt className="mr-2" />
-                        Live
-                      </a>
+            <GradientButton
+            href={project.liveLink}
+            target="_blank"
+            className="w-24 h-10 lg:w-32 lg:h-12 rounded-lg px-4 py-2"
+            icon={<FaExternalLinkAlt className="w-4 h-4" />}
+          >
+            Live
+          </GradientButton>
              </div>
              </div>
               </motion.div>

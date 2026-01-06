@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import { Download, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import dp from "../../../../assets/banner/profileImage/Subir_Das.png"
+import Image from "next/image";
+import GradientButton from "@/utility/GradientButton";
 
 const roles = [
   "Full Stack Developer",
@@ -153,20 +156,17 @@ export default function Banner() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              <motion.a
-                href="/resume/Software_Engineer_Resume_of_Subir.pdf"
-                download="Subir_Das_Resume.pdf"
-                className="group relative px-8 py-4 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white dark:text-black font-semibold rounded-2xl transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg shadow-yellow-500/25 hover:shadow-xl hover:shadow-yellow-500/30 overflow-hidden"
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity " />
-                <Download className="w-5 h-5" />
-                Download CV
-              </motion.a>
+            <GradientButton
+  href="/resume/Software_Engineer_Resume_of_Subir.pdf"
+  download="Subir_Das_Resume.pdf"
+  icon={<Download className="w-5 h-5" />}
+>
+  Download CV
+</GradientButton>
+
               <Link
                 href="/contact"
-                className="px-8 py-4 border-2 border-yellow-500/50 dark:border-yellow-400/30 hover:border-yellow-500 dark:hover:border-yellow-400/50 text-yellow-700 dark:text-yellow-300 font-semibold rounded-2xl transition-all duration-300 inline-flex items-center justify-center backdrop-blur-sm hover:bg-yellow-500/10"
+                className="px-8 py-4 border-2 border-yellow-500/50 dark:border-yellow-400/30 hover:border-yellow-500 dark:hover:border-yellow-400/50 text-yellow-700 dark:text-yellow-300 font-semibold rounded-lg transition-all duration-300 inline-flex items-center justify-center backdrop-blur-sm hover:bg-yellow-500/10"
               
               >
                 Let's Talk
@@ -245,11 +245,22 @@ export default function Banner() {
                   boxShadow: "0 0 0 4px #EAB308, 0 0 40px rgba(234, 179, 8, 0.4), 0 20px 60px rgba(0, 0, 0, 0.3)"
                 }}
               >
-                <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop&crop=face&q=100"
-                  alt="Subir Das"
-                  className="w-full h-full object-cover"
-                />
+               <motion.div
+  className="relative w-44 h-44 lg:w-64 lg:h-64 rounded-full overflow-hidden"
+  style={{
+    boxShadow:
+      "0 0 0 4px #EAB308, 0 0 40px rgba(234, 179, 8, 0.4), 0 20px 60px rgba(0, 0, 0, 0.3)",
+  }}
+>
+  <Image
+    src={dp}
+    alt="Subir Das"
+    fill
+    className="object-cover"
+    priority
+  />
+</motion.div>
+
               </motion.div>
 
              

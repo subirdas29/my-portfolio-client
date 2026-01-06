@@ -1,6 +1,7 @@
 "use client"
 
 import { TProjects } from '@/types/projects';
+import GradientButton from '@/utility/GradientButton';
 import { motion } from 'framer-motion';
 import { FolderSearch } from 'lucide-react';
 import Image from 'next/image';
@@ -16,7 +17,7 @@ const ProjectShowcase = ({projects}:{projects:TProjects[]}) => {
   
   return (
     <section className="py-16 lg:py-20 bg-white dark:bg-[#0a0219] transition-colors duration-300">
-      <div className=" px-6  mx-4 md:mx-8 lg:mx-16">
+      <div className="page-container">
         {/* Section Title */}
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
@@ -63,21 +64,24 @@ const ProjectShowcase = ({projects}:{projects:TProjects[]}) => {
 
                 {/* Details Button */}
              <div className='flex justify-evenly gap-2'>
-             <Link href={`/all-projects/projectDetails/${project._id}`}>
-              <button className=" w-24 h-10 lg:w-32 lg:h-12 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 duration-300  flex justify-center items-center cursor-pointer">
-              <FolderSearch className="mr-2" />
-            <span>  Details </span>
-                </button>
-              </Link>
-            <a
-                        href={project.liveLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center w-24 h-10 lg:w-32 lg:h-12 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 transition duration-300"
-                      >
-                        <FaExternalLinkAlt className="mr-2" />
-                        Live
-                      </a>
+           <Link href={`/all-projects/projectDetails/${project._id}`}>
+  <GradientButton
+    className="w-24 h-10 lg:w-32 lg:h-12 rounded-lg px-4 py-2 cursor-pointer"
+    icon={<FolderSearch className="w-4 h-4" />}
+  >
+    Details
+  </GradientButton>
+</Link>
+
+           <GradientButton
+  href={project.liveLink}
+  target="_blank"
+  className="w-24 h-10 lg:w-32 lg:h-12 rounded-lg px-4 py-2"
+  icon={<FaExternalLinkAlt className="w-4 h-4" />}
+>
+  Live
+</GradientButton>
+
              </div>
               </div>
             </motion.div>
@@ -85,9 +89,12 @@ const ProjectShowcase = ({projects}:{projects:TProjects[]}) => {
         </div>
         <div className='flex justify-center my-10'>
         <Link href="/all-projects">
-        <button className="px-8 py-3 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 transition-colors duration-300 cursor-pointer">
+         <GradientButton
+    className=" px-8 py-4 cursor-pointer"
+ 
+  >
                   All Projects
-                </button>
+                </GradientButton>
                 </Link>
         </div>
       </div>

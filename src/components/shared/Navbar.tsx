@@ -38,8 +38,8 @@ export function Navbar() {
     >
       <div
         className={cn(
-          "mx-auto transition-all duration-500 ease-in-out flex items-center justify-between",
-          "max-w-7xl w-[92%] md:w-[85%]",
+          " transition-all duration-500 ease-in-out flex items-center justify-between",
+          "page-container",
           scrolled ? 
             "bg-white/80 dark:bg-gray-950/50 backdrop-blur-xl border border-white/20 dark:border-gray-800/50 shadow-lg px-6 py-4 rounded-[5rem]" : 
             "bg-transparent px-2 py-2 rounded-none border-transparent"
@@ -48,7 +48,7 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 ">
           <span className={cn(
-            "text-3xl text-yellow-600 dark:text-yellow-400 font-black tracking-tighter transition-colors ",
+            "text-4xl text-yellow-600 dark:text-yellow-400 font-black tracking-tighter transition-colors ",
             
           )}>
             Subir Das
@@ -117,7 +117,7 @@ export function Navbar() {
                       key={route.href}
                       href={route.href}
                       className={cn(
-                        "text-3xl font-bold tracking-tight transition-colors",
+                        "text-xl font-bold tracking-tight transition-colors",
                         pathname === route.href ? "text-yellow-500" : "text-gray-400 dark:text-gray-500 hover:text-black dark:hover:text-white"
                       )}
                     >

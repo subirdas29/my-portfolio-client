@@ -8,7 +8,8 @@ import Link from 'next/link';
 import fiverrLight from '../../../../assets/icon/fiverr-white.webp';
 import upworkLight from '../../../../assets/icon/upwork.webp';
 
-import { FiverrIcon, UpworkIcon } from '@/components/icons/SocialIcons';
+
+import GradientButton from '@/utility/GradientButton';
 
 const AboutMe = () => {
   // Detailed Competencies including n8n and AI Agents
@@ -44,7 +45,7 @@ const AboutMe = () => {
         <div className="absolute bottom-[10%] right-[0%] w-[30%] h-[30%] rounded-full bg-blue-500/10 blur-[120px]" />
       </div>
 
-      <div className="px-6 md:px-16 lg:px-32">
+      <div className="page-container">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           
           {/* Left: Professional Image with Static Fade-in Card */}
@@ -127,19 +128,17 @@ const AboutMe = () => {
             {/* Final Actions & Socials */}
             <div className="flex flex-col gap-8 pt-4">
               <div className="flex flex-wrap items-center gap-4">
-                  <a
-                href="/resume/Software_Engineer_Resume_of_Subir.pdf"
-                download="Subir_Das_Resume.pdf"
-                className="group relative px-8 py-4 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white dark:text-black font-semibold rounded-2xl transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-lg shadow-yellow-500/25 hover:shadow-xl hover:shadow-yellow-500/30 overflow-hidden"
-               
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity " />
-                <Download className="w-5 h-5" />
-                Download CV
-              </a>
+                <GradientButton
+  href="/resume/Software_Engineer_Resume_of_Subir.pdf"
+  download="Subir_Das_Resume.pdf"
+  icon={<Download className="w-5 h-5" />}
+>
+  Download CV
+</GradientButton>
+
                   <Link
                 href="/contact"
-                className="px-8 py-4 border-2 border-yellow-500/50 dark:border-yellow-400/30 hover:border-yellow-500 dark:hover:border-yellow-400/50 text-yellow-700 dark:text-yellow-300 font-semibold rounded-2xl transition-all duration-300 inline-flex items-center justify-center backdrop-blur-sm hover:bg-yellow-500/10"
+                className="px-8 py-4 border-2 border-yellow-500/50 dark:border-yellow-400/30 hover:border-yellow-500 dark:hover:border-yellow-400/50 text-yellow-700 dark:text-yellow-300 font-semibold rounded-lg transition-all duration-300 inline-flex items-center justify-center backdrop-blur-sm hover:bg-yellow-500/10"
               
               >
                 Hire me
@@ -198,7 +197,7 @@ const AboutMe = () => {
 
     
   <a
-  href="https://www.fiverr.com/s/YR8eP7z"
+  href="https://www.upwork.com/freelancers/~01ac68ecfaf5ac96f9?mp_source=share"
   target="_blank"
   aria-label="Upwork"
   className="transition-colors p-2 bg-slate-300/40 hover:bg-slate-200  dark:bg-white/10 rounded-full dark:hover:bg-white/20"

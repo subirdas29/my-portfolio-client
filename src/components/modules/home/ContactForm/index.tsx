@@ -9,9 +9,12 @@ import { toast } from "sonner";
 import { TContact } from "@/types/contact";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import GradientButton from "@/utility/GradientButton";
 
-
-const ContactSection = () => {
+interface ContactSectionProps {
+  className?: string;
+}
+const ContactSection = ({ className }: ContactSectionProps) => {
   const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm<TContact>();
 
   const onSubmit: SubmitHandler<TContact> = async (data) => {
@@ -34,8 +37,13 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="py-16 lg:py-20  bg-white dark:bg-[#0a0219] transition-colors duration-300">
-      <div className="mx-4 md:mx-8 lg:mx-16 px-6">
+<section
+  className={`bg-white dark:bg-[#0a0219] transition-colors duration-300 ${
+    className ?? "py-16 lg:py-20"
+  }`}
+>
+
+      <div className="page-container">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -86,9 +94,14 @@ const ContactSection = () => {
                 <Input {...register("email", { required: true })} type="email" placeholder="Your Email" />
                 <Input {...register("subject", { required: true })} placeholder="Subject" />
                 <Textarea {...register("message", { required: true })} placeholder="Your Message" />
-                <Button type="submit" className="w-full text-white dark:text-gray-900" disabled={isSubmitting}>
-                  {isSubmitting ? "Sending..." : "Send Message →"}
-                </Button>
+              <GradientButton
+  type="submit"
+  disabled={isSubmitting}
+  className="w-full py-3"
+>
+  {isSubmitting ? "Sending..." : "Send Message"}
+</GradientButton>
+
               </form>
             </div>
           </div>

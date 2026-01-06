@@ -1,6 +1,7 @@
 "use client";
 
 import { TBlog } from "@/types/blogs";
+import GradientButton from "@/utility/GradientButton";
 import { motion } from "framer-motion";
 import { FolderSearch } from "lucide-react";
 import Image from "next/image";
@@ -16,7 +17,7 @@ const extractFirstImageUrl = (content: string) => {
 const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
   return (
     <section className="py-16 lg:py-20  bg-white dark:bg-[#0a0219] transition-colors duration-300">
-      <div className="px-6 mx-4 md:mx-8 lg:mx-16">
+      <div className="page-container">
         {/* Section Title */}
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
@@ -66,10 +67,12 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
 
                   {/* Details Button */}
                   <Link href={`/all-blogs/blog-details/${blog._id}`}>
-              <button className=" w-24 h-10 lg:w-32 lg:h-12 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 duration-300  flex justify-center items-center cursor-pointer">
-              <FolderSearch className="mr-2" />
-            <span>  Details </span>
-                </button>
+               <GradientButton
+                 className="w-24 h-10 lg:w-32 lg:h-12 rounded-lg px-4 py-2 cursor-pointer"
+                 icon={<FolderSearch className="w-4 h-4" />}
+               >
+                 Details
+               </GradientButton>
               </Link>
 
                  
@@ -82,9 +85,12 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
         {/* All Blogs Button */}
         <div className="flex justify-center my-10">
           <Link href="/all-blogs">
-            <button className="px-8 py-3 bg-primary text-white dark:text-gray-900 font-semibold rounded-lg hover:bg-primary/90 transition-colors duration-300 cursor-pointer">
-              All Blogs
-            </button>
+           <GradientButton
+              className=" px-8 py-4 cursor-pointer"
+           
+            >
+                            All Blogs
+                          </GradientButton>
           </Link>
         </div>
       </div>

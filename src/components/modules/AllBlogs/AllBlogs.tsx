@@ -3,6 +3,7 @@ import { TBlog } from "@/types/blogs";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import GradientButton from "@/utility/GradientButton";
 
 // Helper function to extract first image URL from content
 const extractFirstImage = (content: string): string | null => {
@@ -38,8 +39,8 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
       </section>
      <section className="py-20 text-gray-800 bg-white dark:bg-[#0a0219] dark:text-gray-100 ">
 
-      <div className="p-6 space-y-6 sm:space-y-12 mx-12 md:mx-16 lg:mx-24 min-h-screen">
-        {/* 🔥 Latest Blog (Featured) */}
+      <div className=" space-y-6 sm:space-y-12 page-container min-h-screen">
+        {/*  Latest Blog (Featured) */}
         <div className="shadow-lg block sm:max-w-full group lg:grid lg:grid-cols-12 dark:bg-gray-800 bg-gray-100 hover:no-underline focus:no-underline">
           <Image
             src={latestImage}
@@ -55,9 +56,12 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
             </span>
             <p className="my-4">{latestBlog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 100)}...</p>
             <Link href={`/all-blogs/blog-details/${latestBlog._id}`}>
-              <button className="px-4 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-xl hover:bg-primary/90 transition-colors duration-300">
-                Read More
-              </button>
+             <GradientButton
+                    className=" h-10 w-32 lg:h-12 px-4 py-2"
+                 
+                  >
+                                  Read more
+                                </GradientButton>
             </Link>
           </div>
         </div>
@@ -82,9 +86,12 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
                   </span>
                   <p className="my-4">{blog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 80)}...</p>
                   <Link href={`/all-blogs/blog-details/${blog._id}`}>
-                    <button className="px-4 py-2 bg-primary text-white dark:text-gray-900 font-semibold rounded-xl hover:bg-primary/90 transition-colors duration-300">
-                      Read More
-                    </button>
+                  <GradientButton
+                    className=" h-10 w-32 lg:h-12 px-4 py-2"
+                 
+                  >
+                                  Read more
+                                </GradientButton>
                   </Link>
                 </div>
               </div>
