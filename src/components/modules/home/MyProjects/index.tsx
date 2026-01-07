@@ -10,9 +10,7 @@ import { FaExternalLinkAlt } from 'react-icons/fa';
 
 const ProjectShowcase = ({ projects }: { projects: TProjects[] }) => {
 
-  const filteredProjects = projects
-    ?.filter((project) => project.projectType === "Full-Stack")
-    .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+
 
   return (
     <section className="py-16 lg:py-24 bg-white dark:bg-[#0a0219] transition-colors duration-300 overflow-hidden">
@@ -31,7 +29,7 @@ const ProjectShowcase = ({ projects }: { projects: TProjects[] }) => {
 
         {/* Project Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, index) => (
+          {projects.map((project, index) => (
             <motion.div
               key={project._id}
               initial={{ opacity: 0, y: 50 }}

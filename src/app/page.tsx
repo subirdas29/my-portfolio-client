@@ -14,7 +14,7 @@ import { getAllSkills } from "@/services/Skills";
 
 
 const Home = async() => {
-  const {data:projects} = await getAllProjects()
+const {data:projects} = await getAllProjects("1", "3", "Full-Stack");
   const {data:skills} = await getAllSkills()
   const {data:blogs} = await getAllBlogs()
   return (
