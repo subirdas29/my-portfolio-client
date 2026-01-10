@@ -1,5 +1,5 @@
 "use client";
-import { Facebook, Mail, Phone, MapPin, LinkedinIcon, GithubIcon, Sparkles } from "lucide-react";
+import { Facebook, Mail, Phone, MapPin, LinkedinIcon, GithubIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";

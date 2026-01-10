@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { motion } from "framer-motion";
@@ -15,7 +16,8 @@ const ContactSection = ({ className }: { className?: string }) => {
   const pathname = usePathname();
   const isContactPage = pathname === "/contact";
 
-  const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm<TContact>();
+  // register এর পাশাপাশি errors এবং isSubmitting ব্যবহার করা হয়েছে
+  const { register, handleSubmit, reset, formState: { isSubmitting, errors } } = useForm<TContact>();
 
   const onSubmit: SubmitHandler<TContact> = async (data) => {
     try {
@@ -34,7 +36,7 @@ const ContactSection = ({ className }: { className?: string }) => {
 
   return (
     <div className="bg-white dark:bg-[#0a0219]">
-      {/* --- Updated Banner Section (Synced with AllBlogs style) --- */}
+      {/* --- Banner Section --- */}
       {isContactPage && (
         <section className="relative flex flex-col items-center justify-center min-h-[450px] bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] text-gray-900 dark:text-white overflow-hidden">
           {/* Animated Background Elements */}
@@ -49,7 +51,6 @@ const ContactSection = ({ className }: { className?: string }) => {
                 style={{ left: `${10 + i * 9}%`, top: `${40 + (i % 3) * 15}%` }}
               />
             ))}
-            {/* Glow Orbs */}
             <motion.div 
               className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full bg-yellow-400/20 dark:bg-yellow-500/10 blur-[90px]" 
               animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }} 
@@ -76,11 +77,9 @@ const ContactSection = ({ className }: { className?: string }) => {
               Contact <span className="bg-gradient-to-r from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-amber-500 text-transparent bg-clip-text">Me</span>
             </h1>
             <p className="mt-2 text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-medium">
-              Let's build something extraordinary together. I'm always open to discussing new projects.
+              Let&apos;s build something extraordinary together. I&apos;m always open to discussing new projects.
             </p>
           </motion.div>
-          
-          {/* Bottom Fade Gradient */}
           <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-[#0a0219] to-transparent" />
         </section>
       )}
@@ -88,14 +87,13 @@ const ContactSection = ({ className }: { className?: string }) => {
       {/* --- Main Card Section --- */}
       <section className={`transition-colors duration-300 ${className ?? "py-16 lg:py-24"}`}>
         <div className="page-container">
-          
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="group relative rounded-[2.5rem] overflow-hidden shadow-xl transition-all duration-500 "
           >
-            {/* Running Border Animation */}
+            {/* Running Border Animation (অরিজিনাল SVG) */}
             <div className="absolute inset-0 z-0">
                <svg className="w-full h-full" preserveAspectRatio="none">
                   <rect
@@ -124,17 +122,17 @@ const ContactSection = ({ className }: { className?: string }) => {
             {/* --- Inner Content Card --- */}
             <div className="relative z-10 m-[3px] grid grid-cols-1 md:grid-cols-2 rounded-[2.4rem] bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] overflow-hidden border border-gray-200/20 dark:border-white/5 shadow-2xl">
               
-              {/* Background Bubbles (Inside Card) */}
+              {/* Background Bubbles (অরিজিনাল) */}
               <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
                 {[...Array(12)].map((_, i) => (
                    <motion.div
-                key={i}
-                className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: [0.2, 0.8, 0.2], y: [0, -100, 0], x: [0, Math.random() * 40 - 20, 0] }}
-                transition={{ duration: 5 + i * 0.5, repeat: Infinity, delay: i * 0.4 }}
-                style={{ left: `${10 + i * 9}%`, top: `${40 + (i % 3) * 15}%` }}
-              />
+                    key={i}
+                    className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0.2, 0.8, 0.2], y: [0, -100, 0], x: [0, Math.random() * 40 - 20, 0] }}
+                    transition={{ duration: 5 + i * 0.5, repeat: Infinity, delay: i * 0.4 }}
+                    style={{ left: `${10 + i * 9}%`, top: `${40 + (i % 3) * 15}%` }}
+                  />
                 ))}
               </div>
 
@@ -143,7 +141,7 @@ const ContactSection = ({ className }: { className?: string }) => {
                 <div>
                   <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-4">
                     Get Ready To <br />
-                          <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 dark:from-yellow-400 dark:via-yellow-500 dark:to-amber-500 text-transparent bg-clip-text ">Create Something</span> Great
+                    <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 dark:from-yellow-400 dark:via-yellow-500 dark:to-amber-500 text-transparent bg-clip-text ">Create Something</span> Great
                   </h2>
                   <div className="h-1.5 w-20 bg-amber-500 rounded-full" />
                 </div>
@@ -167,8 +165,8 @@ const ContactSection = ({ className }: { className?: string }) => {
                 </div>
               </div>
 
-              {/* Right Side: Form */}
-              <div className="p-10 lg:p-16 bg-white/60 dark:bg-black/40  border-l border-gray-200 dark:border-white/5 relative z-20">
+              {/* Right Side: Form (Validation যুক্ত) */}
+              <div className="p-10 lg:p-16 bg-white/60 dark:bg-black/40 border-l border-gray-200 dark:border-white/5 relative z-20">
                 <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-8 flex items-center gap-3">
                   <Sparkles className="w-5 h-5 text-amber-500" />
                   GET IN TOUCH
@@ -176,12 +174,52 @@ const ContactSection = ({ className }: { className?: string }) => {
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <Input {...register("name", { required: true })} placeholder="Your Name" className="bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-white/10 h-14 rounded-2xl focus-visible:ring-amber-500 transition-all shadow-sm" />
-                    <Input {...register("phone", { required: true })} placeholder="Phone Number" className="bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-white/10 h-14 rounded-2xl focus-visible:ring-amber-500 transition-all shadow-sm" />
+                    <div className="space-y-1">
+                      <Input {...register("name", { required: "Name is required" })} placeholder="Your Name" className={`bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-white/10 h-14 rounded-2xl focus-visible:ring-amber-500 transition-all shadow-sm ${errors.name ? 'border-red-500 ring-1 ring-red-500' : ''}`} />
+                      {errors.name && <p className="text-red-500 text-[10px] font-bold px-2 uppercase">{errors.name.message}</p>}
+                    </div>
+                    <div className="space-y-1">
+  <Input 
+    {...register("phone", { 
+      required: "Phone is required",
+      pattern: {
+     
+        value: /^[0-9]+$/, 
+        message: "Only numbers are allowed" 
+      },
+      minLength: {
+        value: 10,
+        message: "Phone number is too short"
+      },
+      maxLength: {
+        value: 11,
+        message: "Phone number is too long"
+      }
+    })} 
+    placeholder="Phone Number (Digits only)" 
+    className={`bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-white/10 h-14 rounded-2xl focus-visible:ring-amber-500 transition-all shadow-sm ${errors.phone ? 'border-red-500 ring-1 ring-red-500' : ''}`} 
+  />
+  {errors.phone && <p className="text-red-500 text-[10px] font-bold px-2 uppercase">{errors.phone.message}</p>}
+</div>
                   </div>
-                  <Input {...register("email", { required: true })} type="email" placeholder="Your Email" className="bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-white/10 h-14 rounded-2xl focus-visible:ring-amber-500 transition-all shadow-sm" />
-                  <Input {...register("subject", { required: true })} placeholder="Subject" className="bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-white/10 h-14 rounded-2xl focus-visible:ring-amber-500 transition-all shadow-sm" />
-                  <Textarea {...register("message", { required: true })} placeholder="Your Message" className="bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-white/10 min-h-[150px] rounded-2xl focus-visible:ring-amber-500 transition-all shadow-sm" />
+                  
+                  <div className="space-y-1">
+                    <Input {...register("email", { 
+                      required: "Email is required", 
+                      pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" } 
+                    })} type="email" placeholder="Your Email" className={`bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-white/10 h-14 rounded-2xl focus-visible:ring-amber-500 transition-all shadow-sm ${errors.email ? 'border-red-500 ring-1 ring-red-500' : ''}`} />
+                    {errors.email && <p className="text-red-500 text-[10px] font-bold px-2 uppercase">{errors.email.message}</p>}
+                  </div>
+
+                  <div className="space-y-1">
+                    <Input {...register("subject", { required: "Subject is required" })} placeholder="Subject" className={`bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-white/10 h-14 rounded-2xl focus-visible:ring-amber-500 transition-all shadow-sm ${errors.subject ? 'border-red-500 ring-1 ring-red-500' : ''}`} />
+                    {errors.subject && <p className="text-red-500 text-[10px] font-bold px-2 uppercase">{errors.subject.message}</p>}
+                  </div>
+
+                  <div className="space-y-1">
+                    <Textarea {...register("message", { required: "Message is required" })} placeholder="Your Message" className={`bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-white/10 min-h-[150px] rounded-2xl focus-visible:ring-amber-500 transition-all shadow-sm ${errors.message ? 'border-red-500 ring-1 ring-red-500' : ''}`} />
+                    {errors.message && <p className="text-red-500 text-[10px] font-bold px-2 uppercase">{errors.message.message}</p>}
+                  </div>
                   
                   <GradientButton
                     type="submit"

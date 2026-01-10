@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Menu, Sparkles, X } from "lucide-react"; 
+import { Menu, X } from "lucide-react"; 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";

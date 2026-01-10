@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import GradientButton from "@/utility/GradientButton";
 
 const AllProjects = ({ projects }: { projects: TProjects[] }) => {
+ 
   const [activeTab, setActiveTab] = useState("Full-Stack");
   const [visibleCount, setVisibleCount] = useState(6); 
 
@@ -24,6 +25,7 @@ const AllProjects = ({ projects }: { projects: TProjects[] }) => {
 
  
   const displayedProjects = allFilteredProjects?.slice(0, visibleCount);
+
 
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + 3); 

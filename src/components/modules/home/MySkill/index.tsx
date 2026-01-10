@@ -78,7 +78,7 @@ const SkillsSection = ({ skills }: { skills: TSkill[] }) => {
                 transition={{ duration: 0.4 }}
                 className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
               >
-                {skills?.map((skill, index) => (
+                {skills?.map((skill) => (
                   <motion.div
                     key={skill._id}
                     whileHover={{ y: -10 }}
@@ -112,7 +112,7 @@ const SkillsSection = ({ skills }: { skills: TSkill[] }) => {
                 transition={{ duration: 0.4 }}
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
               >
-                {softSkills.map((skill, index) => (
+                {softSkills.map((skill) => (
                   <motion.div
                     key={skill.name}
                     whileHover={{ y: -10 }}

@@ -5,6 +5,7 @@ import { getAllProjects } from "@/services/Projects"
 
 const AllProjectsPage = async() => {
   const {data:projects} = await getAllProjects("1", "50");
+ 
 
   return (
     <div>
