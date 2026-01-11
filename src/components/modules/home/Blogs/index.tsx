@@ -119,7 +119,7 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
                       {blog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 80)}...
                     </p>
 
-                    <Link href={`/all-blogs/blog-details/${blog._id}`} className="block w-full mt-auto">
+                    <Link href={`/all-blogs/blog-details/${blog?.slug}`} className="block w-full mt-auto">
                       <GradientButton
                         className="w-full h-12 rounded-xl text-sm font-black tracking-wide shadow-lg"
                       >

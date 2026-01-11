@@ -7,7 +7,7 @@ import { TProjects } from "@/types/projects";
 import GradientButton from "@/utility/GradientButton";
 
 const ProjectDetails = ({ project }: { project: TProjects }) => {
-  const [selectedImage, setSelectedImage] = useState(project.imageUrls[0]);
+  const [selectedImage, setSelectedImage] = useState(project?.imageUrls[0]);
 
   return (
     <section className="bg-white dark:bg-[#080808] min-h-screen pb-32 transition-colors duration-500 selection:bg-amber-500/30">
@@ -71,7 +71,7 @@ const ProjectDetails = ({ project }: { project: TProjects }) => {
         
         {/* Gallery Thumbnails */}
         <div className="flex gap-4 justify-center mt-12 overflow-x-auto pb-4">
-          {project.imageUrls.map((image, index) => (
+          {project?.imageUrls?.map((image, index) => (
             <button
               key={index}
               onClick={() => setSelectedImage(image)}

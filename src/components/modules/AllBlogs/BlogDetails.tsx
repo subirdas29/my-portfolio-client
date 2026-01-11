@@ -3,15 +3,9 @@
 import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
+import { TBlog } from "@/types/blogs";
 
-// Blog type definition
-type TBlog = {
-  _id?: string;
-  title: string;
-  category: string;
-  content: string;
-  createdAt: string; 
-};
+
 
 type BlogDetailsProps = {
   blog: TBlog;
@@ -25,9 +19,8 @@ const BlogDetails = ({ blog, allBlogs }: BlogDetailsProps) => {
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
-  // 🔹 Get latest 3 blogs
   const latestPosts = [...allBlogs]
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .sort((a, b) => new Date(b?.createdAt || 0).getTime() - new Date(a?.createdAt || 0).getTime())
     .slice(0, 3);
 
   // 🔹 Get related posts
@@ -100,7 +93,7 @@ const BlogDetails = ({ blog, allBlogs }: BlogDetailsProps) => {
               <ul className="space-y-6">
                 {latestPosts?.map((post) => (
                   <li key={post._id} className="group">
-                    <Link href={`/all-blogs/blog-details/${post._id}`} className="flex items-center gap-4">
+                    <Link href={`/all-blogs/blog-details/${post.slug}`} className="flex items-center gap-4">
                       <div className="relative w-16 h-16 shrink-0 overflow-hidden rounded-xl border border-amber-500/20">
                          <Image 
                            src={extractFirstImage(post.content)} 
@@ -128,7 +121,7 @@ const BlogDetails = ({ blog, allBlogs }: BlogDetailsProps) => {
               <ul className="space-y-6">
                 {relatedPosts?.map((post) => (
                   <li key={post._id} className="group">
-                    <Link href={`/all-blogs/blog-details/${post._id}`} className="flex items-center gap-4">
+                    <Link href={`/all-blogs/blog-details/${post.slug}`} className="flex items-center gap-4">
                       <div className="relative w-16 h-16 shrink-0 overflow-hidden rounded-xl border border-amber-500/20">
                          <Image 
                            src={extractFirstImage(post.content)} 

@@ -21,7 +21,7 @@ const SkillsSection = ({ skills }: { skills: TSkill[] }) => {
 
   return (
     <section className="py-24 bg-gray-50 dark:bg-[#030014] transition-colors duration-500">
-      <div className="page-container px-4">
+      <div className="page-container ">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}

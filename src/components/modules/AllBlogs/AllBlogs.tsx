@@ -42,7 +42,7 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
             <Sparkles className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
             <span className="text-xs md:text-sm font-bold text-yellow-700 dark:text-yellow-300 uppercase tracking-wider">Insights & Articles</span>
           </motion.div>
-          <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-4">
+          <h1 className="text-5xl md:text-6xl font-black tracking-tight mb-4">
             All <span className="bg-gradient-to-r from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-amber-500 text-transparent bg-clip-text">Blogs</span>
           </h1>
           <p className="mt-2 text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-medium">Sharing my thoughts, tutorials, and latest updates from the world of development.</p>
@@ -87,7 +87,7 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
                 <p className="text-gray-600 dark:text-gray-400 mb-6 font-medium line-clamp-3">
                   {latestBlog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 150)}...
                 </p>
-                <Link href={`/all-blogs/blog-details/${latestBlog._id}`}>
+                <Link href={`/all-blogs/blog-details/${latestBlog.slug}`}>
                      <GradientButton
                                         className="w-full h-12 rounded-xl text-sm font-black tracking-wide shadow-lg"
                                       >
@@ -144,7 +144,7 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
                       <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-6 font-medium leading-relaxed">
                         {blog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 100)}...
                       </p>
-                      <Link href={`/all-blogs/blog-details/${blog._id}`} className="mt-auto">
+                      <Link href={`/all-blogs/blog-details/${blog?.slug}`} className="mt-auto">
                         <GradientButton
                                            className="w-full h-12 rounded-xl text-sm font-black tracking-wide shadow-lg"
                                          >

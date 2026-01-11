@@ -12,7 +12,8 @@ import GradientButton from "@/utility/GradientButton";
 const roles = [
   "Full Stack Developer",
   "Software Engineer",
-  "AI Agent & Automation Engineer"
+  "AI Agent & Automation Engineer",
+  "Freelancer"
 ];
 
 export default function Banner() {

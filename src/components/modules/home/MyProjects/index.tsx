@@ -110,12 +110,10 @@ const ProjectShowcase = ({ projects }: { projects: TProjects[] }) => {
                     {project.title}
                   </h3>
 
-                  <p className="text-gray-600 dark:text-gray-400 mb-6 font-medium leading-relaxed flex-grow">
-                    {project.details.slice(0, 80)}...
-                  </p>
+                  <p className="text-gray-600 dark:text-gray-400 mb-6 line-clamp-2 text-sm">{project.shortDescription}</p>
 
                   <div className="flex items-center gap-4 mt-auto">
-                    <Link href={`/all-projects/projectDetails/${project._id}`} className="flex-1">
+                    <Link href={`/all-projects/projectDetails/${project?.slug}`} className="flex-1">
                       <GradientButton
                         className="w-full h-12 rounded-xl text-sm font-black tracking-wide shadow-lg"
                         icon={<FolderSearch className="w-4 h-4" />}

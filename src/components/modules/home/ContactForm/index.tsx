@@ -16,7 +16,7 @@ const ContactSection = ({ className }: { className?: string }) => {
   const pathname = usePathname();
   const isContactPage = pathname === "/contact";
 
-  // register এর পাশাপাশি errors এবং isSubmitting ব্যবহার করা হয়েছে
+
   const { register, handleSubmit, reset, formState: { isSubmitting, errors } } = useForm<TContact>();
 
   const onSubmit: SubmitHandler<TContact> = async (data) => {
@@ -73,7 +73,7 @@ const ContactSection = ({ className }: { className?: string }) => {
               <Sparkles className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
               <span className="text-xs md:text-sm font-bold text-yellow-700 dark:text-yellow-300 uppercase tracking-wider">Get In Touch</span>
             </motion.div>
-            <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-4">
+            <h1 className="text-5xl md:text-6xl font-black tracking-tight mb-4">
               Contact <span className="bg-gradient-to-r from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-amber-500 text-transparent bg-clip-text">Me</span>
             </h1>
             <p className="mt-2 text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-medium">
@@ -93,7 +93,7 @@ const ContactSection = ({ className }: { className?: string }) => {
             viewport={{ once: true }}
             className="group relative rounded-[2.5rem] overflow-hidden shadow-xl transition-all duration-500 "
           >
-            {/* Running Border Animation (অরিজিনাল SVG) */}
+
             <div className="absolute inset-0 z-0">
                <svg className="w-full h-full" preserveAspectRatio="none">
                   <rect

@@ -10,6 +10,8 @@ import { cn } from "@/lib/utils";
 import GradientButton from "@/utility/GradientButton";
 
 const AllProjects = ({ projects }: { projects: TProjects[] }) => {
+
+  console.log("AllProjects received projects:", projects);
  
   const [activeTab, setActiveTab] = useState("Full-Stack");
   const [visibleCount, setVisibleCount] = useState(6); 
@@ -62,9 +64,13 @@ const AllProjects = ({ projects }: { projects: TProjects[] }) => {
             <Sparkles className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
             <span className="text-xs md:text-sm font-bold text-yellow-700 dark:text-yellow-300 uppercase tracking-wider">Portfolio Showcase</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-4">
+          <h1 className="text-5xl md:text-6xl font-black tracking-tight mb-4">
             My <span className="bg-gradient-to-r from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-amber-500 text-transparent bg-clip-text">Projects</span>
           </h1>
+          <p className="mt-4 text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-medium leading-relaxed">
+    A curated collection of my latest work, ranging from web applications 
+    to creative experiments in software development.
+  </p>
         </motion.div>
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-[#0a0219] to-transparent" />
       </section>
@@ -123,9 +129,9 @@ const AllProjects = ({ projects }: { projects: TProjects[] }) => {
                     </div>
                     <div className="p-8 flex flex-col flex-grow">
                       <h4 className="text-xl font-black text-gray-900 dark:text-white mb-3">{project.title}</h4>
-                      <p className="text-gray-600 dark:text-gray-400 mb-6 line-clamp-2 text-sm">{project.details}</p>
+                      <p className="text-gray-600 dark:text-gray-400 mb-6 line-clamp-2 text-sm">{project.shortDescription}</p>
                       <div className="flex items-center gap-4 mt-auto">
-                        <Link href={`/all-projects/projectDetails/${project._id}`} className="flex-1">
+                        <Link href={`/all-projects/projectDetails/${project?.slug}`} className="flex-1">
                           <GradientButton className="w-full h-12" icon={<FolderSearch className="w-4 h-4" />}>Case Study</GradientButton>
                         </Link>
                         <GradientButton

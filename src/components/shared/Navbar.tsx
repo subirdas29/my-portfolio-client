@@ -50,7 +50,9 @@ export function Navbar() {
         <div className="hidden lg:flex items-center gap-6">
           <ul className="flex items-center gap-2">
             {routes.map((route) => {
-              const isActive = pathname === route.href;
+              const isActive = route.href === "/" 
+    ? pathname === "/" 
+    : pathname.startsWith(route.href);
               return (
                 <li key={route.href}>
                   <Link href={route.href} className={cn("px-4 py-2 rounded-full text-lg font-semibold transition-all duration-300", navTextColor, "hover:opacity-70", isActive && "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400")}>
@@ -114,7 +116,9 @@ export function Navbar() {
 
                   <div className="flex flex-col gap-6">
                     {routes.map((route) => {
-                      const isActive = pathname === route.href;
+                      const isActive = route.href === "/" 
+    ? pathname === "/" 
+    : pathname.startsWith(route.href);
                       return (
                         <SheetClose asChild key={route.href}>
                           <Link
