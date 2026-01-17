@@ -11,6 +11,7 @@ const ProjectDetails = ({ project }: { project: TProjects }) => {
   const [selectedImage, setSelectedImage] = useState(project?.imageUrls[0]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+
   return (
     <section className="bg-white dark:bg-[#0a0219] min-h-screen pb-32 transition-colors duration-500 selection:bg-amber-500/30">
       
@@ -41,7 +42,7 @@ const ProjectDetails = ({ project }: { project: TProjects }) => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
             </span>
-            {project.projectType}
+            {project?.projectType}
           </div>
           
           <h1 className="text-6xl font-black text-slate-900 dark:text-white tracking-tighter mb-12">
@@ -168,7 +169,7 @@ const ProjectDetails = ({ project }: { project: TProjects }) => {
               <div className="mt-12 pt-10 border-t border-slate-200 dark:border-white/10 space-y-6">
                 <div className="flex justify-between items-center text-sm font-medium">
                   <span className="text-slate-400">Category</span>
-                  <span className="text-slate-900 dark:text-white">{project.projectType}</span>
+                  <span className="text-slate-900 dark:text-white">{project?.projectType}</span>
                 </div>
              
               </div>
