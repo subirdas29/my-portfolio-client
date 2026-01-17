@@ -8,14 +8,20 @@ import { ArrowBigRight, Sparkles, Ghost } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-// 🔹 Function to extract the first image URL from blog content
+
 const extractFirstImageUrl = (content: string) => {
+  if (!content) return null;
   const imgTagRegex = /<img[^>]+src="([^">]+)"/;
   const match = imgTagRegex.exec(content);
   return match ? match[1] : null; 
 };
 
-const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
+
+const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
+  
+
+  const hasBlogs = blogs && blogs.length > 0;
+
   return (
     <section className="py-16 lg:py-24 bg-white dark:bg-[#0a0219] transition-colors duration-300 overflow-hidden">
       <div className="page-container">
@@ -31,8 +37,8 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
           <div className="h-1.5 w-24 bg-amber-500 mx-auto rounded-full shadow-[0_0_15px_rgba(245,158,11,0.5)]" />
         </motion.div>
 
-        {/* Conditional Rendering: Blogs Grid or Empty State */}
-        {blogs.length === 0 ? (
+        {/* Conditional Rendering using hasBlogs */}
+        {!hasBlogs ? (
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}

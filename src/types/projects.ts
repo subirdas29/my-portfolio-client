@@ -7,8 +7,8 @@ export type TProjects = {
     shortDescription: string;
     projectType: string;
     details: string;
-    keyFeatures:string | string[]
-    technologies: string | string[]
+    keyFeatures:string[]
+    technologies: string[]
     liveLink: string;
     clientGithubLink: string;
     serverGithubLink?: string;

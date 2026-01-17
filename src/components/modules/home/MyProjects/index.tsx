@@ -4,12 +4,17 @@
 import { TProjects } from '@/types/projects';
 import GradientButton from '@/utility/GradientButton';
 import { motion } from 'framer-motion';
-import { FolderSearch, Sparkles, Ghost } from 'lucide-react';
+import { FolderSearch, Ghost } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
-const ProjectShowcase = ({ projects }: { projects: TProjects[] }) => {
+// Default parameter [] add kora hoyeche jeno build crash na kore
+const ProjectShowcase = ({ projects = [] }: { projects: TProjects[] }) => {
+  
+  // Safe check for projects
+  const hasProjects = projects && projects.length > 0;
+
   return (
     <section className="py-16 lg:py-24 bg-white dark:bg-[#0a0219] transition-colors duration-300 overflow-hidden">
       <div className="page-container">
@@ -20,13 +25,12 @@ const ProjectShowcase = ({ projects }: { projects: TProjects[] }) => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">
-            My <span className="text-amber-500">Projects</span>
+            Featured <span className="text-amber-500">Projects</span>
           </h2>
           <div className="h-1.5 w-24 bg-amber-500 mx-auto rounded-full shadow-[0_0_15px_rgba(245,158,11,0.5)]" />
         </motion.div>
 
-        {/* Conditional Rendering: Projects Grid or Empty State */}
-        {projects.length === 0 ? (
+        {!hasProjects ? (
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -76,68 +80,59 @@ const ProjectShowcase = ({ projects }: { projects: TProjects[] }) => {
                   </svg>
                 </div>
 
-                {/* --- Inner Card Content --- */}
                 <div className="relative z-10 h-full bg-gradient-to-br dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] border border-gray-200 dark:border-white/5 rounded-3xl overflow-hidden flex flex-col shadow-xl">
                   
-                  {/* --- Bubbles --- */}
-                  <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
-                    {[...Array(8)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        className="absolute w-2 h-2 rounded-full bg-amber-500/40 dark:bg-yellow-500/30"
-                        animate={{ 
-                          opacity: [0.3, 0.8, 0.3], 
-                          y: [0, -80, 0],
-                          x: [0, (i % 2 === 0 ? 15 : -15), 0] 
-                        }}
-                        transition={{ 
-                          duration: 3 + i, 
-                          repeat: Infinity, 
-                          ease: "easeInOut" 
-                        }}
-                        style={{ 
-                          left: `${12 * i + 5}%`, 
-                          bottom: `${5 + (i % 3) * 15}%` 
-                        }}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Project Image Container */}
+                  {/* Project Image */}
                   <div className="relative w-full h-52 overflow-hidden z-10">
                     <Image
                       height={500}
                       width={500}
-                      src={project.imageUrls[0]}
+                      src={project?.imageUrls?.[0] || "/default-project.jpg"}
                       alt={project.title}
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#fff8e1]/40 dark:from-[#0a0219]/60 to-transparent" />
+                
                   </div>
 
                   {/* Project Details */}
-                  <div className="relative z-30 p-6 flex flex-col flex-grow bg-transparent">
-                    <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                  <div className="relative z-30 p-6 flex flex-col flex-grow">
+                    <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-2 line-clamp-1">
                       {project.title}
                     </h3>
 
-                    <p className="text-gray-600 dark:text-gray-400 mb-6 line-clamp-2 text-sm">{project.shortDescription}</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 text-sm font-medium">
+                      {project.shortDescription}
+                    </p>
+
+                    {/* 🔹 TECH STACK SECTION (Standardization) */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {project?.technologies?.slice(0, 4)?.map((tech, i) => (
+                        <span key={i} className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 rounded-lg">
+                          {tech}
+                        </span>
+                      ))}
+                      {project?.technologies?.length > 3 && (
+                        <span className="text-[10px] font-bold text-gray-400 self-center">+{project.technologies.length - 3} more</span>
+                      )}
+                    </div>
 
                     <div className="flex items-center gap-4 mt-auto">
                       <Link href={`/all-projects/projectDetails/${project?.slug}`} className="flex-1">
                         <GradientButton
-                          className="w-full h-12 rounded-xl text-sm font-black tracking-wide shadow-lg"
-                          icon={<FolderSearch className="w-4 h-4" />}
+                          className="w-full h-12 rounded-xl text-xs font-black tracking-wide"
                         >
+                          <FolderSearch className="w-4 h-4 mr-2" />
                           Case Study
                         </GradientButton>
                       </Link>
-                      <GradientButton
+                      <a
                         href={project.liveLink}
                         target="_blank"
-                        className="w-12 h-12 rounded-xl flex items-center justify-center p-0"
-                        icon={<FaExternalLinkAlt className="w-4 h-4" />}
-                      />
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 rounded-xl border border-amber-500/20 flex items-center justify-center hover:bg-amber-500 hover:text-white transition-all duration-300"
+                      >
+                        <FaExternalLinkAlt className="w-4 h-4" />
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -149,7 +144,7 @@ const ProjectShowcase = ({ projects }: { projects: TProjects[] }) => {
         {/* View All Button */}
         <div className='flex justify-center mt-16'>
           <Link href="/all-projects">
-             <GradientButton className=" px-8 py-4">
+             <GradientButton className="px-10 py-4 text-sm font-black">
                View All Projects
             </GradientButton>
           </Link>

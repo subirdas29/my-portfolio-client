@@ -12,11 +12,16 @@ const extractFirstImage = (content: string): string | null => {
   return imgTagMatch ? imgTagMatch[1] : null;
 };
 
-const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
-  // Logic gulo condition-er baire niye asha hoyeche jate error na hoy
-  const latestBlog = blogs.length > 0 ? blogs[0] : null;
-  const otherBlogs = blogs.length > 1 ? blogs.slice(1) : [];
-  const latestImage = latestBlog ? (extractFirstImage(latestBlog.content) || "/default-image.jpg") : "/default-image.jpg";
+const AllBlogs = ({ blogs = [] }: { blogs: TBlog[] }) => { 
+  
+  // Safe checks with Optional Chaining
+  const hasBlogs = blogs && blogs.length > 0;
+  const latestBlog = hasBlogs ? blogs[0] : null;
+  const otherBlogs = (blogs && blogs.length > 1) ? blogs.slice(1) : [];
+  
+  const latestImage = latestBlog 
+    ? (extractFirstImage(latestBlog.content) || "/default-image.jpg") 
+    : "/default-image.jpg";
 
   return (
     <div>
@@ -54,7 +59,7 @@ const AllBlogs = ({ blogs }: { blogs: TBlog[] }) => {
       <section className="py-20 bg-white dark:bg-[#0a0219] transition-colors duration-300 min-h-[400px]">
         <div className="page-container px-4">
           
-          {blogs.length === 0 ? (
+          {blogs?.length === 0 ? (
             /* No Blog Available Message */
             <motion.div 
                 initial={{ opacity: 0 }} 
