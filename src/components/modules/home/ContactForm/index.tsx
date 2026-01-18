@@ -85,7 +85,7 @@ const ContactSection = ({ className }: { className?: string }) => {
       )}
 
       {/* --- Main Card Section --- */}
-      <section className={`transition-colors duration-300 ${className ?? "py-16 lg:py-24"}`}>
+      <section className={`transition-colors duration-300 ${className ?? "py-10 md:py-16"}`}>
         <div className="page-container">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -122,7 +122,7 @@ const ContactSection = ({ className }: { className?: string }) => {
             {/* --- Inner Content Card --- */}
             <div className="relative z-10 m-[3px] grid grid-cols-1 md:grid-cols-2 rounded-[2.4rem] bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] overflow-hidden border border-gray-200/20 dark:border-white/5 shadow-2xl">
               
-              {/* Background Bubbles (অরিজিনাল) */}
+              {/* Background Bubbles */}
               <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
                 {[...Array(12)].map((_, i) => (
                    <motion.div

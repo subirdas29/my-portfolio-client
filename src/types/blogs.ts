@@ -1,9 +1,22 @@
-export type TBlog = {
-    _id?:string
-    slug?: string;
+export type TBlog= {
+    _id?:string;
     title: string;
-    category: string;
-    content: string;
-    createdAt?:string;
+    slug: string;
+  content: string;
+  summary?: string;
+  featuredImage?: string;
+  tags?: string[];
+  category?: string;
+  status: 'draft' | 'published';
+  publishedAt?: Date;
+  meta?: {
+    views: number;
+    likes: number;
   };
-  
+  metadata: {
+    title: string;
+    description: string;
+  };
+  createdAt?:Date
+
+}

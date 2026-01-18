@@ -8,18 +8,7 @@ import { ArrowBigRight, Sparkles, Ghost } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-
-const extractFirstImageUrl = (content: string) => {
-  if (!content) return null;
-  const imgTagRegex = /<img[^>]+src="([^">]+)"/;
-  const match = imgTagRegex.exec(content);
-  return match ? match[1] : null; 
-};
-
-
 const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
-  
-
   const hasBlogs = blogs && blogs.length > 0;
 
   return (
@@ -37,7 +26,6 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
           <div className="h-1.5 w-24 bg-amber-500 mx-auto rounded-full shadow-[0_0_15px_rgba(245,158,11,0.5)]" />
         </motion.div>
 
-        {/* Conditional Rendering using hasBlogs */}
         {!hasBlogs ? (
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
@@ -48,14 +36,11 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
               <Ghost className="w-16 h-16 text-amber-500/50" />
             </div>
             <h3 className="text-2xl font-bold text-gray-400 dark:text-gray-600">No blogs available right now</h3>
-            <p className="text-gray-500 mt-2 max-w-sm mx-auto font-medium">
-              Check back soon for insights, tutorials, and latest updates.
-            </p>
           </motion.div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogs.slice(0, 3).map((blog, index) => {
-              const firstImageUrl = extractFirstImageUrl(blog.content);
+              const blogImage = blog.featuredImage || "/default-image.jpg";
 
               return (
                 <motion.div
@@ -65,7 +50,7 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   className="group relative rounded-3xl overflow-hidden p-[2px]"
                 >
-                  {/* --- Running Line Border (Hover Only) --- */}
+                  {/* --- Running Line Border --- */}
                   <div className="absolute inset-0 z-0">
                     <svg className="w-full h-full" preserveAspectRatio="none">
                       <rect
@@ -78,82 +63,72 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                         pathLength="100"
                         className="fill-none stroke-amber-500 stroke-[3] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                         strokeDasharray="25 75"
-                        strokeLinecap="round"
                       >
-                        <animate
-                          attributeName="stroke-dashoffset"
-                          from="100"
-                          to="0"
-                          dur="8s"
-                          repeatCount="indefinite"
-                        />
+                        <animate attributeName="stroke-dashoffset" from="100" to="0" dur="8s" repeatCount="indefinite" />
                       </rect>
                     </svg>
                   </div>
 
-                  {/* --- Inner Card Content --- */}
-                  <div className="relative z-10 h-full bg-gradient-to-br  dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] border border-gray-200 dark:border-white/5 rounded-3xl overflow-hidden flex flex-col shadow-xl">
+                  <div className="relative z-10 h-full bg-white dark:bg-gradient-to-br dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] border border-gray-100 dark:border-white/5 rounded-3xl overflow-hidden flex flex-col shadow-xl">
                     
-                    {/* --- Background Bubbles --- */}
-                    <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
-                      {[...Array(8)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          className="absolute w-2 h-2 rounded-full bg-amber-500/40 dark:bg-yellow-500/30"
-                          animate={{ 
-                            opacity: [0.3, 0.8, 0.3], 
-                            y: [0, -80, 0],
-                            x: [0, (i % 2 === 0 ? 15 : -15), 0] 
-                          }}
-                          transition={{ 
-                            duration: 3 + i, 
-                            repeat: Infinity, 
-                            ease: "easeInOut" 
-                          }}
-                          style={{ 
-                            left: `${12 * i + 5}%`, 
-                            bottom: `${5 + (i % 3) * 15}%` 
-                          }}
-                        />
-                      ))}
-                    </div>
-
-                    {/* Blog Banner Image */}
-                    <div className="relative w-full h-52 overflow-hidden z-10">
+                    {/* Blog Image Section (z-20 high priority) */}
+                    <div className="relative w-full h-56 overflow-hidden z-20">
                       <Image
                         height={500}
                         width={500}
-                        src={firstImageUrl || "/default-image.jpg"}
+                        src={blogImage}
                         alt={blog.title}
-                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                        className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" 
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#fff8e1]/40 dark:from-[#0a0219]/60 to-transparent" />
                     </div>
 
-                    {/* Blog Content */}
-                    <div className="relative z-30 p-6 flex flex-col flex-grow">
-                      <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-2 flex items-center gap-2">
-                        <Sparkles className="w-4 h-4 text-amber-500 " />
-                        {blog.title.substring(0, 25)}...
-                      </h3>
+                    {/* Blog Content Section with Bubbles */}
+                    <div className="relative z-30 p-6 flex flex-col flex-grow overflow-hidden">
+                      
+                      {/* --- Animated Bubbles (Matching ProjectShowcase Position) --- */}
+                      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                        {[...Array(6)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60"
+                            initial={{ opacity: 0 }}
+                            animate={{
+                              opacity: [0.3, 0.8, 0.3],
+                              y: [0, -120, 0], 
+                              x: [0, Math.random() * 40 - 20, 0],
+                            }}
+                            transition={{
+                              duration: 7 + i,
+                              repeat: Infinity,
+                              delay: i * 0.8,
+                              ease: "easeInOut"
+                            }}
+                            style={{
+                              left: `${10 + i * 16}%`,
+                              top: `${40 + (i % 3) * 15}%`,
+                            }}
+                          />
+                        ))}
+                      </div>
 
-                      <p className="text-gray-600 dark:text-gray-400 mb-6 font-medium leading-relaxed flex-grow">
-                        {blog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 80)}...
-                      </p>
+                      <div className="relative z-10 flex flex-col h-full">
+                        <h3 className="text-xl md:text-2xl font-black text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-amber-500 transition-colors">
+                          {blog.title}
+                        </h3>
 
-                      <Link href={`/all-blogs/blog-details/${blog?.slug}`} className="block w-full mt-auto">
-                        <GradientButton
-                          className="w-full h-12 rounded-xl text-sm font-black tracking-wide shadow-lg"
-                        >
-                          <span className="font-black tracking-wide">Read Full Story</span>
-                          <motion.span
-                            animate={{ x: [0, 4, 0] }}
-                            transition={{ repeat: Infinity, duration: 1.5 }}
-                          >
-                            <ArrowBigRight className="w-5 h-5" />
-                          </motion.span>
-                        </GradientButton>
-                      </Link>
+                        <p className="text-gray-600 dark:text-gray-400 mb-6 font-medium leading-relaxed line-clamp-2">
+                          {blog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 80)}...
+                        </p>
+
+                        <Link href={`/all-blogs/blog-details/${blog?.slug}`} className="mt-auto">
+                          <GradientButton className="w-full h-12 rounded-xl text-sm font-black tracking-wide">
+                            <span>Read Full Story</span>
+                            <motion.span animate={{ x: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} className="ml-2">
+                              <ArrowBigRight className="w-5 h-5" />
+                            </motion.span>
+                          </GradientButton>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -162,10 +137,9 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
           </div>
         )}
 
-        {/* All Blogs Button */}
         <div className="flex justify-center mt-16">
           <Link href="/all-blogs">
-            <GradientButton className=" px-8 py-4">
+            <GradientButton className="px-10 py-4 rounded-2xl text-base">
               View All Blogs
             </GradientButton>
           </Link>
