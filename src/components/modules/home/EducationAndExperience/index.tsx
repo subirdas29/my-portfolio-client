@@ -40,7 +40,8 @@ const ExperienceEducationSection = () => {
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="group relative rounded-[2.5rem] shadow-2xl overflow-hidden p-[2px]" // p-[2px] for the border space
         >
           {/* --- Running Border SVG (Hover Triggered) --- */}
@@ -74,11 +75,11 @@ const ExperienceEducationSection = () => {
             
             {/* Animated Background Bubbles */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              {[...Array(12)].map((_, i) => (
+              {[...Array(6)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40"
-                  animate={{ opacity: [0.2, 0.7, 0.2], y: [0, -100, 0], x: [0, Math.random() * 40 - 20, 0] }}
+                  className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40 will-change-transform"
+                  animate={{ opacity: [0.2, 0.7, 0.2], y: [0, -100, 0], x: [0, (i % 5 - 2) * 10, 0] }}
                   transition={{ duration: 5 + i, repeat: Infinity, delay: i * 0.5 }}
                   style={{ left: `${10 + i * 12}%`, bottom: `${10 + (i % 3) * 20}%` }}
                 />
@@ -153,7 +154,8 @@ const ExperienceEducationSection = () => {
                       <motion.div 
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ delay: index * 0.1, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
                         className="relative"
                       >
                         <span className="inline-block px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 text-xs font-black uppercase tracking-widest mb-4 border border-amber-500/20 backdrop-blur-sm">

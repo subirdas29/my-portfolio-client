@@ -41,12 +41,12 @@ const ContactSection = ({ className }: { className?: string }) => {
         <section className="relative flex flex-col items-center justify-center min-h-[450px] bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] text-gray-900 dark:text-white overflow-hidden">
           {/* Animated Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
-            {[...Array(10)].map((_, i) => (
+            {[...Array(6)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40"
+                className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40 will-change-transform"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: [0.2, 0.8, 0.2], y: [0, -100, 0], x: [0, Math.random() * 40 - 20, 0] }}
+                animate={{ opacity: [0.2, 0.8, 0.2], y: [0, -100, 0], x: [0, (i % 5 - 2) * 10, 0] }}
                 transition={{ duration: 5 + i * 0.5, repeat: Infinity, delay: i * 0.4 }}
                 style={{ left: `${10 + i * 9}%`, top: `${40 + (i % 3) * 15}%` }}
               />
@@ -90,7 +90,8 @@ const ContactSection = ({ className }: { className?: string }) => {
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="group relative rounded-[2.5rem] overflow-hidden shadow-xl transition-all duration-500 "
           >
 
@@ -124,12 +125,12 @@ const ContactSection = ({ className }: { className?: string }) => {
               
               {/* Background Bubbles */}
               <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-                {[...Array(12)].map((_, i) => (
+                {[...Array(6)].map((_, i) => (
                    <motion.div
                     key={i}
-                    className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40"
+                    className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40 will-change-transform"
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: [0.2, 0.8, 0.2], y: [0, -100, 0], x: [0, Math.random() * 40 - 20, 0] }}
+                    animate={{ opacity: [0.2, 0.8, 0.2], y: [0, -100, 0], x: [0, (i % 5 - 2) * 10, 0] }}
                     transition={{ duration: 5 + i * 0.5, repeat: Infinity, delay: i * 0.4 }}
                     style={{ left: `${10 + i * 9}%`, top: `${40 + (i % 3) * 15}%` }}
                   />

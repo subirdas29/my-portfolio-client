@@ -20,12 +20,12 @@ const AllBlogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
       {/* --- BANNER SECTION --- */}
       <section className="relative flex flex-col items-center justify-center min-h-[450px] bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] text-gray-900 dark:text-white overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(10)].map((_, i) => (
+          {[...Array(6)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60"
+              className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60 will-change-transform"
               initial={{ opacity: 0 }}
-              animate={{ opacity: [0.2, 0.8, 0.2], y: [0, -100, 0], x: [0, Math.random() * 40 - 20, 0] }}
+              animate={{ opacity: [0.2, 0.8, 0.2], y: [0, -100, 0], x: [0, (i % 5 - 2) * 10, 0] }}
               transition={{ duration: 7 + i, repeat: Infinity, delay: i * 0.4, ease: "easeInOut" }}
               style={{ left: `${10 + i * 9}%`, top: `${40 + (i % 3) * 15}%` }}
             />
@@ -61,8 +61,10 @@ const AllBlogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
               {/* --- Featured Post (Special Large Card) --- */}
               {latestBlog && (
                 <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className="group relative rounded-[2.5rem] overflow-hidden p-[2px]"
                 >
                    {/* Border SVG */}
@@ -84,15 +86,15 @@ const AllBlogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                       
                       {/* --- Animated Bubbles (Exact match with ProjectShowcase) --- */}
                       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                        {[...Array(6)].map((_, i) => (
+                        {[...Array(4)].map((_, i) => (
                           <motion.div
                             key={i}
-                            className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60"
+                            className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60 will-change-transform"
                             initial={{ opacity: 0 }}
                             animate={{
                               opacity: [0.3, 0.8, 0.3],
                               y: [0, -120, 0],
-                              x: [0, Math.random() * 40 - 20, 0],
+                              x: [0, (i % 5 - 2) * 10, 0],
                             }}
                             transition={{
                               duration: 7 + i,
@@ -133,9 +135,10 @@ const AllBlogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                   return (
                     <motion.div 
                       key={blog._id} 
-                      initial={{ opacity: 0, y: 50 }}
+                      initial={{ opacity: 0, y: 40 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      viewport={{ once: true, amount: 0.1 }}
+                      transition={{ duration: 0.5, delay: index * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
                       className="group relative rounded-[2.5rem] overflow-hidden p-[2px]"
                     >
                       <div className="absolute inset-0 z-0">
@@ -156,15 +159,15 @@ const AllBlogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                           
                           {/* --- Animated Bubbles (Exact match with ProjectShowcase) --- */}
                           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                            {[...Array(6)].map((_, i) => (
+                            {[...Array(4)].map((_, i) => (
                               <motion.div
                                 key={i}
-                                className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60"
+                                className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60 will-change-transform"
                                 initial={{ opacity: 0 }}
                                 animate={{
                                   opacity: [0.3, 0.8, 0.3],
                                   y: [0, -120, 0],
-                                  x: [0, Math.random() * 40 - 20, 0],
+                                  x: [0, (i % 5 - 2) * 10, 0],
                                 }}
                                 transition={{
                                   duration: 7 + i,

@@ -48,8 +48,8 @@ const AboutMe = () => {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            viewport={{ once: true, amount: 0.15 }}
             className="relative"
           >
             {/* Background Decorative Shape */}
@@ -96,8 +96,8 @@ const AboutMe = () => {
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+              viewport={{ once: true, amount: 0.2 }}
               className="absolute -bottom-6 -right-2 md:-right-10 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl p-4 md:p-8 rounded-[1.5rem] md:rounded-[2rem] shadow-2xl border border-slate-100 dark:border-white/10"
             >
               <div className="flex items-center gap-3 md:gap-5">
@@ -116,8 +116,8 @@ const AboutMe = () => {
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            viewport={{ once: true, amount: 0.15 }}
             className="space-y-8 mt-12 lg:mt-0"
           >
             <div className="space-y-4">

@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { Navbar } from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import { Toaster } from "sonner";
+import ChatWidget from "@/components/shared/ChatWidget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,6 +49,7 @@ export default function RootLayout({
        <Toaster richColors position="top-center"/>
         {children}
         <Footer/>
+        <ChatWidget/>
         </ThemeProvider>
       </body>
     </html>

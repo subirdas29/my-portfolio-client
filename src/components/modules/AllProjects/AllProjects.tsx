@@ -23,10 +23,10 @@ const AllProjects = ({ projects = [] }: { projects: TProjects[] }) => {
       {/* --- HERO SECTION --- */}
       <section className="relative flex flex-col items-center justify-center min-h-[400px] bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] text-gray-900 dark:text-white overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(8)].map((_, i) => (
+          {[...Array(6)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 rounded-full bg-yellow-500/20 dark:bg-yellow-500/10"
+              className="absolute w-2 h-2 rounded-full bg-yellow-500/20 dark:bg-yellow-500/10 will-change-transform"
               animate={{
                 opacity: [0.2, 0.5, 0.2],
                 y: [0, -100, 0],
@@ -78,9 +78,10 @@ const AllProjects = ({ projects = [] }: { projects: TProjects[] }) => {
                     <motion.div
                       key={project._id}
                       layout
-                      initial={{ opacity: 0, y: 50 }}
+                      initial={{ opacity: 0, y: 40 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.05 }}
+                      viewport={{ once: true, amount: 0.1 }}
+                      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
                       className="group relative rounded-[2.5rem] overflow-hidden p-[2px]"
                     >
                       {/* Card Border SVG Effect */}
@@ -120,15 +121,15 @@ const AllProjects = ({ projects = [] }: { projects: TProjects[] }) => {
                           
                           {/* Animated Bubbles Container */}
                           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                            {[...Array(6)].map((_, i) => (
+                            {[...Array(4)].map((_, i) => (
                               <motion.div
                                 key={i}
-                                className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60"
+                                className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60 will-change-transform"
                                 initial={{ opacity: 0 }}
                                 animate={{
                                   opacity: [0.3, 0.8, 0.3],
                                   y: [0, -120, 0],
-                                  x: [0, Math.random() * 40 - 20, 0],
+                                  x: [0, (i % 5 - 2) * 10, 0],
                                 }}
                                 transition={{
                                   duration: 7 + i,

@@ -18,6 +18,8 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">
@@ -45,9 +47,10 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
               return (
                 <motion.div
                   key={blog._id}
-                  initial={{ opacity: 0, y: 50 }}
+                  initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ duration: 0.5, delay: index * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className="group relative rounded-3xl overflow-hidden p-[2px]"
                 >
                   {/* --- Running Line Border --- */}
@@ -90,12 +93,12 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                         {[...Array(6)].map((_, i) => (
                           <motion.div
                             key={i}
-                            className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60"
+                            className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60 will-change-transform"
                             initial={{ opacity: 0 }}
                             animate={{
                               opacity: [0.3, 0.8, 0.3],
                               y: [0, -120, 0], 
-                              x: [0, Math.random() * 40 - 20, 0],
+                              x: [0, (i % 5 - 2) * 10, 0],
                             }}
                             transition={{
                               duration: 7 + i,

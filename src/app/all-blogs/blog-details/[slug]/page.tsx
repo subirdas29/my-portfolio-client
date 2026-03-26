@@ -6,7 +6,7 @@ import { getAllBlogs, getSingleBlog } from "@/services/Blogs"
 
 const blogDetailPage= async({params}:{params:Promise<{slug:string}>}) => {
     const {slug} = await params
-    console.log(slug)
+  
     const {data:blog} = await getSingleBlog(slug)
     const {data:allBlogs} = await getAllBlogs()
 

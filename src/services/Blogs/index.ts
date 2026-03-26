@@ -31,7 +31,7 @@ export const getSingleBlog = async (slug: string) => {
       }
     );
     const data = await res.json();
-    console.log(data,'server')
+   
     return data;
   } catch (error: any) {
     return Error(error);

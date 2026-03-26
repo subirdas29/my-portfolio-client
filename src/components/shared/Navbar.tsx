@@ -85,14 +85,14 @@ export function Navbar() {
               
              
               <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d]">
-                {[...Array(15)].map((_, i) => (
+                {[...Array(6)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="absolute w-2 h-2 rounded-full bg-amber-500/30"
+                    className="absolute w-2 h-2 rounded-full bg-amber-500/30 will-change-transform"
                     animate={{ 
                       opacity: [0.3, 0.8, 0.3], 
                       y: [0, -200, 0], 
-                      x: [0, (i % 2 === 0 ? 30 : -30), 0] 
+                      x: [0, (i % 2 === 0 ? 20 : -20), 0] 
                     }}
                     transition={{ duration: 5 + i, repeat: Infinity, ease: "linear" }}
                     style={{ left: `${(i * 7) % 100}%`, bottom: "-5%" }}

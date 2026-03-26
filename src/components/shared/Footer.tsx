@@ -16,15 +16,15 @@ const Footer = () => {
       {/* --- Animated Background Elements --- */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
     
-        {[...Array(12)].map((_, i) => (
+        {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-3 h-3 rounded-full bg-amber-500/60 dark:bg-yellow-500/30 shadow-[0_0_10px_rgba(245,158,11,0.4)]"
+            className="absolute w-3 h-3 rounded-full bg-amber-500/60 dark:bg-yellow-500/30 shadow-[0_0_10px_rgba(245,158,11,0.4)] will-change-transform"
             initial={{ opacity: 0, y: -20 }}
             animate={{
               opacity: [0, 0.7, 0],
               y: [0, 250], 
-              x: [0, Math.random() * 40 - 20],
+              x: [0, (i % 5 - 2) * 10],
             }}
             transition={{
               duration: 7 + i * 0.5,
@@ -61,6 +61,8 @@ const Footer = () => {
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="flex items-center gap-2"
             >
                    <div className="flex ">

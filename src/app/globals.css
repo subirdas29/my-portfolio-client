@@ -126,4 +126,8 @@
   .page-container {
   @apply mx-6 md:mx-10 lg:mx-20;
 }
+
+  .will-change-transform {
+    will-change: transform;
+  }
 }
