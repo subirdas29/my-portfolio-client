@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, X, Send, Trash2, Sparkles, ExternalLink } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import Image from "next/image";
 
 interface ProjectCard {
   _id: string;
@@ -358,7 +360,19 @@ const ChatWidget = () => {
                               prose-hr:my-3 prose-hr:border-gray-200 dark:prose-hr:border-white/10
                               prose-table:text-[12px] prose-th:px-2 prose-th:py-1.5 prose-td:px-2 prose-td:py-1.5`}
                           >
-                            <ReactMarkdown>{msg.content}</ReactMarkdown>
+                            <ReactMarkdown
+                              components={{
+                                a: ({ node, ...props }) => (
+                                  <a
+                                    {...props}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  />
+                                ),
+                              }}
+                            >
+                              {msg.content}
+                            </ReactMarkdown>
                           </div>
                         )}
                       </motion.div>
@@ -379,12 +393,14 @@ const ChatWidget = () => {
                               animate={{ opacity: 1, y: 0 }}
                               className="group block rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 overflow-hidden hover:border-amber-500/50 dark:hover:border-amber-500/30 hover:shadow-lg hover:shadow-amber-500/10 transition-all"
                             >
-                              {project.imageUrls?.[0] && (
+                                {project.imageUrls?.[0] && (
                                 <div className="relative h-28 overflow-hidden">
-                                  <img
+                                  <Image
                                     src={project.imageUrls[0]}
                                     alt={project.title}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                    fill
+                                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                    sizes="(max-width: 768px) 100vw, 300px"
                                   />
                                 </div>
                               )}
@@ -399,14 +415,16 @@ const ChatWidget = () => {
                                   {project.projectType}
                                 </p>
                                 <div className="flex flex-wrap gap-1 mt-1.5">
-                                  {project.technologies.slice(0, 4).map((tech) => (
-                                    <span
-                                      key={tech}
-                                      className="text-[10px] px-1.5 py-0.5 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 font-medium"
-                                    >
-                                      {tech}
-                                    </span>
-                                  ))}
+                                  {project.technologies
+                                    .slice(0, 4)
+                                    .map((tech) => (
+                                      <span
+                                        key={tech}
+                                        className="text-[10px] px-1.5 py-0.5 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 font-medium"
+                                      >
+                                        {tech}
+                                      </span>
+                                    ))}
                                   {project.technologies.length > 4 && (
                                     <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 font-medium">
                                       +{project.technologies.length - 4}
@@ -460,10 +478,12 @@ const ChatWidget = () => {
                             >
                               {blog.featuredImage && (
                                 <div className="relative h-28 overflow-hidden">
-                                  <img
+                                  <Image
                                     src={blog.featuredImage}
                                     alt={blog.title}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                    fill
+                                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                    sizes="(max-width: 768px) 100vw, 300px"
                                   />
                                 </div>
                               )}

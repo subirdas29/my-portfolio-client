@@ -13,6 +13,7 @@
             }
           );
           const data = await res.json();
+          console.log(data,'what')
           return data;
         } catch (error: any) {
           return Error(error.message);
