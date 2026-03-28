@@ -11,11 +11,31 @@ const ProjectDetails = ({ project }: { project: TProjects }) => {
   const [selectedImage, setSelectedImage] = useState(project?.imageUrls[0]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: project.title,
+    description: project.shortDescription,
+    image: project.imageUrls?.[0],
+    url: project.liveLink,
+    applicationCategory: project.projectType,
+    operatingSystem: "Web",
+    author: {
+      "@type": "Person",
+      name: "Subir Das",
+      url: "https://subirdas.com",
+    },
+    dateCreated: project.createdAt,
+    softwareVersion: "1.0",
+    keywords: project.technologies?.join(", "),
+  };
 
   return (
-    <section className="bg-white dark:bg-[#0a0219] min-h-screen pb-32 transition-colors duration-500 selection:bg-amber-500/30">
-      
-    
+    <article className="bg-white dark:bg-[#0a0219] min-h-screen pb-32 transition-colors duration-500 selection:bg-amber-500/30">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {isModalOpen && (
         <div 
           className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0a0219] backdrop-blur-xl p-4 md:p-10 transition-all duration-300"
@@ -178,7 +198,7 @@ const ProjectDetails = ({ project }: { project: TProjects }) => {
 
         </div>
       </div>
-    </section>
+    </article>
   );
 };
 
