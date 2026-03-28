@@ -119,11 +119,301 @@ html {
   scroll-behavior: smooth;
 }
 
-/* [PERFORMANCE] Skeleton shimmer animation keyframe */
+/* ============================================================
+   CSS ANIMATIONS — Replace framer-motion for decorative elements
+   All animations use only transform + opacity (GPU-composited)
+   Zero JavaScript overhead, zero main thread blocking
+   ============================================================ */
+
+/* Float up + fade particle */
+@keyframes float-up {
+  0% { transform: translateY(0) translateX(0); opacity: 0.2; }
+  50% { transform: translateY(-150px) translateX(10px); opacity: 0.8; }
+  100% { transform: translateY(0) translateX(0); opacity: 0.2; }
+}
+@keyframes float-up-x {
+  0% { transform: translateY(0) translateX(0); opacity: 0.2; }
+  50% { transform: translateY(-120px) translateX(-15px); opacity: 0.8; }
+  100% { transform: translateY(0) translateX(0); opacity: 0.2; }
+}
+@keyframes float-up-xr {
+  0% { transform: translateY(0) translateX(0); opacity: 0.2; }
+  50% { transform: translateY(-100px) translateX(12px); opacity: 0.7; }
+  100% { transform: translateY(0) translateX(0); opacity: 0.2; }
+}
+
+/* Glowing orb pulse */
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.3); opacity: 0.5; }
+}
+@keyframes orb-pulse-slow {
+  0%, 100% { transform: scale(1); opacity: 0.2; }
+  50% { transform: scale(1.2); opacity: 0.4; }
+}
+@keyframes orb-pulse-small {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.1); opacity: 0.5; }
+}
+
+/* Rotating ring */
+@keyframes spin-ring {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes spin-ring-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+/* Orbital dot scale */
+@keyframes orbital-dot {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+}
+@keyframes orbital-dot-delayed {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+/* Cursor blink */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Typing dots bounce */
+@keyframes typing-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Sparkle float */
+@keyframes sparkle-float {
+  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+  25% { transform: translateY(-10px) scale(1.1) rotate(5deg); }
+  50% { transform: translateY(-15px) scale(1.05) rotate(-3deg); }
+  75% { transform: translateY(-5px) scale(1.1) rotate(3deg); }
+}
+
+/* Hero badge pulse */
+@keyframes hero-badge-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Arrow bounce */
+@keyframes arrow-bounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
+/* Banner entrance animations */
+@keyframes banner-slide-left {
+  0% { transform: translateX(-60px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes banner-slide-right {
+  0% { transform: translateX(60px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes banner-fade-up {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Falling particle (footer) */
+@keyframes fall-down {
+  0% { transform: translateY(-20px) translateX(0); opacity: 0; }
+  10% { opacity: 0.7; }
+  100% { transform: translateY(250px) translateX(10px); opacity: 0; }
+}
+@keyframes fall-down-x {
+  0% { transform: translateY(-20px) translateX(0); opacity: 0; }
+  10% { opacity: 0.7; }
+  100% { transform: translateY(250px) translateX(-10px); opacity: 0; }
+}
+
+/* Ping animation for live dot */
+@keyframes ping-dot {
+  0% { transform: scale(1); opacity: 1; }
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+/* Skeleton shimmer */
 @keyframes shimmer {
-  100% {
-    transform: translateX(100%);
-  }
+  100% { transform: translateX(100%); }
+}
+
+/* ====== CSS UTILITY CLASSES FOR DECORATIVE ANIMATIONS ====== */
+
+/* Particle float */
+.css-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgb(234 179 8 / 0.6);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+.dark .css-particle { background: rgb(234 179 8 / 0.4); }
+.css-particle--1 { animation: float-up 6s ease-in-out infinite; left: 8%; top: 50%; }
+.css-particle--2 { animation: float-up-x 7s ease-in-out infinite 0.5s; left: 16%; top: 55%; }
+.css-particle--3 { animation: float-up-xr 8s ease-in-out infinite 1s; left: 24%; top: 50%; }
+.css-particle--4 { animation: float-up 9s ease-in-out infinite 1.5s; left: 32%; top: 52%; }
+.css-particle--5 { animation: float-up-x 6.5s ease-in-out infinite 2s; left: 40%; top: 54%; }
+.css-particle--6 { animation: float-up-xr 7.5s ease-in-out infinite 2.5s; left: 48%; top: 50%; }
+
+/* Glowing orbs */
+.css-orb {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+.css-orb--amber {
+  background: rgb(245 158 11 / 0.2);
+  filter: blur(90px);
+  animation: orb-pulse 8s ease-in-out infinite;
+}
+.dark .css-orb--amber { background: rgb(245 158 11 / 0.1); }
+.css-orb--purple {
+  background: rgb(168 85 247 / 0.15);
+  filter: blur(80px);
+  animation: orb-pulse-slow 10s ease-in-out infinite 2s;
+}
+.dark .css-orb--purple { background: rgb(168 85 247 / 0.1); }
+.css-orb--yellow {
+  background: rgb(234 179 8 / 0.1);
+  filter: blur(120px);
+  animation: orb-pulse-small 12s ease-in-out infinite;
+}
+
+/* Rotating rings */
+.css-ring {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+.css-ring--solid {
+  border: 2px solid rgb(234 179 8);
+  animation: spin-ring 25s linear infinite;
+  box-shadow: 0 0 30px rgba(234,179,8,0.3), inset 0 0 30px rgba(234,179,8,0.1);
+}
+.dark .css-ring--solid { border-color: rgb(234 179 8); }
+.css-ring--dashed {
+  border: 1px dashed rgb(234 179 8);
+  animation: spin-ring-reverse 20s linear infinite;
+}
+.dark .css-ring--dashed { border-color: rgb(234 179 8 / 0.3); }
+
+/* Orbital dots */
+.css-orbital-dot {
+  position: absolute;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgb(250 204 21), rgb(245 158 11));
+  box-shadow: 0 0 10px rgba(245,158,11,0.5);
+  pointer-events: none;
+}
+.css-orbital-dot--top { top: 0; left: 50%; transform: translateX(-50%) translateY(-50%); animation: orbital-dot 2s ease-in-out infinite; }
+.css-orbital-dot--bottom { bottom: 0; left: 50%; transform: translateX(-50%) translateY(50%); animation: orbital-dot-delayed 2s ease-in-out infinite 0.7s; }
+.css-orbital-dot--left { left: 0; top: 50%; transform: translateX(-50%) translateY(-50%); animation: orbital-dot-delayed 2s ease-in-out infinite 1.4s; }
+.css-orbital-dot--right { right: 0; top: 50%; transform: translateX(50%) translateY(-50%); animation: orbital-dot 2s ease-in-out infinite 0.3s; }
+
+/* Cursor blink for typewriter */
+.css-cursor {
+  display: inline-block;
+  width: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(to bottom, rgb(234 179 8), rgb(245 158 11));
+  animation: cursor-blink 0.8s ease-in-out infinite;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+/* Typing indicator dots */
+.css-typing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgb(245 158 11 / 0.6);
+  animation: typing-bounce 0.6s ease-in-out infinite;
+}
+.css-typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.css-typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+/* Sparkle float */
+.css-sparkle-float {
+  animation: sparkle-float 4s ease-in-out infinite;
+}
+
+/* Hero badge pulse */
+.css-hero-badge-pulse {
+  animation: hero-badge-pulse 2s ease-in-out infinite;
+}
+
+/* Arrow bounce */
+.css-arrow-bounce {
+  display: inline-block;
+  animation: arrow-bounce 1.5s ease-in-out infinite;
+}
+
+/* Falling particles (footer) */
+.css-fall-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgb(245 158 11 / 0.6);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+.dark .css-fall-particle { background: rgb(234 179 8 / 0.3); }
+.css-fall-particle--1 { left: 5%; animation: fall-down 7s linear infinite; }
+.css-fall-particle--2 { left: 13%; animation: fall-down-x 7.5s linear infinite 0.5s; }
+.css-fall-particle--3 { left: 21%; animation: fall-down 8s linear infinite 1s; }
+.css-fall-particle--4 { left: 29%; animation: fall-down-x 8.5s linear infinite 1.5s; }
+.css-fall-particle--5 { left: 37%; animation: fall-down 9s linear infinite 2s; }
+.css-fall-particle--6 { left: 45%; animation: fall-down-x 9.5s linear infinite 2.5s; }
+
+/* Banner entrance animations */
+.css-banner-slide-left {
+  animation: banner-slide-left 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+.css-banner-slide-right {
+  animation: banner-slide-right 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+.css-banner-fade-up {
+  animation: banner-fade-up 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+.css-banner-fade-up-1 { animation-delay: 0.1s; opacity: 0; }
+.css-banner-fade-up-2 { animation-delay: 0.2s; opacity: 0; }
+.css-banner-fade-up-3 { animation-delay: 0.3s; opacity: 0; }
+.css-banner-fade-up-4 { animation-delay: 0.4s; opacity: 0; }
+.css-banner-fade-up-5 { animation-delay: 0.5s; opacity: 0; }
+
+/* Live status dot */
+.css-ping-dot {
+  position: relative;
+  display: inline-flex;
+  width: 8px;
+  height: 8px;
+}
+.css-ping-dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: rgb(34 197 94);
+  animation: ping-dot 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.css-ping-dot::after {
+  content: '';
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgb(34 197 94);
 }
 
 /* [OPTIMIZATION] GPU-accelerated will-change for animated particles */

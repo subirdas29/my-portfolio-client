@@ -8,15 +8,6 @@ import { ArrowBigRight, Sparkles, Ghost } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-// [OPTIMIZATION] Memoize particle positions outside component
-const particlePositions = [...Array(6)].map((_, i) => ({
-  left: `${10 + i * 16}%`,
-  top: `${40 + (i % 3) * 15}%`,
-  duration: 7 + i,
-  delay: i * 0.8,
-  xRange: (i % 5 - 2) * 10,
-}));
-
 const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
   const hasBlogs = blogs && blogs.length > 0;
 
@@ -30,6 +21,7 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center mb-16"
+          suppressHydrationWarning
         >
           <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">
             My <span className="text-amber-500">Blogs</span>
@@ -42,6 +34,7 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className="flex flex-col items-center justify-center py-20 text-center"
+            suppressHydrationWarning
           >
             <div className="p-8 rounded-full bg-amber-500/5 mb-6 border border-amber-500/10">
               <Ghost className="w-16 h-16 text-amber-500/50" />
@@ -67,6 +60,7 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                     ease: [0.25, 0.46, 0.45, 0.94],
                   }}
                   className="group relative rounded-3xl overflow-hidden p-[2px]"
+                  suppressHydrationWarning
                 >
                   {/* --- Running Line Border --- */}
                   <div className="absolute inset-0 z-0">
@@ -110,25 +104,9 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                     {/* Blog Content Section with Bubbles */}
                     <div className="relative z-30 p-6 flex flex-col flex-grow overflow-hidden">
                       {/* [OPTIMIZATION] Animated bubbles - transform-only */}
-                      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                        {particlePositions.map((pos, i) => (
-                          <motion.div
-                            key={i}
-                            className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60 will-change-transform"
-                            initial={{ opacity: 0 }}
-                            animate={{
-                              opacity: [0.3, 0.8, 0.3],
-                              y: [0, -120, 0],
-                              x: [0, pos.xRange, 0],
-                            }}
-                            transition={{
-                              duration: pos.duration,
-                              repeat: Infinity,
-                              delay: pos.delay,
-                              ease: "easeInOut",
-                            }}
-                            style={{ left: pos.left, top: pos.top }}
-                          />
+                      <div className="absolute inset-0 overflow-hidden pointer-events-none" suppressHydrationWarning>
+                        {[...Array(6)].map((_, i) => (
+                          <div key={i} className={`css-particle css-particle--${i + 1}`} suppressHydrationWarning />
                         ))}
                       </div>
 
@@ -150,17 +128,9 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                         >
                           <GradientButton className="w-full h-12 rounded-xl text-sm font-black tracking-wide ">
                             <span>Read Full Story</span>
-                            {/* [OPTIMIZATION] Arrow animation uses transform only */}
-                            <motion.span
-                              animate={{ x: [0, 4, 0] }}
-                              transition={{
-                                repeat: Infinity,
-                                duration: 1.5,
-                              }}
-                              className="ml-2"
-                            >
+                            <span className="css-arrow-bounce ml-2">
                               <ArrowBigRight className="w-5 h-5" />
-                            </motion.span>
+                            </span>
                           </GradientButton>
                         </Link>
                       </div>

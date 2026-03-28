@@ -53,17 +53,7 @@ const TypingIndicator = memo(() => (
     <div className="px-4 py-3 rounded-2xl rounded-bl-md bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
       <div className="flex items-center gap-1.5">
         {[0, 1, 2].map((i) => (
-          <motion.div
-            key={i}
-            className="w-2 h-2 rounded-full bg-amber-500/60"
-            animate={{ y: [0, -6, 0] }}
-            transition={{
-              duration: 0.6,
-              repeat: Infinity,
-              delay: i * 0.15,
-              ease: "easeInOut",
-            }}
-          />
+          <div key={i} className="css-typing-dot" />
         ))}
       </div>
     </div>
@@ -349,10 +339,7 @@ const ChatWidget = () => {
                     )}
 
                     <div className="flex flex-col gap-2 min-w-0">
-                      <motion.div
-                        initial={{ opacity: 0, y: 8, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        transition={{ duration: 0.25, ease: "easeOut" }}
+                      <div
                         className={`w-fit overflow-hidden break-words ${
                           msg.role === "user"
                             ? "px-4 py-3 bg-gradient-to-br from-yellow-500 to-amber-500 text-white dark:text-black rounded-2xl rounded-br-md font-medium shadow-lg shadow-amber-500/20 text-sm leading-relaxed"
@@ -399,7 +386,7 @@ const ChatWidget = () => {
                         ) : (
                           <p className="text-sm">{msg.content}</p>
                         )}
-                      </motion.div>
+                      </div>
 
                       {/* Project Cards */}
                       {msg.projects && msg.projects.length > 0 && (

@@ -16,7 +16,6 @@ import {
 import { ModeToggle } from "../ui/core/theme/mode-toggle";
 import Image from "next/image";
 import logo from "../../assets/logo/sd-logo.webp";
-import { motion } from "framer-motion";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -39,17 +38,6 @@ export function Navbar() {
       { href: "/all-blogs", label: "Blogs" },
       { href: "/contact", label: "Contact" },
     ],
-    []
-  );
-
-  // [OPTIMIZATION] Memoize particle positions for mobile menu
-  const mobileParticles = useMemo(
-    () =>
-      [...Array(6)].map((_, i) => ({
-        left: `${(i * 7) % 100}%`,
-        bottom: "-5%",
-        duration: 5 + i,
-      })),
     []
   );
 
@@ -153,24 +141,9 @@ export function Navbar() {
                 <SheetTitle>Navigation Menu</SheetTitle>
               </SheetHeader>
 
-              <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d]">
-                {/* [OPTIMIZATION] Mobile menu particles - transform-only */}
-                {mobileParticles.map((pos, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-2 h-2 rounded-full bg-amber-500/30 will-change-transform"
-                    animate={{
-                      opacity: [0.3, 0.8, 0.3],
-                      y: [0, -200, 0],
-                      x: [0, i % 2 === 0 ? 20 : -20, 0],
-                    }}
-                    transition={{
-                      duration: pos.duration,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    style={{ left: pos.left, bottom: pos.bottom }}
-                  />
+              <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d]" suppressHydrationWarning>
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className={`css-particle css-particle--${i + 1}`} suppressHydrationWarning />
                 ))}
               </div>
 

@@ -1,29 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { useState, useMemo } from "react";
-import { AnimatePresence } from "framer-motion";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { TProjects } from "@/types/projects";
 import Link from "next/link";
 import { FolderSearch, Sparkles, Plus, Ghost } from "lucide-react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import GradientButton from "@/utility/GradientButton";
-
-// [OPTIMIZATION] Memoize particle positions outside component
-const heroParticles = [...Array(6)].map((_, i) => ({
-  left: `${12 * i + 5}%`,
-  top: `${50 + (i % 2) * 20}%`,
-  duration: 5 + i,
-}));
-
-const cardParticles = [...Array(4)].map((_, i) => ({
-  left: `${10 + i * 16}%`,
-  top: `${40 + (i % 3) * 15}%`,
-  duration: 7 + i,
-  delay: i * 0.8,
-  xRange: (i % 5 - 2) * 10,
-}));
 
 const AllProjects = ({ projects = [] }: { projects: TProjects[] }) => {
   const [visibleCount, setVisibleCount] = useState(6);
@@ -38,19 +22,12 @@ const AllProjects = ({ projects = [] }: { projects: TProjects[] }) => {
     <div className="bg-white dark:bg-[#0a0219] transition-colors duration-300">
       {/* --- HERO SECTION --- */}
       <section className="relative flex flex-col items-center justify-center min-h-[400px] bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] text-gray-900 dark:text-white overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          {heroParticles.map((pos, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 rounded-full bg-yellow-500/20 dark:bg-yellow-500/10 will-change-transform"
-              animate={{
-                opacity: [0.2, 0.5, 0.2],
-                y: [0, -100, 0],
-              }}
-              transition={{ duration: pos.duration, repeat: Infinity }}
-              style={{ left: pos.left, top: pos.top }}
-            />
+        <div className="absolute inset-0 overflow-hidden" suppressHydrationWarning>
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className={`css-particle css-particle--${i + 1}`} suppressHydrationWarning />
           ))}
+          <div className="css-orb css-orb--amber absolute w-[500px] h-[500px] -top-32 -right-32 rounded-full bg-yellow-400/20 dark:bg-yellow-500/10 blur-[100px]" suppressHydrationWarning />
+          <div className="css-orb css-orb--purple absolute w-[400px] h-[400px] -bottom-32 -left-32 rounded-full bg-amber-400/20 dark:bg-purple-500/10 blur-[80px]" suppressHydrationWarning />
         </div>
 
         <motion.div
@@ -58,6 +35,7 @@ const AllProjects = ({ projects = [] }: { projects: TProjects[] }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="relative z-10 text-center px-4"
+          suppressHydrationWarning
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 dark:bg-yellow-400/10 border border-yellow-500/30 dark:border-yellow-400/20 mb-6 backdrop-blur-sm">
             <Sparkles className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
@@ -87,6 +65,7 @@ const AllProjects = ({ projects = [] }: { projects: TProjects[] }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="flex flex-col items-center justify-center py-24 text-center"
+              suppressHydrationWarning
             >
               <Ghost className="w-16 h-16 text-gray-300 dark:text-gray-700 mb-4" />
               <h2 className="text-2xl font-bold text-gray-400">
@@ -110,6 +89,7 @@ const AllProjects = ({ projects = [] }: { projects: TProjects[] }) => {
                         ease: [0.25, 0.46, 0.45, 0.94],
                       }}
                       className="group relative rounded-[2.5rem] overflow-hidden p-[2px]"
+                      suppressHydrationWarning
                     >
                       {/* Card Border SVG Effect */}
                       <div className="absolute inset-0 z-0">
@@ -157,26 +137,9 @@ const AllProjects = ({ projects = [] }: { projects: TProjects[] }) => {
 
                         {/* Content Part with Bubbles */}
                         <div className="relative z-30 p-8 flex flex-col flex-grow overflow-hidden">
-                          {/* [OPTIMIZATION] Animated Bubbles - transform-only */}
-                          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                            {cardParticles.map((pos, i) => (
-                              <motion.div
-                                key={i}
-                                className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60 will-change-transform"
-                                initial={{ opacity: 0 }}
-                                animate={{
-                                  opacity: [0.3, 0.8, 0.3],
-                                  y: [0, -120, 0],
-                                  x: [0, pos.xRange, 0],
-                                }}
-                                transition={{
-                                  duration: pos.duration,
-                                  repeat: Infinity,
-                                  delay: pos.delay,
-                                  ease: "easeInOut",
-                                }}
-                                style={{ left: pos.left, top: pos.top }}
-                              />
+                          <div className="absolute inset-0 overflow-hidden pointer-events-none" suppressHydrationWarning>
+                            {[...Array(6)].map((_, i) => (
+                              <div key={i} className={`css-particle css-particle--${i + 1}`} suppressHydrationWarning />
                             ))}
                           </div>
 

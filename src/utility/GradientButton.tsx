@@ -47,7 +47,7 @@ export default function GradientButton({
         download={download}
         target={target}
         className={cn(baseClasses, className)}
-        whileHover={{ scale: 1.02, y: -2 }}
+        whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
         {content}
@@ -60,7 +60,7 @@ export default function GradientButton({
       type={type}
       disabled={disabled}
       className={cn(baseClasses, className)}
-      whileHover={{ scale: 1.02, y: -2 }}
+      whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
       {content}

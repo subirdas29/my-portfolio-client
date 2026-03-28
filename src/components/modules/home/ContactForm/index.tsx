@@ -11,15 +11,6 @@ import { Textarea } from "@/components/ui/textarea";
 import GradientButton from "@/utility/GradientButton";
 import { usePathname } from "next/navigation";
 
-// [OPTIMIZATION] Memoize particle positions outside component
-const particlePositions6 = [...Array(6)].map((_, i) => ({
-  left: `${10 + i * 9}%`,
-  top: `${40 + (i % 3) * 15}%`,
-  duration: 5 + i * 0.5,
-  delay: i * 0.4,
-  xRange: (i % 5 - 2) * 10,
-}));
-
 const contactInfo = [
   { icon: <Mail />, label: "Email Me", val: "subirdas1045@gmail.com" },
   {
@@ -61,36 +52,12 @@ const ContactSection = ({ className }: { className?: string }) => {
       {/* --- Banner Section --- */}
       {isContactPage && (
         <section className="relative flex flex-col items-center justify-center min-h-[450px] bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] text-gray-900 dark:text-white overflow-hidden">
-          {/* [OPTIMIZATION] Animated Background Elements - transform-only */}
-          <div className="absolute inset-0 overflow-hidden">
-            {particlePositions6.map((pos, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40 will-change-transform"
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: [0.2, 0.8, 0.2],
-                  y: [0, -100, 0],
-                  x: [0, pos.xRange, 0],
-                }}
-                transition={{
-                  duration: pos.duration,
-                  repeat: Infinity,
-                  delay: pos.delay,
-                }}
-                style={{ left: pos.left, top: pos.top }}
-              />
+          <div className="absolute inset-0 overflow-hidden" suppressHydrationWarning>
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className={`css-particle css-particle--${i + 1}`} suppressHydrationWarning />
             ))}
-            <motion.div
-              className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full bg-yellow-400/20 dark:bg-yellow-500/10 blur-[90px]"
-              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 8, repeat: Infinity }}
-            />
-            <motion.div
-              className="absolute -bottom-24 -left-24 w-[350px] h-[350px] rounded-full bg-amber-400/20 dark:bg-purple-500/10 blur-[80px]"
-              animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
-              transition={{ duration: 10, repeat: Infinity, delay: 2 }}
-            />
+            <div className="css-orb css-orb--amber w-[400px] h-[400px] -top-24 -right-24" suppressHydrationWarning />
+            <div className="css-orb css-orb--purple w-[350px] h-[350px] -bottom-24 -left-24" suppressHydrationWarning />
           </div>
 
           <motion.div
@@ -98,6 +65,7 @@ const ContactSection = ({ className }: { className?: string }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="relative z-10 text-center px-4"
+            suppressHydrationWarning
           >
             <motion.div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 dark:bg-yellow-400/10 border border-yellow-500/30 dark:border-yellow-400/20 mb-6 ">
               <Sparkles className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
@@ -134,6 +102,7 @@ const ContactSection = ({ className }: { className?: string }) => {
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
             className="group relative rounded-[2.5rem] overflow-hidden shadow-xl transition-all duration-500 "
+            suppressHydrationWarning
           >
             <div className="absolute inset-0 z-0">
               <svg className="w-full h-full" preserveAspectRatio="none">
@@ -162,25 +131,9 @@ const ContactSection = ({ className }: { className?: string }) => {
 
             {/* --- Inner Content Card --- */}
             <div className="relative z-10 m-[3px] grid grid-cols-1 md:grid-cols-2 rounded-[2.4rem] bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] overflow-hidden border border-gray-200/20 dark:border-white/5 shadow-2xl">
-              {/* [OPTIMIZATION] Background Bubbles - transform-only */}
-              <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-                {particlePositions6.map((pos, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40 will-change-transform"
-                    initial={{ opacity: 0 }}
-                    animate={{
-                      opacity: [0.2, 0.8, 0.2],
-                      y: [0, -100, 0],
-                      x: [0, pos.xRange, 0],
-                    }}
-                    transition={{
-                      duration: pos.duration,
-                      repeat: Infinity,
-                      delay: pos.delay,
-                    }}
-                    style={{ left: pos.left, top: pos.top }}
-                  />
+              <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" suppressHydrationWarning>
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className={`css-particle css-particle--${i + 1}`} suppressHydrationWarning />
                 ))}
               </div>
 

@@ -75,6 +75,7 @@ const AboutMe = () => {
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             viewport={{ once: true, amount: 0.15 }}
             className="relative"
+            suppressHydrationWarning
           >
             {/* Background Decorative Shape */}
             <div className="absolute -inset-4 bg-gradient-to-tr from-amber-500/20 to-orange-500/20 rounded-[3rem] blur-2xl opacity-50" />
@@ -140,6 +141,7 @@ const AboutMe = () => {
               }}
               viewport={{ once: true, amount: 0.2 }}
               className="absolute -bottom-6 -right-2 md:-right-10 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl p-4 md:p-8 rounded-[1.5rem] md:rounded-[2rem] shadow-2xl border border-slate-100 dark:border-white/10"
+              suppressHydrationWarning
             >
               <div className="flex items-center gap-3 md:gap-5">
                 <div className="relative">
@@ -166,6 +168,7 @@ const AboutMe = () => {
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             viewport={{ once: true, amount: 0.15 }}
             className="space-y-8 mt-12 lg:mt-0"
+            suppressHydrationWarning
           >
             <div className="space-y-4">
               <h2 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white leading-tight">

@@ -1,76 +1,35 @@
 "use client";
-import React, { useMemo } from "react";
+import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Home, ArrowLeft, Ghost, Sparkles } from "lucide-react";
 import GradientButton from "@/utility/GradientButton";
 
 const NotFound = () => {
-  // [OPTIMIZATION] Memoize particle positions
-  const particlePositions = useMemo(
-    () =>
-      [...Array(8)].map((_, i) => ({
-        left: `${8 + i * 8}%`,
-        top: `${50 + (i % 4) * 12}%`,
-        duration: 6 + i * 0.5,
-        delay: i * 0.4,
-        xRange: (i % 5 - 2) * 12,
-      })),
-    []
-  );
-
   return (
     <section className="relative flex items-center justify-center min-h-screen bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] text-gray-900 dark:text-white overflow-hidden transition-colors duration-500">
-      {/* [OPTIMIZATION] Animated background - transform-only */}
-      <div className="absolute inset-0 overflow-hidden">
-        {particlePositions.map((pos, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-500/40 will-change-transform"
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0.2, 0.8, 0.2],
-              y: [0, -150, 0],
-              x: [0, pos.xRange, 0],
-            }}
-            transition={{
-              duration: pos.duration,
-              repeat: Infinity,
-              delay: pos.delay,
-            }}
-            style={{ left: pos.left, top: pos.top }}
-          />
+      {/* CSS-only animated background */}
+      <div className="absolute inset-0 overflow-hidden" suppressHydrationWarning>
+        {[...Array(8)].map((_, i) => (
+          <div key={i} className={`css-particle css-particle--${i + 1 > 6 ? (i + 1 - 6) : i + 1}`} suppressHydrationWarning />
         ))}
 
-        <motion.div
-          className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-yellow-400/20 dark:bg-yellow-500/10 blur-[100px]"
-          animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute -bottom-32 -left-32 w-[400px] h-[400px] rounded-full bg-amber-400/20 dark:bg-purple-500/10 blur-[80px]"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
-          transition={{ duration: 10, repeat: Infinity, delay: 2 }}
-        />
+        <div className="css-orb css-orb--amber w-[500px] h-[500px] -top-32 -right-32" suppressHydrationWarning />
+        <div className="css-orb css-orb--purple w-[400px] h-[400px] -bottom-32 -left-32" suppressHydrationWarning />
       </div>
 
       {/* --- MAIN CONTENT --- */}
       <div className="relative z-10 text-center px-6">
-        <motion.div
+        <div
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 dark:bg-yellow-400/10 border border-yellow-500/30 dark:border-yellow-400/20 mb-8 backdrop-blur-sm"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
         >
           <Sparkles className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
           <span className="text-sm font-medium text-yellow-700 dark:text-yellow-300">
             Error 404: Page Not Found
           </span>
-        </motion.div>
+        </div>
 
-        {/* [OPTIMIZATION] Floating ghost - transform-only animation */}
-        <motion.div
-          animate={{ y: [0, -25, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        {/* Floating ghost - CSS animation */}
+        <div
           className="flex justify-center mb-10"
         >
           <div className="relative p-12 rounded-full bg-gradient-to-br from-yellow-400/20 to-amber-500/20 dark:from-yellow-500/10 dark:to-amber-600/10 border border-yellow-500/30 backdrop-blur-md shadow-2xl shadow-yellow-500/10">
@@ -78,42 +37,31 @@ const NotFound = () => {
               size={100}
               className="text-amber-500 dark:text-yellow-400"
             />
-            <motion.div
-              className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs font-black px-4 py-1.5 rounded-full shadow-lg"
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
+            <div
+              className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs font-black px-4 py-1.5 rounded-full shadow-lg css-hero-badge-pulse"
             >
               LOST
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+        <h1
           className="text-6xl md:text-8xl font-black tracking-tight mb-6"
         >
           Oops!{" "}
           <span className="bg-gradient-to-r from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-amber-500 text-transparent bg-clip-text">
             Wrong Path
           </span>
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
+        <p
           className="text-gray-600 dark:text-gray-300 max-w-xl mx-auto mb-12 text-lg md:text-xl font-medium leading-relaxed"
         >
           The page you are looking for doesn&apos;t exist or has been moved to
           another galaxy. Let&apos;s get you back on track.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
+        <div
           className="flex flex-col sm:flex-row items-center justify-center gap-5"
         >
           <Link href="/">
@@ -130,7 +78,7 @@ const NotFound = () => {
             <ArrowLeft size={20} />
             Go Previous
           </button>
-        </motion.div>
+        </div>
       </div>
 
       {/* Bottom Gradient Fade */}

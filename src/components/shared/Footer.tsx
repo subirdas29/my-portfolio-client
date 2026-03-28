@@ -14,57 +14,18 @@ import { motion } from "framer-motion";
 import fiverrLight from "../../assets/icon/fiverr-white.webp";
 import upworkLight from "../../assets/icon/upwork.webp";
 import logo from "../../assets/logo/sd-logo.webp";
-import { useMemo } from "react";
 
 const Footer = () => {
-  // [OPTIMIZATION] Memoize particle positions outside render loop
-  const particlePositions = useMemo(
-    () =>
-      [...Array(6)].map((_, i) => ({
-        left: `${5 + i * 8}%`,
-        top: `${-10 + (i % 3) * 5}%`,
-        duration: 7 + i * 0.5,
-        delay: i * 0.1,
-        xRange: (i % 5 - 2) * 10,
-      })),
-    []
-  );
-
   return (
     <footer className="relative flex flex-col items-center justify-center pt-24 pb-12 bg-gradient-to-br from-[#F9FAFB] via-[#fff8e1] to-[#faffdd] dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] text-gray-900 dark:text-white overflow-hidden border-t border-gray-200 dark:border-white/5">
-      {/* --- Animated Background Elements - transform-only --- */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {particlePositions.map((pos, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-3 h-3 rounded-full bg-amber-500/60 dark:bg-yellow-500/30 shadow-[0_0_10px_rgba(245,158,11,0.4)] will-change-transform"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{
-              opacity: [0, 0.7, 0],
-              y: [0, 250],
-              x: [0, pos.xRange],
-            }}
-            transition={{
-              duration: pos.duration,
-              repeat: Infinity,
-              delay: pos.delay,
-              ease: "linear",
-            }}
-            style={{ left: pos.left, top: pos.top }}
-          />
+      {/* --- Animated Background Elements - CSS only --- */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" suppressHydrationWarning>
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className={`css-fall-particle css-fall-particle--${i + 1}`} suppressHydrationWarning />
         ))}
 
-        {/* Glowing Orbs */}
-        <motion.div
-          className="absolute -bottom-32 -right-32 w-[450px] h-[450px] rounded-full bg-amber-400/20 dark:bg-yellow-500/10 blur-[100px]"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute top-0 -left-32 w-[350px] h-[350px] rounded-full bg-purple-400/15 dark:bg-purple-500/10 blur-[90px]"
-          animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
-          transition={{ duration: 10, repeat: Infinity, delay: 2 }}
-        />
+        <div className="css-orb css-orb--amber w-[450px] h-[450px] -bottom-32 -right-32" suppressHydrationWarning />
+        <div className="css-orb css-orb--purple w-[350px] h-[350px] top-0 -left-32" suppressHydrationWarning />
       </div>
 
       <div className="relative z-10 w-full px-6 md:px-10 lg:px-20 mx-auto">
@@ -80,6 +41,7 @@ const Footer = () => {
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
               className="flex items-center gap-2"
+              suppressHydrationWarning
             >
               <div className="flex ">
                 <Link href="/" className="flex items-center gap-2 ">

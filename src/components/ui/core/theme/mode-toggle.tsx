@@ -35,7 +35,7 @@ export function ModeToggle() {
       {theme === "dark" ? (
         <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
       ) : (
-        <Moon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
+        <Moon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all text-black dark:text-white" />
       )}
       <span className="sr-only">Toggle theme</span>
     </Button>

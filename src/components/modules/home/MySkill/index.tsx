@@ -30,6 +30,7 @@ const SkillsSection = ({ skills }: { skills: TSkill[] }) => {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center mb-16"
+          suppressHydrationWarning
         >
           <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">
             My <span className="text-amber-500">Skills</span>
@@ -86,6 +87,7 @@ const SkillsSection = ({ skills }: { skills: TSkill[] }) => {
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 0.4 }}
                 className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
+                suppressHydrationWarning
               >
                 {skills?.map((skill) => (
                   <motion.div
@@ -123,6 +125,7 @@ const SkillsSection = ({ skills }: { skills: TSkill[] }) => {
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 0.4 }}
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+                suppressHydrationWarning
               >
                 {softSkills.map((skill) => (
                   <motion.div
