@@ -12,8 +12,8 @@ interface GradientButtonProps {
   className?: string;
   icon?: ReactNode;
   target?: "_blank" | "_self";
-    type?: "button" | "submit" | "reset"; 
-  disabled?: boolean; 
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 export default function GradientButton({
@@ -23,7 +23,7 @@ export default function GradientButton({
   className,
   icon,
   target = "_self",
-    type = "button",
+  type = "button",
   disabled = false,
 }: GradientButtonProps) {
   const baseClasses =
@@ -31,12 +31,15 @@ export default function GradientButton({
 
   const content = (
     <>
+      {/* [OPTIMIZATION] Hover shine effect uses opacity transition only (GPU-composited) */}
       <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
       {icon}
       {children}
     </>
   );
 
+  // [OPTIMIZATION] Use reduced motion for whileHover/whileTap.
+  // Transform-only animations (scale, y) are GPU-composited and don't trigger layout.
   if (href) {
     return (
       <motion.a
@@ -54,8 +57,8 @@ export default function GradientButton({
 
   return (
     <motion.button
-       type={type}            
-      disabled={disabled} 
+      type={type}
+      disabled={disabled}
       className={cn(baseClasses, className)}
       whileHover={{ scale: 1.02, y: -2 }}
       whileTap={{ scale: 0.98 }}

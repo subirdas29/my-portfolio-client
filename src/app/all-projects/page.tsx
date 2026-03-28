@@ -1,31 +1,38 @@
-import AllProjects from "@/components/modules/AllProjects/AllProjects"
-import { getAllProjects } from "@/services/Projects"
-import type { Metadata } from "next"
+import dynamic from "next/dynamic";
+import { getAllProjects } from "@/services/Projects";
+import type { Metadata } from "next";
+import { ProjectListSkeleton } from "@/components/shared/Skeletons";
+
+// [PERFORMANCE] Dynamic import with matching skeleton layout
+const AllProjects = dynamic(
+  () => import("@/components/modules/AllProjects/AllProjects"),
+  { loading: () => <ProjectListSkeleton /> }
+);
 
 export const metadata: Metadata = {
   title: "All Projects | Subir Das",
-  description: "Explore the portfolio of projects by Subir Das - Full Stack Developer specializing in web applications, AI automation, and modern software solutions.",
+  description:
+    "Explore the portfolio of projects by Subir Das - Full Stack Developer specializing in web applications, AI automation, and modern software solutions.",
   openGraph: {
     title: "All Projects | Subir Das",
-    description: "Explore the portfolio of projects by Subir Das - Full Stack Developer specializing in web applications, AI automation, and modern software solutions.",
+    description:
+      "Explore the portfolio of projects by Subir Das - Full Stack Developer specializing in web applications, AI automation, and modern software solutions.",
     url: "https://subirdas.com/all-projects",
     images: ["https://subirdas.com/og-image.jpg"],
   },
   alternates: {
     canonical: "https://subirdas.com/all-projects",
   },
-}
+};
 
-const AllProjectsPage = async() => {
-  const {data:projects} = await getAllProjects("1", "50");
- 
+const AllProjectsPage = async () => {
+  const { data: projects } = await getAllProjects("1", "50");
 
   return (
     <div>
-      <AllProjects projects = {projects}/>
-  
+      <AllProjects projects={projects} />
     </div>
-  )
-}
+  );
+};
 
-export default AllProjectsPage
+export default AllProjectsPage;

@@ -8,6 +8,15 @@ import { ArrowBigRight, Sparkles, Ghost } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+// [OPTIMIZATION] Memoize particle positions outside component
+const particlePositions = [...Array(6)].map((_, i) => ({
+  left: `${10 + i * 16}%`,
+  top: `${40 + (i % 3) * 15}%`,
+  duration: 7 + i,
+  delay: i * 0.8,
+  xRange: (i % 5 - 2) * 10,
+}));
+
 const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
   const hasBlogs = blogs && blogs.length > 0;
 
@@ -29,7 +38,7 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
         </motion.div>
 
         {!hasBlogs ? (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className="flex flex-col items-center justify-center py-20 text-center"
@@ -37,7 +46,9 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
             <div className="p-8 rounded-full bg-amber-500/5 mb-6 border border-amber-500/10">
               <Ghost className="w-16 h-16 text-amber-500/50" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-400 dark:text-gray-600">No blogs available right now</h3>
+            <h3 className="text-2xl font-bold text-gray-400 dark:text-gray-600">
+              No blogs available right now
+            </h3>
           </motion.div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -50,7 +61,11 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.1 }}
-                  transition={{ duration: 0.5, delay: index * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.12,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }}
                   className="group relative rounded-3xl overflow-hidden p-[2px]"
                 >
                   {/* --- Running Line Border --- */}
@@ -67,49 +82,52 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                         className="fill-none stroke-amber-500 stroke-[3] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                         strokeDasharray="25 75"
                       >
-                        <animate attributeName="stroke-dashoffset" from="100" to="0" dur="8s" repeatCount="indefinite" />
+                        <animate
+                          attributeName="stroke-dashoffset"
+                          from="100"
+                          to="0"
+                          dur="8s"
+                          repeatCount="indefinite"
+                        />
                       </rect>
                     </svg>
                   </div>
 
                   <div className="relative z-10 h-full bg-white dark:bg-gradient-to-br dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] border border-gray-100 dark:border-white/5 rounded-3xl overflow-hidden flex flex-col shadow-xl">
-                    
-                    {/* Blog Image Section (z-20 high priority) */}
+                    {/* [OPTIMIZATION] Blog image: lazy loaded with explicit dimensions and sizes */}
                     <div className="relative w-full h-56 overflow-hidden z-20">
                       <Image
-                        height={500}
+                        height={224}
                         width={500}
                         src={blogImage}
                         alt={blog.title}
-                        className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" 
+                        className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
+                        loading="lazy"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                     </div>
 
                     {/* Blog Content Section with Bubbles */}
                     <div className="relative z-30 p-6 flex flex-col flex-grow overflow-hidden">
-                      
-                      {/* --- Animated Bubbles (Matching ProjectShowcase Position) --- */}
+                      {/* [OPTIMIZATION] Animated bubbles - transform-only */}
                       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                        {[...Array(6)].map((_, i) => (
+                        {particlePositions.map((pos, i) => (
                           <motion.div
                             key={i}
                             className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60 will-change-transform"
                             initial={{ opacity: 0 }}
                             animate={{
                               opacity: [0.3, 0.8, 0.3],
-                              y: [0, -120, 0], 
-                              x: [0, (i % 5 - 2) * 10, 0],
+                              y: [0, -120, 0],
+                              x: [0, pos.xRange, 0],
                             }}
                             transition={{
-                              duration: 7 + i,
+                              duration: pos.duration,
                               repeat: Infinity,
-                              delay: i * 0.8,
-                              ease: "easeInOut"
+                              delay: pos.delay,
+                              ease: "easeInOut",
                             }}
-                            style={{
-                              left: `${10 + i * 16}%`,
-                              top: `${40 + (i % 3) * 15}%`,
-                            }}
+                            style={{ left: pos.left, top: pos.top }}
                           />
                         ))}
                       </div>
@@ -120,13 +138,27 @@ const Blogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                         </h3>
 
                         <p className="text-gray-600 dark:text-gray-400 mb-6 font-medium leading-relaxed line-clamp-2">
-                          {blog.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 80)}...
+                          {blog.content
+                            .replace(/<\/?[^>]+(>|$)/g, "")
+                            .substring(0, 80)}
+                          ...
                         </p>
 
-                        <Link href={`/all-blogs/blog-details/${blog?.slug}`} className="mt-auto">
-                          <GradientButton className="w-full h-12 rounded-xl text-sm font-black tracking-wide">
+                        <Link
+                          href={`/all-blogs/blog-details/${blog?.slug}`}
+                          className="mt-auto"
+                        >
+                          <GradientButton className="w-full h-12 rounded-xl text-sm font-black tracking-wide ">
                             <span>Read Full Story</span>
-                            <motion.span animate={{ x: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} className="ml-2">
+                            {/* [OPTIMIZATION] Arrow animation uses transform only */}
+                            <motion.span
+                              animate={{ x: [0, 4, 0] }}
+                              transition={{
+                                repeat: Infinity,
+                                duration: 1.5,
+                              }}
+                              className="ml-2"
+                            >
                               <ArrowBigRight className="w-5 h-5" />
                             </motion.span>
                           </GradientButton>

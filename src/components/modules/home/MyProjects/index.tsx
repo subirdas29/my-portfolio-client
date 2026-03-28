@@ -1,13 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { TProjects } from '@/types/projects';
-import GradientButton from '@/utility/GradientButton';
-import { motion } from 'framer-motion';
-import { FolderSearch, Ghost } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { FaExternalLinkAlt } from 'react-icons/fa';
+import { TProjects } from "@/types/projects";
+import GradientButton from "@/utility/GradientButton";
+import { motion } from "framer-motion";
+import { FolderSearch, Ghost } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { FaExternalLinkAlt } from "react-icons/fa";
+
+// [OPTIMIZATION] Memoize particle positions outside component to avoid recreation
+const particlePositions = [...Array(6)].map((_, i) => ({
+  left: `${10 + i * 16}%`,
+  top: `${40 + (i % 3) * 15}%`,
+  duration: 7 + i,
+  delay: i * 0.8,
+  xRange: (i % 5 - 2) * 10,
+}));
 
 const ProjectShowcase = ({ projects = [] }: { projects: TProjects[] }) => {
   const hasProjects = projects && projects.length > 0;
@@ -32,7 +40,9 @@ const ProjectShowcase = ({ projects = [] }: { projects: TProjects[] }) => {
         {!hasProjects ? (
           <motion.div className="flex flex-col items-center justify-center py-20 text-center">
             <Ghost className="w-16 h-16 text-amber-500/50 mb-6" />
-            <h3 className="text-2xl font-bold text-gray-400 dark:text-gray-600">No projects to showcase yet</h3>
+            <h3 className="text-2xl font-bold text-gray-400 dark:text-gray-600">
+              No projects to showcase yet
+            </h3>
           </motion.div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -42,7 +52,11 @@ const ProjectShowcase = ({ projects = [] }: { projects: TProjects[] }) => {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.5, delay: index * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.12,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
                 className="group relative rounded-3xl overflow-hidden p-[2px]"
               >
                 {/* Border Effect */}
@@ -59,30 +73,36 @@ const ProjectShowcase = ({ projects = [] }: { projects: TProjects[] }) => {
                       className="fill-none stroke-amber-500 stroke-[3] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                       strokeDasharray="25 75"
                     >
-                      <animate attributeName="stroke-dashoffset" from="100" to="0" dur="8s" repeatCount="indefinite" />
+                      <animate
+                        attributeName="stroke-dashoffset"
+                        from="100"
+                        to="0"
+                        dur="8s"
+                        repeatCount="indefinite"
+                      />
                     </rect>
                   </svg>
                 </div>
 
                 <div className="relative z-10 h-full bg-white dark:bg-gradient-to-br dark:from-[#0a0219] dark:via-[#120825] dark:to-[#1b0c2d] border border-gray-100 dark:border-white/5 rounded-3xl overflow-hidden flex flex-col shadow-xl">
-                  
-                  {/* Image Part */}
+                  {/* [OPTIMIZATION] Image: lazy loaded, explicit width/height, sizes for responsive */}
                   <div className="relative w-full h-52 overflow-hidden z-20">
                     <Image
-                      height={500}
+                      height={208}
                       width={500}
                       src={project?.imageUrls?.[0] || "/default-project.jpg"}
                       alt={project.title}
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                      loading="lazy"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   </div>
 
                   {/* Content Part with Bubbles */}
                   <div className="relative z-30 p-6 flex flex-col flex-grow overflow-hidden">
-                    
-                    {/* Animated Bubbles (Banner Style) */}
+                    {/* [OPTIMIZATION] Animated bubbles - transform-only */}
                     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                      {[...Array(6)].map((_, i) => (
+                      {particlePositions.map((pos, i) => (
                         <motion.div
                           key={i}
                           className="absolute w-2 h-2 rounded-full bg-amber-500 dark:bg-yellow-500/60 will-change-transform"
@@ -90,18 +110,15 @@ const ProjectShowcase = ({ projects = [] }: { projects: TProjects[] }) => {
                           animate={{
                             opacity: [0.3, 0.8, 0.3],
                             y: [0, -120, 0],
-                            x: [0, (i % 5 - 2) * 10, 0],
+                            x: [0, pos.xRange, 0],
                           }}
                           transition={{
-                            duration: 7 + i,
+                            duration: pos.duration,
                             repeat: Infinity,
-                            delay: i * 0.8,
-                            ease: "easeInOut"
+                            delay: pos.delay,
+                            ease: "easeInOut",
                           }}
-                          style={{
-                            left: `${10 + i * 16}%`,
-                            top: `${40 + (i % 3) * 15}%`,
-                          }}
+                          style={{ left: pos.left, top: pos.top }}
                         />
                       ))}
                     </div>
@@ -117,17 +134,25 @@ const ProjectShowcase = ({ projects = [] }: { projects: TProjects[] }) => {
                       </p>
 
                       <div className="flex flex-wrap gap-2 mb-6">
-                        {project?.technologies?.slice(0, 4)?.map((tech, i) => (
-                          <span key={i} className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 rounded-lg">
-                            {tech}
-                          </span>
-                        ))}
+                        {project?.technologies
+                          ?.slice(0, 4)
+                          ?.map((tech, i) => (
+                            <span
+                              key={i}
+                              className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 rounded-lg"
+                            >
+                              {tech}
+                            </span>
+                          ))}
                       </div>
 
                       <div className="flex items-center gap-4 mt-auto">
-                        <Link href={`/all-projects/projectDetails/${project?.slug}`} className="flex-1">
-                          <GradientButton className="w-full h-12 rounded-xl text-xs font-black tracking-wide">
-                            <FolderSearch className="w-4 h-4 mr-2" />
+                        <Link
+                          href={`/all-projects/projectDetails/${project?.slug}`}
+                          className="flex-1"
+                        >
+                          <GradientButton className="w-full h-12 rounded-xl text-sm font-black tracking-wide  ">
+                            <FolderSearch className="w-4 h-4" />
                             Case Study
                           </GradientButton>
                         </Link>
@@ -148,10 +173,10 @@ const ProjectShowcase = ({ projects = [] }: { projects: TProjects[] }) => {
           </div>
         )}
 
-        <div className='flex justify-center mt-16'>
+        <div className="flex justify-center mt-16">
           <Link href="/all-projects">
-             <GradientButton className="px-10 py-4 text-sm font-black">
-               View All Projects
+            <GradientButton className="px-10 py-4 text-base rounded-2xl">
+              View All Projects
             </GradientButton>
           </Link>
         </div>

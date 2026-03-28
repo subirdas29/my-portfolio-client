@@ -1,28 +1,37 @@
-import AllBlogs from "@/components/modules/AllBlogs/AllBlogs"
-import { getAllBlogs } from "@/services/Blogs"
-import type { Metadata } from "next"
+import dynamic from "next/dynamic";
+import { getAllBlogs } from "@/services/Blogs";
+import type { Metadata } from "next";
+import { BlogListSkeleton } from "@/components/shared/Skeletons";
+
+// [PERFORMANCE] Dynamic import with matching skeleton layout
+const AllBlogs = dynamic(
+  () => import("@/components/modules/AllBlogs/AllBlogs"),
+  { loading: () => <BlogListSkeleton /> }
+);
 
 export const metadata: Metadata = {
   title: "All Blogs | Subir Das",
-  description: "Read the latest blog posts by Subir Das on web development, programming, AI, and technology.",
+  description:
+    "Read the latest blog posts by Subir Das on web development, programming, AI, and technology.",
   openGraph: {
     title: "All Blogs | Subir Das",
-    description: "Read the latest blog posts by Subir Das on web development, programming, AI, and technology.",
+    description:
+      "Read the latest blog posts by Subir Das on web development, programming, AI, and technology.",
     url: "https://subirdas.com/all-blogs",
     images: ["https://subirdas.com/og-image.jpg"],
   },
   alternates: {
     canonical: "https://subirdas.com/all-blogs",
   },
-}
+};
 
-const AllBlogsPage = async() => {
-  const {data:blogs} = await getAllBlogs()
+const AllBlogsPage = async () => {
+  const { data: blogs } = await getAllBlogs();
   return (
     <div>
-      <AllBlogs blogs={blogs}/>
+      <AllBlogs blogs={blogs} />
     </div>
-  )
-}
+  );
+};
 
-export default AllBlogsPage
+export default AllBlogsPage;

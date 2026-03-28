@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { FaExternalLinkAlt, FaCode, FaServer, FaLaptop, FaExpand, FaTimes } from "react-icons/fa";
 import { useState } from "react";

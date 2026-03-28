@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef, useEffect, useCallback, memo } from "react";
+import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Bot, X, Send, Trash2, Sparkles, ExternalLink } from "lucide-react";
-import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 
 interface ProjectCard {
@@ -44,7 +44,8 @@ interface Message {
 
 const MAX_CHARS = 500;
 
-const TypingIndicator = () => (
+// [OPTIMIZATION] Memoize TypingIndicator to prevent unnecessary re-renders
+const TypingIndicator = memo(() => (
   <div className="flex items-end gap-3 mb-5">
     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-500 to-amber-500 flex items-center justify-center shrink-0 shadow-lg shadow-amber-500/20">
       <Bot className="w-4 h-4 text-white dark:text-black" />
@@ -67,7 +68,20 @@ const TypingIndicator = () => (
       </div>
     </div>
   </div>
-);
+));
+
+TypingIndicator.displayName = "TypingIndicator";
+
+// [OPTIMIZATION] Lazy-load react-markdown only when needed.
+// This keeps the ~45KB react-markdown library out of the initial bundle.
+let ReactMarkdown: typeof import("react-markdown").default | null = null;
+const getReactMarkdown = async () => {
+  if (!ReactMarkdown) {
+    const mod = await import("react-markdown");
+    ReactMarkdown = mod.default;
+  }
+  return ReactMarkdown;
+};
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,6 +91,15 @@ const ChatWidget = () => {
   const [showPrompt, setShowPrompt] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  // [OPTIMIZATION] Lazy-load ReactMarkdown component
+  const [MarkdownComp, setMarkdownComp] = useState<typeof import("react-markdown").default | null>(null);
+
+  // [OPTIMIZATION] Load react-markdown only when chat is first opened
+  useEffect(() => {
+    if (isOpen && !MarkdownComp) {
+      getReactMarkdown().then((comp) => setMarkdownComp(() => comp));
+    }
+  }, [isOpen, MarkdownComp]);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -107,19 +130,21 @@ const ChatWidget = () => {
     setIsLoading(true);
 
     try {
-      // Build conversation history for context
       const history = messages
-        .filter((m) => m.role === "user" || m.role === "assistant")
-        .map((m) => ({
-          role: m.role as "user" | "assistant",
-          content: m.content,
+        .filter((msg) => msg.role === "user" || msg.role === "assistant")
+        .map((msg) => ({
+          role: msg.role as "user" | "assistant",
+          content: msg.content,
         }));
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/ai/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: trimmed, history }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/ai/chat`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: trimmed, history }),
+        }
+      );
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
@@ -195,7 +220,7 @@ const ChatWidget = () => {
                     <X className="w-3 h-3 text-gray-500 dark:text-gray-400" />
                   </button>
                   <p className="text-sm text-gray-800 dark:text-gray-200 font-medium leading-relaxed">
-                    Hey there! 👋 Have questions about my work?
+                    Hey there! Have questions about my work?
                   </p>
                   <p className="text-[11px] text-gray-400 dark:text-gray-500 mt-1 font-medium">
                     Click to chat
@@ -210,7 +235,7 @@ const ChatWidget = () => {
               className="relative w-14 h-14 rounded-full bg-gradient-to-br from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white dark:text-black shadow-xl shadow-amber-500/30 flex items-center justify-center cursor-pointer group"
               aria-label="Open chat"
             >
-              {/* Pulse ring */}
+              {/* [OPTIMIZATION] Pulse ring uses opacity+scale only (GPU-composited) */}
               <motion.div
                 className="absolute inset-0 rounded-full bg-amber-500/40"
                 animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0, 0.4] }}
@@ -291,7 +316,7 @@ const ChatWidget = () => {
                     <Sparkles className="w-7 h-7 text-amber-500" />
                   </div>
                   <h4 className="text-lg font-black text-gray-900 dark:text-white mb-2">
-                    Welcome! 👋
+                    Welcome!
                   </h4>
                   <p className="text-sm text-gray-500 dark:text-gray-400 max-w-[260px] font-medium leading-relaxed">
                     I&apos;m here to help. Ask me anything about Subir&apos;s
@@ -309,7 +334,6 @@ const ChatWidget = () => {
                     msg.role === "user" ? "justify-end" : "justify-start"
                   }`}
                 >
-                  {/* Avatar + Content column */}
                   <div
                     className={`flex items-start gap-3 ${
                       msg.role === "user"
@@ -317,16 +341,14 @@ const ChatWidget = () => {
                         : "max-w-[75%] flex-row"
                     }`}
                   >
-                    {/* AI Avatar */}
-                    {(msg.role === "assistant" || msg.role === "error") && (
+                    {(msg.role === "assistant" ||
+                      msg.role === "error") && (
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-500 to-amber-500 flex items-center justify-center shrink-0 shadow-lg shadow-amber-500/20">
                         <Bot className="w-4 h-4 text-white dark:text-black" />
                       </div>
                     )}
 
-                    {/* Content column: text bubble + cards stack vertically */}
                     <div className="flex flex-col gap-2 min-w-0">
-                      {/* Text bubble */}
                       <motion.div
                         initial={{ opacity: 0, y: 8, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -343,7 +365,7 @@ const ChatWidget = () => {
                           <p className="whitespace-pre-wrap break-words">
                             {msg.content}
                           </p>
-                        ) : (
+                        ) : MarkdownComp ? (
                           <div
                             className={`prose prose-sm dark:prose-invert max-w-none break-words
                               prose-p:my-2 prose-p:leading-[1.75] prose-p:break-words prose-p:text-[13px]
@@ -360,7 +382,7 @@ const ChatWidget = () => {
                               prose-hr:my-3 prose-hr:border-gray-200 dark:prose-hr:border-white/10
                               prose-table:text-[12px] prose-th:px-2 prose-th:py-1.5 prose-td:px-2 prose-td:py-1.5`}
                           >
-                            <ReactMarkdown
+                            <MarkdownComp
                               components={{
                                 a: ({ node, ...props }) => (
                                   <a
@@ -372,8 +394,10 @@ const ChatWidget = () => {
                               }}
                             >
                               {msg.content}
-                            </ReactMarkdown>
+                            </MarkdownComp>
                           </div>
+                        ) : (
+                          <p className="text-sm">{msg.content}</p>
                         )}
                       </motion.div>
 
@@ -393,7 +417,7 @@ const ChatWidget = () => {
                               animate={{ opacity: 1, y: 0 }}
                               className="group block rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 overflow-hidden hover:border-amber-500/50 dark:hover:border-amber-500/30 hover:shadow-lg hover:shadow-amber-500/10 transition-all"
                             >
-                                {project.imageUrls?.[0] && (
+                              {project.imageUrls?.[0] && (
                                 <div className="relative h-28 overflow-hidden">
                                   <Image
                                     src={project.imageUrls[0]}
@@ -401,6 +425,7 @@ const ChatWidget = () => {
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                                     sizes="(max-width: 768px) 100vw, 300px"
+                                    loading="lazy"
                                   />
                                 </div>
                               )}
@@ -440,7 +465,6 @@ const ChatWidget = () => {
                             </motion.a>
                           ))}
 
-                          {/* View All Card - shown when 3+ projects */}
                           {msg.projects.length > 2 && (
                             <motion.a
                               href="/all-projects"
@@ -484,6 +508,7 @@ const ChatWidget = () => {
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                                     sizes="(max-width: 768px) 100vw, 300px"
+                                    loading="lazy"
                                   />
                                 </div>
                               )}
@@ -534,7 +559,8 @@ const ChatWidget = () => {
                   className="flex-1 resize-none bg-transparent text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none min-h-[24px] max-h-[120px] py-1 font-medium leading-relaxed"
                   style={{
                     height: "auto",
-                    overflowY: input.split("\n").length > 3 ? "auto" : "hidden",
+                    overflowY:
+                      input.split("\n").length > 3 ? "auto" : "hidden",
                   }}
                   onInput={(e) => {
                     const target = e.target as HTMLTextAreaElement;

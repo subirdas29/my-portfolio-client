@@ -1,23 +1,24 @@
 "use client";
-import { cn } from '@/lib/utils';
-import { TSkill } from '@/types/skills';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import { useState } from 'react';
+import { cn } from "@/lib/utils";
+import { TSkill } from "@/types/skills";
+import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { useState } from "react";
 
 const softSkills = [
-  { name: 'Communication', icon: '💬', desc: 'Effective verbal & written' },
-  { name: 'Teamwork', icon: '🤝', desc: 'Collaborative mindset' },
-  { name: 'Problem Solving', icon: '🧩', desc: 'Analytical approach' },
-  { name: 'Time Management', icon: '⏰', desc: 'Prioritizing tasks' },
-  { name: 'Adaptability', icon: '🔄', desc: 'Quick learner' },
-  { name: 'Leadership', icon: '🌟', desc: 'Guiding teams' },
-  { name: 'Creativity', icon: '🎨', desc: 'Out of box thinking' },
-  { name: 'Critical Thinking', icon: '🧠', desc: 'Logical evaluation' },
+  { name: "Communication", icon: "💬", desc: "Effective verbal & written" },
+  { name: "Teamwork", icon: "🤝", desc: "Collaborative mindset" },
+  { name: "Problem Solving", icon: "🧩", desc: "Analytical approach" },
+  { name: "Time Management", icon: "⏰", desc: "Prioritizing tasks" },
+  { name: "Adaptability", icon: "🔄", desc: "Quick learner" },
+  { name: "Leadership", icon: "🌟", desc: "Guiding teams" },
+  { name: "Creativity", icon: "🎨", desc: "Out of box thinking" },
+  { name: "Critical Thinking", icon: "🧠", desc: "Logical evaluation" },
 ];
 
 const SkillsSection = ({ skills }: { skills: TSkill[] }) => {
-  const [activeTab, setActiveTab] = useState('technical');
+  const [activeTab, setActiveTab] = useState("technical");
 
   return (
     <section className="py-24 bg-gray-50 dark:bg-[#030014] transition-colors duration-500">
@@ -45,24 +46,30 @@ const SkillsSection = ({ skills }: { skills: TSkill[] }) => {
                 onClick={() => setActiveTab(tab)}
                 className={cn(
                   "relative px-10 py-3 text-sm md:text-lg font-bold capitalize z-10 transition-all duration-300 rounded-xl cursor-pointer",
-                  activeTab === tab 
-                   ? "text-white dark:text-black"
-    : "text-gray-600 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400"
+                  activeTab === tab
+                    ? "text-white dark:text-black"
+                    : "text-gray-600 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400"
                 )}
               >
                 {activeTab === tab && (
                   <motion.div
                     layoutId="skillActiveTab"
                     className={cn(
-      "absolute inset-0 rounded-lg",
-      "bg-gradient-to-r from-yellow-500 to-amber-500",
-      "hover:from-yellow-600 hover:to-amber-600",
-      "shadow-lg shadow-yellow-500/30"
-    )}
-                    transition={{ type: "spring", bounce: 0.15, duration: 0.6 }}
+                      "absolute inset-0 rounded-lg",
+                      "bg-gradient-to-r from-yellow-500 to-amber-500",
+                      "hover:from-yellow-600 hover:to-amber-600",
+                      "shadow-lg shadow-yellow-500/30"
+                    )}
+                    transition={{
+                      type: "spring",
+                      bounce: 0.15,
+                      duration: 0.6,
+                    }}
                   />
                 )}
-                <span className="relative z-20">{tab === "technical" ? "Technical" : "Soft Skills"}</span>
+                <span className="relative z-20">
+                  {tab === "technical" ? "Technical" : "Soft Skills"}
+                </span>
               </button>
             ))}
           </div>
@@ -71,7 +78,7 @@ const SkillsSection = ({ skills }: { skills: TSkill[] }) => {
         {/* Content Container */}
         <div className="min-h-[500px]">
           <AnimatePresence mode="wait">
-            {activeTab === 'technical' ? (
+            {activeTab === "technical" ? (
               <motion.div
                 key="tech-grid"
                 initial={{ opacity: 0, y: 30 }}
@@ -86,21 +93,24 @@ const SkillsSection = ({ skills }: { skills: TSkill[] }) => {
                     whileHover={{ y: -10 }}
                     className="group relative p-8 bg-white  dark:bg-slate-900/40 border-2 border-gray-200 dark:border-white/10 rounded-2xl flex flex-col items-center justify-center shadow-lg hover:shadow-amber-500/20 hover:border-amber-500 transition-all duration-500 overflow-hidden cursor-default"
                   >
-                    {/* Hover Corner Accent (Visible in both) */}
                     <div className="absolute top-0 right-0 w-16 h-16 bg-amber-500/40 dark:bg-amber-500/20 rounded-bl-full translate-x-16 -translate-y-16 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-500 ease-out" />
-                    
+
                     <div className="relative z-10 w-16 h-16 mb-4 flex items-center justify-center bg-gray-100 rounded-2xl group-hover:rotate-6 transition-all duration-500 shadow-inner">
+                      {/* [OPTIMIZATION] Skill images: lazy loaded with explicit sizes */}
                       <Image
-                        width={100}
-                        height={100}
+                        width={48}
+                        height={48}
                         src={skill.logo[0]}
                         alt={skill.title}
                         className="w-12 h-12 object-contain"
+                        loading="lazy"
+                        sizes="48px"
                       />
                     </div>
-                    <h4 className="relative z-10 text-[15px] font-bold text-gray-800 dark:text-gray-100">{skill.title}</h4>
-                    
-                    {/* Bottom Line */}
+                    <h4 className="relative z-10 text-[15px] font-bold text-gray-800 dark:text-gray-100">
+                      {skill.title}
+                    </h4>
+
                     <div className="absolute bottom-6 w-0 h-1 bg-amber-500 rounded-full group-hover:w-10 transition-all duration-500" />
                   </motion.div>
                 ))}
@@ -120,7 +130,6 @@ const SkillsSection = ({ skills }: { skills: TSkill[] }) => {
                     whileHover={{ y: -10 }}
                     className="group relative p-10 bg-white dark:bg-slate-900/40 border-2 border-gray-200 dark:border-white/10 rounded-2xl flex flex-col items-center text-center shadow-lg hover:shadow-amber-500/20 hover:border-amber-500 transition-all duration-500 overflow-hidden"
                   >
-                    {/* Same Hover Corner Accent as Tech Grid */}
                     <div className="absolute top-0 right-0 w-20 h-20 bg-amber-500/40 dark:bg-amber-500/20 rounded-bl-full translate-x-20 -translate-y-20 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-500 ease-out" />
 
                     <div className="relative z-10 text-6xl mb-6 transform group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500">
@@ -133,7 +142,6 @@ const SkillsSection = ({ skills }: { skills: TSkill[] }) => {
                       {skill.desc}
                     </p>
 
-                    {/* Same Bottom Line as Tech Grid */}
                     <div className="absolute bottom-8 w-0 h-1.5 bg-amber-500 rounded-full group-hover:w-20 transition-all duration-500" />
                   </motion.div>
                 ))}

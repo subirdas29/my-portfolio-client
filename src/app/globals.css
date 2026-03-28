@@ -114,7 +114,22 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* [OPTIMIZATION] Prevent layout shift from theme transitions */
+html {
+  scroll-behavior: smooth;
+}
 
+/* [PERFORMANCE] Skeleton shimmer animation keyframe */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* [OPTIMIZATION] GPU-accelerated will-change for animated particles */
+.will-change-transform {
+  will-change: transform, opacity;
+}
 
 @layer base {
   * {
@@ -122,12 +137,25 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* [OPTIMIZATION] Prevent horizontal scrollbar from animations */
+    overflow-x: hidden;
   }
   .page-container {
-  @apply mx-6 md:mx-10 lg:mx-20;
+    @apply mx-6 md:mx-10 lg:mx-20;
+  }
 }
 
-  .will-change-transform {
-    will-change: transform;
+/* [OPTIMIZATION] Reduce motion for users who prefer it.
+   This respects the prefers-reduced-motion media query and
+   disables animations for accessibility, which also improves
+   performance on low-powered devices. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
