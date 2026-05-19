@@ -13,6 +13,7 @@ export type TProjects = {
     clientGithubLink: string;
     serverGithubLink?: string;
     imageUrls: string[];
+    videoUrl?: string;
     createdAt?:Date
   };
   

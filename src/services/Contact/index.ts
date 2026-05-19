@@ -14,7 +14,7 @@ export const createContact = async (contacts: TContact) => {
         },
         body: JSON.stringify(contacts),
       });
-      revalidateTag("contacts");
+      revalidateTag("contacts", "default");
       return await res.json();
     } catch (error: any) {
       return Error(error);

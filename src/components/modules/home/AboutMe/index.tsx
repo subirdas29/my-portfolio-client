@@ -57,7 +57,14 @@ const socialLinks = [
   },
 ];
 
-const AboutMe = () => {
+type TStats = {
+  totalProjects: number;
+  totalBlogs: number;
+  totalClients: number;
+  totalTestimonials: number;
+};
+
+const AboutMe = ({ stats }: { stats?: TStats }) => {
   return (
     <section className="relative overflow-hidden pb-20 lg:pb-32 pt-36 bg-slate-50 dark:bg-[#0a0219] transition-colors duration-500">
       {/* Background Glows - static div, no animation overhead */}
@@ -197,6 +204,25 @@ const AboutMe = () => {
                 intelligent, delivering seamless user experiences and
                 operational efficiency.
               </p>
+            </div>
+
+            {/* Stats Strip */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4 border-y border-slate-200 dark:border-white/10">
+              {[
+                { value: "2+", label: "Years Experience" },
+                { value: stats?.totalProjects ? `${stats.totalProjects}+` : "30+", label: "Projects Delivered" },
+                { value: stats?.totalClients ? `${stats.totalClients}+` : "10+", label: "Happy Clients" },
+                { value: "5★", label: "Avg Rating" },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <div className="text-2xl font-black text-transparent bg-clip-text bg-linear-to-br from-amber-500 to-orange-600">
+                    {stat.value}
+                  </div>
+                  <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
             </div>
 
             {/* Expertise Cards Grid */}

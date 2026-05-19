@@ -1,5 +1,6 @@
 import { getFeaturedTestimonials } from "@/services/Testimonials";
 import { Star } from "lucide-react";
+import Image from "next/image";
 
 const StarRating = ({ rating }: { rating: number }) => (
   <div className="flex gap-0.5">
@@ -37,8 +38,14 @@ export default async function Testimonials() {
               &ldquo;{t.content}&rdquo;
             </p>
             <div className="flex items-center gap-3 pt-2 border-t">
-              <div className="h-9 w-9 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white font-bold shrink-0">
-                {t.name[0]?.toUpperCase()}
+              <div className="relative h-9 w-9 rounded-full overflow-hidden shrink-0">
+                {t.avatar ? (
+                  <Image src={t.avatar} alt={t.name} fill className="object-cover" />
+                ) : (
+                  <div className="h-full w-full bg-linear-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white font-bold text-sm">
+                    {t.name[0]?.toUpperCase()}
+                  </div>
+                )}
               </div>
               <div>
                 <p className="text-sm font-semibold">{t.name}</p>

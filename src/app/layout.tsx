@@ -19,6 +19,16 @@ const ClientChatWidget = dynamic(
   { loading: () => null }
 );
 
+const ClientBackToTop = dynamic(
+  () => import("@/components/shared/ClientBackToTop"),
+  { loading: () => null }
+);
+
+const ClientCookieConsent = dynamic(
+  () => import("@/components/shared/ClientCookieConsent"),
+  { loading: () => null }
+);
+
 // [OPTIMIZATION] Preload fonts with display:swap for fastest text rendering.
 // display:swap ensures text is visible immediately with fallback font,
 // then swaps to custom font when loaded (improves FCP).
@@ -167,6 +177,8 @@ export default function RootLayout({
           {children}
           <Footer />
           <ClientChatWidget />
+          <ClientBackToTop />
+          <ClientCookieConsent />
         </ThemeProvider>
       </body>
     </html>

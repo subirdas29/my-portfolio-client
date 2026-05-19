@@ -7,6 +7,7 @@ import {
   LinkedinIcon,
   GithubIcon,
 } from "lucide-react";
+import NewsletterForm from "./NewsletterForm";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -137,38 +138,23 @@ const Footer = () => {
               Navigation
             </h3>
             <ul className="space-y-4 text-gray-700 dark:text-gray-400 font-semibold text-sm">
-              <li>
-                <Link
-                  href="/"
-                  className="hover:text-amber-600 dark:hover:text-amber-500 transition-colors"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/all-projects"
-                  className="hover:text-amber-600 dark:hover:text-amber-500 transition-colors"
-                >
-                  Case Studies
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/all-blogs"
-                  className="hover:text-amber-600 dark:hover:text-amber-500 transition-colors"
-                >
-                  Articles
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="hover:text-amber-600 dark:hover:text-amber-500 transition-colors"
-                >
-                  Get in Touch
-                </Link>
-              </li>
+              {[
+                { href: "/", label: "Home" },
+                { href: "/services", label: "Services" },
+                { href: "/pricing", label: "Pricing" },
+                { href: "/hire-me", label: "Hire Me" },
+                { href: "/all-projects", label: "Case Studies" },
+                { href: "/all-blogs", label: "Articles" },
+                { href: "/contact", label: "Get in Touch" },
+                { href: "/uses", label: "Uses" },
+                { href: "/privacy-policy", label: "Privacy Policy" },
+              ].map(({ href, label }) => (
+                <li key={href}>
+                  <Link href={href} className="hover:text-amber-600 dark:hover:text-amber-500 transition-colors">
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -203,6 +189,17 @@ const Footer = () => {
                 </span>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Newsletter Strip */}
+        <div className="mb-12 p-6 md:p-8 rounded-2xl bg-amber-500/10 dark:bg-amber-500/5 border border-amber-500/20">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div>
+              <h3 className="font-black text-slate-900 dark:text-white text-lg">Stay Updated</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Get notified about new projects, blogs and updates.</p>
+            </div>
+            <NewsletterForm />
           </div>
         </div>
 

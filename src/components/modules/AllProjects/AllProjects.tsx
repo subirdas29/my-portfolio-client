@@ -1,22 +1,44 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { TProjects } from "@/types/projects";
 import Link from "next/link";
-import { FolderSearch, Sparkles, Plus, Ghost } from "lucide-react";
+import { FolderSearch, Sparkles, Plus, Ghost, Search, X } from "lucide-react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import GradientButton from "@/utility/GradientButton";
 
 const AllProjects = ({ projects = [] }: { projects: TProjects[] }) => {
   const [visibleCount, setVisibleCount] = useState(6);
+  const [search, setSearch] = useState("");
+  const [activeTech, setActiveTech] = useState("All");
 
-  const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 3);
+  const allTechs = useMemo(() => {
+    const techs = new Set<string>();
+    projects.forEach((p) => p.technologies?.forEach((t) => techs.add(t)));
+    return ["All", ...Array.from(techs).sort()];
+  }, [projects]);
+
+  const filtered = useMemo(() => {
+    return projects.filter((p) => {
+      const matchSearch =
+        search === "" ||
+        p.title.toLowerCase().includes(search.toLowerCase()) ||
+        p.shortDescription?.toLowerCase().includes(search.toLowerCase()) ||
+        p.technologies?.some((t) => t.toLowerCase().includes(search.toLowerCase()));
+      const matchTech = activeTech === "All" || p.technologies?.includes(activeTech);
+      return matchSearch && matchTech;
+    });
+  }, [projects, search, activeTech]);
+
+  const displayedProjects = filtered.slice(0, visibleCount);
+
+  const handleLoadMore = () => setVisibleCount((prev) => prev + 3);
+
+  const handleFilter = (tech: string) => {
+    setActiveTech(tech);
+    setVisibleCount(6);
   };
-
-  const displayedProjects = projects?.slice(0, visibleCount) || [];
 
   return (
     <div className="bg-white dark:bg-[#0a0219] transition-colors duration-300">
@@ -57,10 +79,50 @@ const AllProjects = ({ projects = [] }: { projects: TProjects[] }) => {
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-[#0a0219] to-transparent" />
       </section>
 
+      {/* --- SEARCH + FILTER --- */}
+      <section className="py-8 border-b border-slate-100 dark:border-white/5 sticky top-16 z-30 backdrop-blur-md bg-white/90 dark:bg-[#0a0219]/90">
+        <div className="page-container px-4 space-y-4">
+          {/* Search */}
+          <div className="relative max-w-lg mx-auto">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <input
+              value={search}
+              onChange={(e) => { setSearch(e.target.value); setVisibleCount(6); }}
+              placeholder="Search projects by name, description or tech..."
+              className="w-full pl-11 pr-10 py-3 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-500/50 transition-colors"
+            />
+            {search && (
+              <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+          {/* Tech filter chips */}
+          <div className="flex flex-wrap gap-2 justify-center">
+            {allTechs.map((tech) => (
+              <button
+                key={tech}
+                onClick={() => handleFilter(tech)}
+                className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 ${
+                  activeTech === tech
+                    ? "bg-amber-500 text-white shadow-md shadow-amber-500/30"
+                    : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-white/10 hover:border-amber-500/40"
+                }`}
+              >
+                {tech}
+              </button>
+            ))}
+          </div>
+          <p className="text-center text-xs text-slate-400 dark:text-slate-500">
+            {filtered.length} project{filtered.length !== 1 ? "s" : ""} found
+          </p>
+        </div>
+      </section>
+
       {/* --- PROJECT LISTING SECTION --- */}
       <section className="py-10 md:py-16">
         <div className="page-container px-4">
-          {projects.length === 0 ? (
+          {filtered.length === 0 ? (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -69,8 +131,13 @@ const AllProjects = ({ projects = [] }: { projects: TProjects[] }) => {
             >
               <Ghost className="w-16 h-16 text-gray-300 dark:text-gray-700 mb-4" />
               <h2 className="text-2xl font-bold text-gray-400">
-                No projects to show right now
+                {search || activeTech !== "All" ? "No projects match your filter" : "No projects to show right now"}
               </h2>
+              {(search || activeTech !== "All") && (
+                <button onClick={() => { setSearch(""); setActiveTech("All"); }} className="mt-4 text-amber-500 text-sm font-semibold hover:underline">
+                  Clear filters
+                </button>
+              )}
             </motion.div>
           ) : (
             <>
@@ -203,7 +270,7 @@ const AllProjects = ({ projects = [] }: { projects: TProjects[] }) => {
               </div>
 
               {/* Load More Section */}
-              {projects.length > visibleCount && (
+              {filtered.length > visibleCount && (
                 <div className="flex justify-center mt-20">
                   <button
                     onClick={handleLoadMore}

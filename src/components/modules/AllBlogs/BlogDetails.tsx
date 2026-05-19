@@ -1,7 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Clock } from "lucide-react";
 import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
+import Breadcrumb from "@/components/shared/Breadcrumb";
+
+function readingTime(content: string): number {
+  const words = content.replace(/<[^>]*>/g, "").split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 200));
+}
 import Link from "next/link";
 import Image from "next/image";
 import { TBlog } from "@/types/blogs";
@@ -63,7 +70,13 @@ const BlogDetails = ({ blog, allBlogs }: BlogDetailsProps) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <article className="w-full bg-white dark:bg-[#0a0219] transition-colors duration-300">
-        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16 py-6 md:py-10 lg:py-24 flex flex-col lg:flex-row gap-6 md:gap-8 items-start">
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16 pt-6 md:pt-10">
+          <Breadcrumb items={[
+            { label: "All Blogs", href: "/all-blogs" },
+            { label: blog.title },
+          ]} />
+        </div>
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16 py-4 md:py-8 lg:py-16 flex flex-col lg:flex-row gap-6 md:gap-8 items-start">
 
         {/* Main Blog Content Area */}
         <div className={`w-full lg:w-2/3 rounded-xl md:rounded-2xl lg:rounded-[2rem]  p-4 sm:p-6 md:p-10 lg:p-12 ${cardBackground}`}>
@@ -73,6 +86,10 @@ const BlogDetails = ({ blog, allBlogs }: BlogDetailsProps) => {
               {blog.category}
             </span>
             <span className="text-gray-500 font-medium text-xs md:text-sm">{formattedDate}</span>
+            <span className="flex items-center gap-1 text-gray-500 font-medium text-xs md:text-sm">
+              <Clock className="w-3 h-3" />
+              {readingTime(blog.content)} min read
+            </span>
           </div>
 
           <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-gray-900 dark:text-white mb-5 md:mb-8 lg:mb-10 leading-tight tracking-tighter">

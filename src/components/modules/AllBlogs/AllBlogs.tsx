@@ -3,13 +3,40 @@ import { TBlog } from "@/types/blogs";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useState, useMemo } from "react";
 import GradientButton from "@/utility/GradientButton";
-import { ArrowBigRight, Ghost, Sparkles } from "lucide-react";
+import { ArrowBigRight, Clock, Ghost, Sparkles, Search, X } from "lucide-react";
+
+function readingTime(content: string): number {
+  const words = content.replace(/<[^>]*>/g, "").split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 200));
+}
 
 const AllBlogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
-  const hasBlogs = blogs && blogs.length > 0;
-  const latestBlog = hasBlogs ? blogs[0] : null;
-  const otherBlogs = blogs && blogs.length > 1 ? blogs.slice(1) : [];
+  const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const categories = useMemo(() => {
+    const cats = new Set<string>();
+    blogs.forEach((b) => { if (b.category) cats.add(b.category); });
+    return ["All", ...Array.from(cats).sort()];
+  }, [blogs]);
+
+  const filtered = useMemo(() => {
+    return blogs.filter((b) => {
+      const matchSearch =
+        search === "" ||
+        b.title.toLowerCase().includes(search.toLowerCase()) ||
+        b.content.replace(/<[^>]*>/g, "").toLowerCase().includes(search.toLowerCase()) ||
+        b.tags?.some((t) => t.toLowerCase().includes(search.toLowerCase()));
+      const matchCat = activeCategory === "All" || b.category === activeCategory;
+      return matchSearch && matchCat;
+    });
+  }, [blogs, search, activeCategory]);
+
+  const hasBlogs = filtered.length > 0;
+  const latestBlog = hasBlogs ? filtered[0] : null;
+  const otherBlogs = filtered.length > 1 ? filtered.slice(1) : [];
 
   const latestImage = latestBlog?.featuredImage || "/default-image.jpg";
 
@@ -52,6 +79,44 @@ const AllBlogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-[#0a0219] to-transparent" />
       </section>
 
+      {/* --- SEARCH + FILTER --- */}
+      <section className="py-6 border-b border-slate-100 dark:border-white/5 sticky top-16 z-30 backdrop-blur-md bg-white/90 dark:bg-[#0a0219]/90">
+        <div className="page-container px-4 space-y-4">
+          <div className="relative max-w-lg mx-auto">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search blogs by title, content or tags..."
+              className="w-full pl-11 pr-10 py-3 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-500/50 transition-colors"
+            />
+            {search && (
+              <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-2 justify-center">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 ${
+                  activeCategory === cat
+                    ? "bg-amber-500 text-white shadow-md shadow-amber-500/30"
+                    : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-white/10 hover:border-amber-500/40"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          <p className="text-center text-xs text-slate-400 dark:text-slate-500">
+            {filtered.length} blog{filtered.length !== 1 ? "s" : ""} found
+          </p>
+        </div>
+      </section>
+
       {/* --- BLOG LISTING SECTION --- */}
       <section className="py-10 md:py-16 bg-white dark:bg-[#0a0219] transition-colors duration-300 min-h-[400px]">
         <div className="page-container px-4">
@@ -66,8 +131,16 @@ const AllBlogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                 <Ghost className="w-12 h-12 text-amber-500/50" />
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-400 dark:text-gray-600">
-                No blogs available right now
+                {search || activeCategory !== "All" ? "No blogs match your filter" : "No blogs available right now"}
               </h2>
+              {(search || activeCategory !== "All") && (
+                <button
+                  onClick={() => { setSearch(""); setActiveCategory("All"); }}
+                  className="mt-4 text-amber-500 text-sm font-semibold hover:underline"
+                >
+                  Clear filters
+                </button>
+              )}
             </motion.div>
           ) : (
             <div className="space-y-12">
@@ -136,9 +209,15 @@ const AllBlogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                       </div>
 
                       <div className="relative z-10">
-                        <span className="text-sm font-black text-amber-500 uppercase tracking-widest mb-2">
-                          Featured Post
-                        </span>
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="text-sm font-black text-amber-500 uppercase tracking-widest">
+                            Featured Post
+                          </span>
+                          <span className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+                            <Clock className="w-3 h-3" />
+                            {readingTime(latestBlog.content)} min read
+                          </span>
+                        </div>
                         <h3 className="text-3xl font-black sm:text-4xl text-gray-900 dark:text-white group-hover:text-amber-500 transition-colors mb-4">
                        
                           {latestBlog.title}
@@ -233,6 +312,12 @@ const AllBlogs = ({ blogs = [] }: { blogs: TBlog[] }) => {
                           </div>
 
                           <div className="relative z-10">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+                                <Clock className="w-3 h-3" />
+                                {readingTime(blog.content)} min read
+                              </span>
+                            </div>
                             <h3 className="text-xl font-black text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-amber-500 transition-colors">
                               {blog.title}
                             </h3>

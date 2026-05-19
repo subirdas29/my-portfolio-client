@@ -54,12 +54,27 @@ export default function Banner() {
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           {/* Left Text Section */}
           <div className="lg:w-1/2 text-center lg:text-left css-banner-slide-left" suppressHydrationWarning>
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 dark:bg-yellow-400/10 border border-yellow-500/30 dark:border-yellow-400/20 mb-6 backdrop-blur-sm css-banner-fade-up css-banner-fade-up-1" suppressHydrationWarning>
-              <Sparkles className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
-              <span className="text-sm font-medium text-yellow-700 dark:text-yellow-300">
-                Welcome to my portfolio
-              </span>
+            {/* Availability Badge */}
+            <div className="flex justify-center lg:justify-start mb-3 css-banner-fade-up css-banner-fade-up-1" suppressHydrationWarning>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 dark:border-emerald-400/20 backdrop-blur-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400">
+                  Available for new projects
+                </span>
+              </div>
+            </div>
+
+            {/* Welcome Badge */}
+            <div className="flex justify-center lg:justify-start css-banner-fade-up css-banner-fade-up-1" suppressHydrationWarning>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 dark:bg-yellow-400/10 border border-yellow-500/30 dark:border-yellow-400/20 mb-6 backdrop-blur-sm">
+                <Sparkles className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
+                <span className="text-sm font-medium text-yellow-700 dark:text-yellow-300">
+                  Welcome to my portfolio
+                </span>
+              </div>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight css-banner-fade-up css-banner-fade-up-2" suppressHydrationWarning>

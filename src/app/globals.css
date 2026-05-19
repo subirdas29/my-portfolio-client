@@ -435,6 +435,11 @@ html {
   }
 }
 
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 /* [OPTIMIZATION] Reduce motion for users who prefer it.
    This respects the prefers-reduced-motion media query and
    disables animations for accessibility, which also improves

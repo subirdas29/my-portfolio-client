@@ -34,8 +34,10 @@ export function Navbar() {
   const routes = useMemo(
     () => [
       { href: "/", label: "Home" },
+      { href: "/services", label: "Services" },
       { href: "/all-projects", label: "Projects" },
       { href: "/all-blogs", label: "Blogs" },
+      { href: "/pricing", label: "Pricing" },
       { href: "/contact", label: "Contact" },
     ],
     []
@@ -106,12 +108,18 @@ export function Navbar() {
           </ul>
           <div
             className={cn(
-              "pl-4 border-l transition-colors flex items-center",
+              "pl-4 border-l transition-colors flex items-center gap-3",
               scrolled
                 ? "border-gray-200 dark:border-gray-800"
                 : "border-black/20 dark:border-white/30"
             )}
           >
+            <Link
+              href="/hire-me"
+              className="px-4 py-2 rounded-full bg-gradient-to-r from-yellow-500 to-amber-500 text-white text-sm font-black hover:opacity-90 transition-opacity shadow-md shadow-amber-500/20"
+            >
+              Hire Me
+            </Link>
             <ModeToggle />
           </div>
         </div>

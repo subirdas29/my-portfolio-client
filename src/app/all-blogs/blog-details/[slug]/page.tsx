@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { getAllBlogs, getSingleBlog } from "@/services/Blogs";
+import ScrollProgress from "@/components/shared/ScrollProgress";
 import type { Metadata } from "next";
 import { BlogDetailSkeleton } from "@/components/shared/Skeletons";
 
@@ -71,6 +72,7 @@ const blogDetailPage = async ({
 
   return (
     <div className="bg-white dark:bg-[#0a0219]">
+      <ScrollProgress />
       <BlogDetails blog={blog} allBlogs={allBlogs} />
     </div>
   );

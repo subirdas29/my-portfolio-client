@@ -1,12 +1,30 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { FaExternalLinkAlt, FaCode, FaServer, FaLaptop, FaExpand, FaTimes } from "react-icons/fa";
-import { useState } from "react";
+import { FaExternalLinkAlt, FaCode, FaServer, FaLaptop, FaExpand, FaTimes, FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import { TProjects } from "@/types/projects";
 import GradientButton from "@/utility/GradientButton";
 
-const ProjectDetails = ({ project }: { project: TProjects }) => {
+function getYouTubeEmbedUrl(url: string): string {
+  const regExp = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regExp);
+  if (match) return `https://www.youtube.com/embed/${match[1]}`;
+  return url;
+}
+
+const ProjectDetails = ({ project, allProjects = [] }: { project: TProjects; allProjects: TProjects[] }) => {
+  const [shareUrl, setShareUrl] = useState("");
+
+  useEffect(() => {
+    setShareUrl(window.location.href);
+  }, []);
+
+  const relatedProjects = allProjects
+    .filter((p) => p.projectType === project.projectType && p._id !== project._id)
+    .slice(0, 3);
   const [selectedImage, setSelectedImage] = useState(project?.imageUrls[0]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -53,9 +71,17 @@ const ProjectDetails = ({ project }: { project: TProjects }) => {
         </div>
       )}
 
+      {/* BREADCRUMB */}
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pt-24 pb-2">
+        <Breadcrumb items={[
+          { label: "All Projects", href: "/all-projects" },
+          { label: project.title },
+        ]} />
+      </div>
+
       {/* HEADER SECTION */}
-      <div className="pt-32 pb-16 ">
-        <div className="max-w-7xl mx-auto text-center md:text-left">
+      <div className="pt-8 pb-16">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center md:text-left">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-sm font-bold uppercase tracking-widest mb-8">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
@@ -95,9 +121,25 @@ const ProjectDetails = ({ project }: { project: TProjects }) => {
       </div>
 
       {/* HERO & GALLERY SECTION */}
-      <div className="max-w-7xl mx-auto mb-24">
+      <div className="max-w-7xl mx-auto mb-24 px-4 md:px-6 lg:px-8">
+
+        {/* Video embed — primary if videoUrl exists */}
+        {project.videoUrl && (
+          <div className="mb-6 rounded-[2.5rem] overflow-hidden border border-slate-200 dark:border-white/10 bg-black">
+            <div className="relative aspect-video w-full">
+              <iframe
+                src={getYouTubeEmbedUrl(project.videoUrl)}
+                title={`${project.title} — Demo Video`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              />
+            </div>
+          </div>
+        )}
+
         {/* Main Display Image */}
-        <div 
+        <div
           onClick={() => setIsModalOpen(true)}
           className="relative group rounded-[2.5rem] overflow-hidden bg-slate-100 dark:bg-[#111] border border-slate-200 dark:border-white/10 transition-all duration-700 hover:shadow-2xl cursor-zoom-in"
         >
@@ -136,7 +178,7 @@ const ProjectDetails = ({ project }: { project: TProjects }) => {
       </div>
 
       {/* CONTENT & INFO SECTION */}
-      <div className="max-w-7xl mx-auto ">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24">
           
           <div className="lg:col-span-8 space-y-24">
@@ -190,13 +232,77 @@ const ProjectDetails = ({ project }: { project: TProjects }) => {
                   <span className="text-slate-400">Category</span>
                   <span className="text-slate-900 dark:text-white">{project?.projectType}</span>
                 </div>
-             
+              </div>
+
+              {/* Share */}
+              <div className="mt-8 pt-8 border-t border-slate-200 dark:border-white/10">
+                <h3 className="text-xs font-black text-amber-500 uppercase tracking-[0.3em] mb-4">Share Project</h3>
+                <div className="flex gap-3">
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 text-blue-500 transition-colors"
+                  >
+                    <FaFacebook size={16} />
+                  </a>
+                  <a
+                    href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(project.title)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-500 transition-colors"
+                  >
+                    <FaTwitter size={16} />
+                  </a>
+                  <a
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 rounded-xl bg-blue-600/10 hover:bg-blue-600/20 text-blue-600 transition-colors"
+                  >
+                    <FaLinkedin size={16} />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
 
         </div>
       </div>
+
+      {/* Related Projects */}
+      {relatedProjects.length > 0 && (
+        <div className="max-w-7xl mx-auto mt-24 pt-16 px-4 md:px-6 lg:px-8 border-t border-slate-200 dark:border-white/10">
+          <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter mb-10">
+            Related <span className="text-amber-500 italic">Projects</span>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {relatedProjects.map((p) => (
+              <Link
+                key={p._id}
+                href={`/all-projects/projectDetails/${p.slug}`}
+                className="group rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 hover:border-amber-500/50 transition-all duration-300 bg-slate-50 dark:bg-white/[0.03]"
+              >
+                <div className="relative aspect-video overflow-hidden">
+                  <Image
+                    src={p.imageUrls[0]}
+                    alt={p.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-5">
+                  <span className="text-[10px] font-black text-amber-500 uppercase tracking-widest">{p.projectType}</span>
+                  <h3 className="font-bold text-slate-900 dark:text-white mt-1 group-hover:text-amber-500 transition-colors line-clamp-1">
+                    {p.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{p.shortDescription}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </article>
   );
 };

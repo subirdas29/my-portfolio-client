@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { getSingleProject } from "@/services/Projects";
+import { getAllProjects, getSingleProject } from "@/services/Projects";
 import type { Metadata } from "next";
 import { ProjectDetailSkeleton } from "@/components/shared/Skeletons";
 
@@ -66,11 +66,14 @@ const ProjectDetailPage = async ({
   params: Promise<{ slug: string }>;
 }) => {
   const { slug } = await params;
-  const { data: project } = await getSingleProject(slug);
+  const [{ data: project }, { data: allProjects }] = await Promise.all([
+    getSingleProject(slug),
+    getAllProjects("1", "50"),
+  ]);
 
   return (
     <div>
-      <ProjectDetails project={project} />
+      <ProjectDetails project={project} allProjects={allProjects ?? []} />
     </div>
   );
 };
