@@ -59,16 +59,6 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        // [OPTIMIZATION] Cache Next.js static build assets
-        source: "/_next/static/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      {
         source: "/(.*)",
         headers: [
           {
@@ -86,11 +76,6 @@ const nextConfig: NextConfig = {
           {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
-          },
-          // [OPTIMIZATION] Enable compression for all text-based responses
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
           },
         ],
       },

@@ -137,7 +137,7 @@ const ProjectShowcase = ({ projects = [] }: { projects: TProjects[] }) => {
                           href={project.liveLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-12 h-12 rounded-xl border border-amber-500/20 flex items-center justify-center hover:bg-amber-500 hover:text-white transition-all duration-300 text-amber-600 dark:text-amber-400"
+                          className="w-12 h-12 rounded-xl border border-amber-500/20 flex items-center justify-center hover:bg-amber-500 hover:text-white transition-all duration-300 text-amber-600"
                         >
                           <FaExternalLinkAlt className="w-4 h-4" />
                         </a>

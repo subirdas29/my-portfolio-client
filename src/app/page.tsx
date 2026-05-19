@@ -38,6 +38,10 @@ const ContactSection = dynamic(
   () => import("@/components/modules/home/ContactForm"),
   { loading: () => <ContactFormSkeleton /> }
 );
+const TestimonialsSection = dynamic(
+  () => import("@/components/modules/home/Testimonials"),
+  { loading: () => null }
+);
 
 // [PERFORMANCE] Project showcase skeleton - matches MyProjects/index.tsx layout exactly
 function ProjectShowcaseSkeleton() {
@@ -108,6 +112,10 @@ const Home = async () => {
 
       <Suspense fallback={<BlogsShowcaseSkeleton />}>
         <Blogs blogs={blogs} />
+      </Suspense>
+
+      <Suspense fallback={null}>
+        <TestimonialsSection />
       </Suspense>
 
       <Suspense fallback={<ContactFormSkeleton />}>

@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { Navbar } from "@/components/shared/Navbar";
 import dynamic from "next/dynamic";
 import { Toaster } from "sonner";
+import AnalyticsTracker from "@/components/shared/AnalyticsTracker";
 
 // [OPTIMIZATION] Lazy-load Footer - it's below-the-fold
 // and not needed for initial paint. This reduces the initial JS bundle size.
@@ -25,14 +26,12 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "swap",
-  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
-  preload: true,
 });
 
 // [OPTIMIZATION] Separate viewport export for better Lighthouse compliance
@@ -103,17 +102,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* [OPTIMIZATION] Preload critical fonts for faster first paint.
-            These fonts are used above-the-fold, so preloading eliminates
-            the network round-trip delay before font discovery. */}
-        <link
-          rel="preload"
-          href="/fonts/GeistVariable.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-
         {/* [OPTIMIZATION] Google Analytics loaded with 'lazyOnload' strategy.
             This ensures GA never blocks initial rendering or first paint.
             The script loads only after the page has fully loaded. */}
@@ -173,6 +161,7 @@ export default function RootLayout({
           enableSystem={true}
           disableTransitionOnChange
         >
+          <AnalyticsTracker />
           <Navbar />
           <Toaster richColors position="top-center" />
           {children}
